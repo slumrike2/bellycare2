@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BellyCare.Shells;
+using BellyCare.ViewModels;
+using BellyCare.Views;
+using Microsoft.Extensions.Logging;
 
 namespace BellyCare
 {
@@ -14,6 +17,15 @@ namespace BellyCare
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            //DI Shells
+            builder.Services.AddSingleton<AppShell>();
+
+            //DI ViewModels
+            builder.Services.AddSingleton<LoginViewModel>();
+
+            //DI Views
+            builder.Services.AddSingleton<LoginView>();
 
 #if DEBUG
     		builder.Logging.AddDebug();

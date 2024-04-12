@@ -1,10 +1,13 @@
-﻿namespace BellyCare.Views
+﻿using Barreto.Exe.Maui.Views;
+using BellyCare.ViewModels;
+
+namespace BellyCare.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class LoginView : BaseContentPage
     {
         int count = 0;
 
-        public MainPage()
+        public LoginView(LoginViewModel viewModel) : base(viewModel)
         {
             InitializeComponent();
         }

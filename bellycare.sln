@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BellyCare", "BellyCare\BellyCare.csproj", "{3294F223-41B0-4F1C-AD4D-00ACB072F123}"
+	ProjectSection(ProjectDependencies) = postProject
+		{12E858A0-9CF3-4053-B857-89258B2E2BFD} = {12E858A0-9CF3-4053-B857-89258B2E2BFD}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Barreto.Exe.Maui", "Barreto.Exe.Maui\Barreto.Exe.Maui.csproj", "{12E858A0-9CF3-4053-B857-89258B2E2BFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +22,10 @@ Global
 		{3294F223-41B0-4F1C-AD4D-00ACB072F123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3294F223-41B0-4F1C-AD4D-00ACB072F123}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3294F223-41B0-4F1C-AD4D-00ACB072F123}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{12E858A0-9CF3-4053-B857-89258B2E2BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12E858A0-9CF3-4053-B857-89258B2E2BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12E858A0-9CF3-4053-B857-89258B2E2BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12E858A0-9CF3-4053-B857-89258B2E2BFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
