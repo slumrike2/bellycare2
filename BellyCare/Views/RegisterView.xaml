@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="BellyCare.Views.RegisterView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:Barreto.Exe.Maui.Views;assembly=Barreto.Exe.Maui"
+    xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
+    xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
+    Title="Registrarse"
+    x:DataType="vm:RegisterViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label
+                HorizontalOptions="Center"
+                Text="¡Bienvenido a BellyCare! Regístrate como paciente"
+                VerticalOptions="Center" />
+
+            <Label Text="Nombres" />
+            <Entry Text="{Binding Names}" />
+
+            <Label Text="Apellidos" />
+            <Entry Text="{Binding LastNames}" />
+
+            <Label Text="Correo electrónico" />
+            <Entry Text="{Binding Email}" />
+
+            <Label Text="Contraseña" />
+            <Entry IsPassword="True" Text="{Binding Password}" />
+
+            <Label Text="Confirmar contraseña" />
+            <Entry IsPassword="True" Text="{Binding ConfirmPassword}" />
+
+            <Label Text="Fecha de nacimiento" />
+            <DatePicker Date="{Binding BirthDate}" />
+
+            <Label Text="Grupo cultural" />
+            <Picker SelectedIndex="{Binding CulturalGroup}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Indígena</x:String>
+                        <x:String>Afrodescendiente</x:String>
+                        <x:String>Mestizo</x:String>
+                        <x:String>Blanco</x:String>
+                        <x:String>Otro</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Número de identificación" />
+            <Entry Text="{Binding IdentificationNumber}" />
+
+            <Label Text="Provincia" />
+            <Entry Text="{Binding Province}" />
+
+            <Label Text="Cantón" />
+            <Entry Text="{Binding Canton}" />
+
+            <Label Text="Calle principal" />
+            <Entry Text="{Binding MainStreet}" />
+
+            <Label Text="Calle secundaria" />
+            <Entry Text="{Binding SecondaryStreet}" />
+
+            <Label Text="¿Cuenta con seguro?" />
+            <Switch IsToggled="{Binding HasInsurance}" />
+
+            <Label Text="Número de teléfono" />
+            <Entry Text="{Binding PhoneNumber}" />
+
+            <Button Command="{Binding RegisterCommand}" Text="Registrarse" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</base:BaseContentPage>

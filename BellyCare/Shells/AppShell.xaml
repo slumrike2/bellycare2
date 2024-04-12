@@ -3,13 +3,56 @@
     x:Class="BellyCare.Shells.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icon="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:local="clr-namespace:BellyCare.Views"
-    Shell.FlyoutBehavior="Disabled"
-    Title="BellyCare">
+    Title="BellyCare"
+    Shell.FlyoutBehavior="Flyout">
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="{StaticResource Primary}">
+            <HorizontalStackLayout Padding="20" HorizontalOptions="Start">
+                <Image
+                    HeightRequest="100"
+                    HorizontalOptions="Start"
+                    Source="dotnet_bot.png"
+                    WidthRequest="100" />
+                <Label
+                    Margin="20,0,0,0"
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    Text="BellyCare"
+                    TextColor="{StaticResource Secondary}"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <VerticalStackLayout Margin="10">
+            <!--  Mensaje con todos los derechos reservados, el icono de copyright y la versión  -->
+            <Label
+                FontSize="Micro"
+                HorizontalOptions="Center"
+                Text="© Todos los derechos reservados."
+                TextColor="Gray" />
+            <Label
+                x:Name="lblVersion"
+                FontSize="Micro"
+                HorizontalOptions="Center"
+                Text="Versión 1.0.0"
+                TextColor="Gray" />
+        </VerticalStackLayout>
+    </Shell.FlyoutFooter>
 
     <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate local:LoginView}"
-        Route="LoginView" />
+        Title="Inicio"
+        ContentTemplate="{DataTemplate local:HomeView}"
+        Route="HomeView">
+        <ShellContent.Icon>
+            <FontImageSource
+                FontFamily="IconFont"
+                Glyph="{x:StaticResource icon:IconFont.Home}"
+                Color="Gray" />
+        </ShellContent.Icon>
+    </ShellContent>
 
 </Shell>

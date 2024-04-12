@@ -1,14 +1,39 @@
-﻿using BellyCare.Shells;
+﻿using Barreto.Exe.Maui.Shells;
+using BellyCare.Services;
+using BellyCare.Shells;
 
 namespace BellyCare
 {
-    public partial class App : Application
+    public partial class App : Application, IMultishellApp
     {
-        public App()
+        private readonly ISettingsService settingsService;
+        public App(ISettingsService settingsService)
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            this.settingsService = settingsService;
+        }
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            bool isLoggedIn = settingsService.IsLoggedIn;
+            if (isLoggedIn)
+            {
+                return new Window(new AppShell());
+            }
+            else
+            {
+                return new Window(new LoginShell());
+            }
+        }
+
+        public void GoToAppShell()
+        {
+            Current.MainPage = new AppShell();
+        }
+
+        public void GoToSessionShell()
+        {
+            Current.MainPage = new LoginShell();
         }
     }
 }
