@@ -4,31 +4,51 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:Barreto.Exe.Maui.Views;assembly=Barreto.Exe.Maui"
+    xmlns:exe="clr-namespace:Barreto.Exe.Maui.Controls;assembly=Barreto.Exe.Maui"
     xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
     Title="Iniciar sesión"
     x:DataType="vm:LoginViewModel">
+    <ContentPage.Resources>
+        <utils:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="25">
+        <VerticalStackLayout Padding="30" Spacing="20">
 
-            <Label
+            <VerticalStackLayout>
+                <Image
+                    HeightRequest="100"
                     HorizontalOptions="Center"
-                    Text="¡Bienvenido a BellyCare! Inicia sesión con tus credenciales."
-                    VerticalOptions="Center" />
-            
-            <!--  Register form with user and password  -->
-            <Entry Placeholder="Email" Text="{Binding Email}" />
-            <Entry
-                IsPassword="True"
-                Placeholder="Contraseña"
-                Text="{Binding Password}" />
+                    Source="dotnet_bot.jpg" />
+
+                <Label
+                    FontSize="Title"
+                    HorizontalTextAlignment="Center"
+                    Text="¡Bienvenido a BellyCare!" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <exe:LabeledEntry
+                    EntryText="{Binding Email}"
+                    Icon="{x:Static utils:IconFont.Email}"
+                    LabelText="Email" />
+
+                <VerticalStackLayout Spacing="10">
+                    <exe:LabeledEntry
+                        EntryText="{Binding Password}"
+                        Icon="{x:Static utils:IconFont.Key}"
+                        IsPassword="{Binding Source={x:Reference CheckPassword}, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
+                        LabelText="Contraseña" />
+                    <HorizontalStackLayout Margin="-10,0,0,0">
+                        <CheckBox x:Name="CheckPassword" IsChecked="{Binding IsPasswordVisible}" />
+                        <Label Text="Mostrar contraseña" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
 
             <!--  Button to login  -->
             <Button Command="{Binding LoginCommand}" Text="Iniciar sesión" />
-
-            <Label Text="{Binding Test}" />
-
         </VerticalStackLayout>
     </ScrollView>
 

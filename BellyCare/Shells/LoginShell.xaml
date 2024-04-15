@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:BellyCare.Views"
+    xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     Title="BellyCare"
     Shell.FlyoutBehavior="Disabled">
 
@@ -11,12 +12,26 @@
         <ShellContent
             Title="Iniciar Sesión"
             ContentTemplate="{DataTemplate local:LoginView}"
-            Route="LoginView" />
+            Route="LoginView">
+            <ShellContent.Icon>
+                <FontImageSource
+                    FontFamily="IconFont"
+                    Glyph="{x:Static utils:IconFont.Start}"
+                    Color="Gray" />
+            </ShellContent.Icon>
+        </ShellContent>
 
         <ShellContent
             Title="Registrarse"
             ContentTemplate="{DataTemplate local:RegisterView}"
-            Route="RegisterView" />
+            Route="RegisterView">
+            <ShellContent.Icon>
+                <FontImageSource
+                    FontFamily="IconFont"
+                    Glyph="{x:Static utils:IconFont.App_registration}"
+                    Color="Gray" />
+            </ShellContent.Icon>
+        </ShellContent>
     </FlyoutItem>
 
 </Shell>

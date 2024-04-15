@@ -41,12 +41,34 @@ namespace BellyCare
             builder.Services.AddSingleton<LoginView>();
             builder.Services.AddSingleton<RegisterView>();
             builder.Services.AddSingleton<HomeView>();
+            
+            Connectivity.ConnectivityChanged += OnConnectivityChanged;
 
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
 
-            Connectivity.ConnectivityChanged += OnConnectivityChanged;
+            //Removes the underline from the Entry
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderline", (h, v) =>
+            {
+#if ANDROID
+            h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+#if WINDOWS
+            h.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0,0,0,0);
+#endif
+            });
+
+            //Removes the underline from the Picker control
+            Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("NoUnderline", (h, v) =>
+            {
+#if ANDROID
+            h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#endif
+#if WINDOWS
+            h.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0,0,0,0);
+#endif
+            });
 
             return builder.Build();
         }

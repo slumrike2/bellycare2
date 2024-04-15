@@ -14,31 +14,43 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+        <VerticalStackLayout Padding="30" Spacing="20">
+
+            <VerticalStackLayout>
+                <Image
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    Source="dotnet_bot.jpg" />
+
+                <Label
+                    FontSize="Title"
+                    HorizontalTextAlignment="Center"
+                    Text="¡Bienvenido a BellyCare!" />
+            </VerticalStackLayout>
 
             <VerticalStackLayout>
                 <Label Text="Indica tu rol de usuario" />
                 <HorizontalStackLayout RadioButtonGroup.GroupName="UserRole">
-                    <RadioButton
-                        Content="Paciente"
-                        IsChecked="{Binding IsPatient}"
-                        Value="P" />
-                    <RadioButton Content="Doctor" Value="D" />
+                    <RadioButton Content="Paciente" IsChecked="{Binding IsPatient}" />
+                    <RadioButton Content="Doctor" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="10">
-                <exe:LabeledEntry EntryText="{Binding Names}" LabelText="Nombres" />
-                <exe:LabeledEntry EntryText="{Binding LastNames}" LabelText="Apellidos" />
-                <exe:LabeledEntry EntryText="{Binding Email}" LabelText="Email" />
+                <exe:LabeledEntry
+                    EntryText="{Binding Email}"
+                    Icon="{x:Static utils:IconFont.Email}"
+                    LabelText="Email" />
 
-                <VerticalStackLayout Margin="0,40" Spacing="10">
+                <VerticalStackLayout Spacing="10">
                     <exe:LabeledEntry
                         EntryText="{Binding Password}"
+                        Icon="{x:Static utils:IconFont.Key}"
                         IsPassword="{Binding Source={x:Reference CheckPassword}, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
                         LabelText="Contraseña" />
                     <exe:LabeledEntry
                         EntryText="{Binding ConfirmPassword}"
+                        Icon="{x:Static utils:IconFont.Key}"
                         IsPassword="{Binding Source={x:Reference CheckPassword}, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
                         LabelText="Confirmar contraseña" />
                     <HorizontalStackLayout Margin="-10,0,0,0">
@@ -46,8 +58,9 @@
                         <Label Text="Mostrar contraseña" VerticalOptions="Center" />
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
+            </VerticalStackLayout>
 
-                <!--<Label Text="Grupo cultural" />
+            <!--<Label Text="Grupo cultural" />
                 <Picker SelectedIndex="{Binding CulturalGroup}">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
@@ -71,7 +84,6 @@
 
                 <exe:LabeledEntry EntryText="{Binding PhoneNumber}" LabelText="Phone number" />-->
 
-            </VerticalStackLayout>
 
             <Button Command="{Binding RegisterCommand}" Text="Registrarse" />
 

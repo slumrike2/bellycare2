@@ -18,6 +18,9 @@ namespace BellyCare.ViewModels
         [ObservableProperty]
         string? test;
 
+        [ObservableProperty]
+        bool isPasswordVisible;
+
         [RelayCommand]
         void Login()
         {

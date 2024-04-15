@@ -4,14 +4,37 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:b="clr-namespace:Barreto.Exe.Maui.Controls"
+    xmlns:icon="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     x:Name="root"
     x:DataType="b:LabeledEntry">
     <VerticalStackLayout>
-        <Label x:Name="Label" Text="{Binding LabelText, Source={x:Reference root}}" />
-        <Entry
-            x:Name="Entry"
-            IsPassword="{Binding IsPassword, Source={x:Reference root}}"
-            Placeholder="{Binding PlaceholderText, Source={x:Reference root}}"
-            Text="{Binding EntryText, Source={x:Reference root}, Mode=TwoWay}" />
+        <Label
+            x:Name="Label"
+            Margin="0,0,0,5"
+            Text="{Binding LabelText, Source={x:Reference root}}" />
+        <Frame Padding="0" BackgroundColor="{AppThemeBinding Dark=Gray, Light=White}">
+            <Grid Padding="10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image>
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="IconFont"
+                            Glyph="{Binding Icon, Source={x:Reference root}}"
+                            Size="28"
+                            Color="{AppThemeBinding Dark=White,
+                                                    Light=Gray}" />
+                    </Image.Source>
+                </Image>
+                <Entry
+                    x:Name="Entry"
+                    Grid.Column="1"
+                    IsPassword="{Binding IsPassword, Source={x:Reference root}}"
+                    Placeholder="{Binding PlaceholderText, Source={x:Reference root}}"
+                    Text="{Binding EntryText, Source={x:Reference root}, Mode=TwoWay}" />
+            </Grid>
+        </Frame>
     </VerticalStackLayout>
 </ContentView>

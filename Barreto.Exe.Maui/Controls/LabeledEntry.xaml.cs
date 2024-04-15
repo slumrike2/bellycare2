@@ -1,3 +1,5 @@
+using Barreto.Exe.Maui.Utils;
+
 namespace Barreto.Exe.Maui.Controls;
 
 public partial class LabeledEntry : ContentView
@@ -28,6 +30,13 @@ public partial class LabeledEntry : ContentView
     {
         get => (bool)GetValue(IsPasswordProperty);
         set => SetValue(IsPasswordProperty, value);
+    }
+
+    public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(string), typeof(LabeledEntry), IconFont.Android);
+    public string Icon
+    {
+        get => (string)GetValue(IconProperty);
+        set => SetValue(IconProperty, value);
     }
 
     public LabeledEntry()
