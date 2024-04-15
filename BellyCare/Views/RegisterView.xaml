@@ -32,7 +32,7 @@
                 <Label Text="Indica tu rol de usuario" />
                 <HorizontalStackLayout RadioButtonGroup.GroupName="UserRole">
                     <RadioButton Content="Paciente" IsChecked="{Binding IsPatient}" />
-                    <RadioButton Content="Doctor" />
+                    <RadioButton Content="Profesional de la salud" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 

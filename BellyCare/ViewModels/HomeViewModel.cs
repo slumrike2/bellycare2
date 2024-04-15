@@ -4,7 +4,7 @@ using Firebase.Database;
 
 namespace BellyCare.ViewModels
 {
-    public class HomeViewModel(FirebaseClient db) : BaseViewModel(db), IEventfulViewModel
+    public class HomeViewModel : BaseViewModel, IEventfulViewModel
     {
         public void OnAppearing()
         {

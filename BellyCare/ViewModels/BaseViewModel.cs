@@ -3,8 +3,7 @@ using Firebase.Database;
 
 namespace BellyCare.ViewModels
 {
-    public class BaseViewModel(FirebaseClient db) : ObservableObject
+    public class BaseViewModel : ObservableObject
     {
-        protected readonly FirebaseClient db = db;
     }
 }

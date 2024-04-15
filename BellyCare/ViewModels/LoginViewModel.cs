@@ -7,7 +7,7 @@ using Firebase.Database;
 
 namespace BellyCare.ViewModels
 {
-    public partial class LoginViewModel(FirebaseClient db) : BaseViewModel(db), IEventfulViewModel
+    public partial class LoginViewModel : BaseViewModel, IEventfulViewModel
     {
         [ObservableProperty]
         string? email;

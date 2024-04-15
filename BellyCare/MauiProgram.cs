@@ -1,4 +1,5 @@
 ﻿using Barreto.Exe.Maui.Utils;
+using BellyCare.Repositories;
 using BellyCare.Services;
 using BellyCare.Shells;
 using BellyCare.ViewModels;
@@ -30,6 +31,7 @@ namespace BellyCare
                 OfflineDatabaseFactory = (t, s) => new Firebase.Database.Offline.OfflineDatabase(t, s)
             }));
             builder.Services.AddSingleton<ISettingsService, SettingsService>();
+            builder.Services.AddSingleton(typeof(BaseOnlineRepository<>));
 
             //DI Shells
             builder.Services.AddSingleton<AppShell>();

@@ -1,6 +1,7 @@
 ﻿using Barreto.Exe.Maui.Utils;
 using Barreto.Exe.Maui.ViewModels;
 using BellyCare.Models;
+using BellyCare.Repositories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Database;
@@ -11,9 +12,21 @@ namespace BellyCare.ViewModels
 {
     public partial class RegisterViewModel : BaseViewModel, IEventfulViewModel
     {
-        public RegisterViewModel(FirebaseClient db) : base(db)
+        private readonly BaseOnlineRepository<Doctor> doctorRepository;
+        private readonly BaseOnlineRepository<Patient> patientRepository;
+
+        public RegisterViewModel(BaseOnlineRepository<Doctor> doctorRepository, BaseOnlineRepository<Patient> patientRepository)
         {
+            this.doctorRepository = doctorRepository;
+            this.patientRepository = patientRepository;
+
             IsPatient = true;
+
+#if DEBUG
+            Email = "luis@gmail.com";
+            Password = "Luis2024*";
+            ConfirmPassword = "Luis2024*";
+#endif
         }
 
         [ObservableProperty]
@@ -59,18 +72,61 @@ namespace BellyCare.ViewModels
                 return;
             }
 
-            var user = new User
-            {
-                Role = IsPatient ? "Patient" : "Doctor",
-                Email = Email,
-                Password = Password,
-            };
+            dynamic repository = IsPatient ? patientRepository : doctorRepository;
 
-            // Save user to database
-            var result = db.Child(nameof(User)).AsRealtimeDatabase<User>().Post(user);
-            
-            //Display success message
-            await AppUtils.ShowAlert($"Usuario registrado con éxito. {result}", AlertType.Success);
+            if(IsPatient)
+            {
+                await RegisterPatient();
+            }
+            else
+            {
+                await RegisterDoctor();
+            }
+
+            async Task RegisterPatient()
+            {
+                //Verify if user already exists
+                var userExists = (await patientRepository.GetAllBy(o => o.Email == Email)).Any();
+                if (userExists)
+                {
+                    await AppUtils.ShowAlert("El usuario con ese correo electrónico ya está registrado como paciente.");
+                    return;
+                }
+
+                var user = new Patient
+                {
+                    Email = Email,
+                    Password = Password,
+                };
+
+                // Save user to database
+                string key = await patientRepository.Add(user);
+
+                //Display success message
+                await AppUtils.ShowAlert($"Usuario registrado con éxito. {key}", AlertType.Success);
+            }
+            async Task RegisterDoctor()
+            {
+                //Verify if user already exists
+                var userExists = (await doctorRepository.GetAllBy(o => o.Email == Email)).Any();
+                if (userExists)
+                {
+                    await AppUtils.ShowAlert("El usuario con ese correo electrónico ya está registrado como profesional de la salud.");
+                    return;
+                }
+
+                var user = new Doctor
+                {
+                    Email = Email,
+                    Password = Password,
+                };
+
+                // Save user to database
+                string key = await doctorRepository.Add(user);
+
+                //Display success message
+                await AppUtils.ShowAlert($"Usuario registrado con éxito. {key}", AlertType.Success);
+            }
         }
 
         public void OnAppearing()
