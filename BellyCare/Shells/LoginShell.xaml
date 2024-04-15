@@ -16,7 +16,7 @@
             <ShellContent.Icon>
                 <FontImageSource
                     FontFamily="IconFont"
-                    Glyph="{x:Static utils:IconFont.Start}"
+                    Glyph="{x:Static utils:IconFont.Login}"
                     Color="Gray" />
             </ShellContent.Icon>
         </ShellContent>

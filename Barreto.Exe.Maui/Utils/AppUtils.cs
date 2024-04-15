@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace Barreto.Exe.Maui.Utils;
 
@@ -39,6 +40,28 @@ public static class AppUtils
         {
             await ShowAlert("No hay conexión a internet.", AlertType.Error);
             Application.Current.Quit();
+        }
+    }
+    public static bool IsValidEmail(string email)
+    {
+        try
+        {
+            return Regex.IsMatch(email, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    public static bool IsValidPassword(string password)
+    {
+        try
+        {
+            return Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$");
+        }
+        catch
+        {
+            return false;
         }
     }
 

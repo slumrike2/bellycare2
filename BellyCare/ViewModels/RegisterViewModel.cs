@@ -1,8 +1,10 @@
-﻿using Barreto.Exe.Maui.ViewModels;
+﻿using Barreto.Exe.Maui.Utils;
+using Barreto.Exe.Maui.ViewModels;
 using BellyCare.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Database;
+using Firebase.Database.Offline;
 using Firebase.Database.Query;
 
 namespace BellyCare.ViewModels
@@ -18,12 +20,6 @@ namespace BellyCare.ViewModels
         bool isPatient;
 
         [ObservableProperty]
-        string names;
-
-        [ObservableProperty]
-        string lastNames;
-
-        [ObservableProperty]
         string email;
 
         [ObservableProperty]
@@ -33,62 +29,48 @@ namespace BellyCare.ViewModels
         string confirmPassword;
 
         [ObservableProperty]
-        DateTime birthDate;
-
-        [ObservableProperty]
-        string culturalGroup;
-
-        [ObservableProperty]
-        string identificationNumber;
-
-        [ObservableProperty]
-        string province;
-
-        [ObservableProperty]
-        string canton;
-
-        [ObservableProperty]
-        string mainStreet;
-
-        [ObservableProperty]
-        string secondaryStreet;
-
-        [ObservableProperty]
-        bool hasInsurance;
-
-        [ObservableProperty]
-        string phoneNumber;
-
-        [ObservableProperty]
         bool isPasswordVisible;
 
 
         [RelayCommand]
         async Task Register()
         {
+            if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(ConfirmPassword))
+            {
+                await AppUtils.ShowAlert("Por favor, llene todos los campos.");
+                return;
+            }
+
+            if (Password != ConfirmPassword)
+            {
+                await AppUtils.ShowAlert("Las contraseñas no coinciden.");
+                return;
+            }
+
+            if (!AppUtils.IsValidEmail(Email))
+            {
+                await AppUtils.ShowAlert("Por favor, ingrese un correo electrónico válido.");
+                return;
+            }
+
+            if (!AppUtils.IsValidPassword(Password))
+            {
+                await AppUtils.ShowAlert("La contraseña debe tener entre 8 y 15 caracteres, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.");
+                return;
+            }
+
             var user = new User
             {
                 Role = IsPatient ? "Patient" : "Doctor",
-                Names = Names,
-                Lastnames = LastNames,
                 Email = Email,
                 Password = Password,
-                Birthdate = BirthDate,
-                SelectedCulturalGroup = CulturalGroup,
-                IdentificationNumber = IdentificationNumber,
-                Province = Province,
-                Canton = Canton,
-                MainStreet = MainStreet,
-                SecondaryStreet = SecondaryStreet,
-                HasInsurance = HasInsurance == true,
-                PhoneNumber = PhoneNumber
             };
 
             // Save user to database
-            var result = await db.Child(nameof(User)).PostAsync(user);
+            var result = db.Child(nameof(User)).AsRealtimeDatabase<User>().Post(user);
             
             //Display success message
-            await Application.Current.MainPage.DisplayAlert("Success", $"User registered successfully. {result.Key}", "Ok");
+            await AppUtils.ShowAlert($"Usuario registrado con éxito. {result}", AlertType.Success);
         }
 
         public void OnAppearing()

@@ -25,7 +25,10 @@ namespace BellyCare
             string dbUrl = AppUtils.GetConfigValue("FIREBASE_URL");
 
             //DI Services
-            builder.Services.AddSingleton(new FirebaseClient(dbUrl));
+            builder.Services.AddSingleton(new FirebaseClient(dbUrl, new()
+            {
+                OfflineDatabaseFactory = (t, s) => new Firebase.Database.Offline.OfflineDatabase(t, s)
+            }));
             builder.Services.AddSingleton<ISettingsService, SettingsService>();
 
             //DI Shells
