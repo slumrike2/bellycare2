@@ -24,8 +24,8 @@ namespace BellyCare
             {
                 return new Window(new LoginShell());
             }
-        }
-
+        } 
+        
         public void GoToAppShell()
         {
             Current.MainPage = new AppShell();

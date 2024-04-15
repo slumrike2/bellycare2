@@ -10,8 +10,13 @@
     x:DataType="vm:LoginViewModel">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="25">
+        <VerticalStackLayout Padding="20" Spacing="25">
 
+            <Label
+                    HorizontalOptions="Center"
+                    Text="¡Bienvenido a BellyCare! Inicia sesión con tus credenciales."
+                    VerticalOptions="Center" />
+            
             <!--  Register form with user and password  -->
             <Entry Placeholder="Email" Text="{Binding Email}" />
             <Entry
@@ -20,7 +25,7 @@
                 Text="{Binding Password}" />
 
             <!--  Button to login  -->
-            <Button Command="{Binding LoginCommand}" Text="Registrar" />
+            <Button Command="{Binding LoginCommand}" Text="Iniciar sesión" />
 
             <Label Text="{Binding Test}" />
 

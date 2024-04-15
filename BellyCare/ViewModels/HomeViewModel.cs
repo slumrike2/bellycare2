@@ -1,4 +1,5 @@
-﻿using Barreto.Exe.Maui.ViewModels;
+﻿using Barreto.Exe.Maui.Utils;
+using Barreto.Exe.Maui.ViewModels;
 using Firebase.Database;
 
 namespace BellyCare.ViewModels

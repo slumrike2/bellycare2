@@ -22,7 +22,7 @@ namespace BellyCare
                     fonts.AddFont("MaterialIcons-Regular.ttf", "IconFont");
                 });
 
-            string dbUrl = AppEnvironment.GetValue("FIREBASE_URL");
+            string dbUrl = AppUtils.GetConfigValue("FIREBASE_URL");
 
             //DI Services
             builder.Services.AddSingleton(new FirebaseClient(dbUrl));
@@ -35,16 +35,25 @@ namespace BellyCare
             //DI ViewModels
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<RegisterViewModel>();
+            builder.Services.AddSingleton<HomeViewModel>();
 
             //DI Views
             builder.Services.AddSingleton<LoginView>();
             builder.Services.AddSingleton<RegisterView>();
+            builder.Services.AddSingleton<HomeView>();
 
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
 
+            Connectivity.ConnectivityChanged += OnConnectivityChanged;
+
             return builder.Build();
+        }
+
+        private static async void OnConnectivityChanged(object? sender, ConnectivityChangedEventArgs e)
+        {
+            await AppUtils.CheckConnection();
         }
     }
 }

@@ -4,69 +4,74 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:Barreto.Exe.Maui.Views;assembly=Barreto.Exe.Maui"
+    xmlns:exe="clr-namespace:Barreto.Exe.Maui.Controls;assembly=Barreto.Exe.Maui"
     xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
     Title="Registrarse"
     x:DataType="vm:RegisterViewModel">
+    <ContentPage.Resources>
+        <utils:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentPage.Resources>
 
     <ScrollView>
-        <VerticalStackLayout>
-            <Label
-                HorizontalOptions="Center"
-                Text="¡Bienvenido a BellyCare! Regístrate como paciente"
-                VerticalOptions="Center" />
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-            <Label Text="Nombres" />
-            <Entry Text="{Binding Names}" />
+            <VerticalStackLayout>
+                <Label Text="Indica tu rol de usuario" />
+                <HorizontalStackLayout RadioButtonGroup.GroupName="UserRole">
+                    <RadioButton
+                        Content="Paciente"
+                        IsChecked="{Binding IsPatient}"
+                        Value="P" />
+                    <RadioButton Content="Doctor" Value="D" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
 
-            <Label Text="Apellidos" />
-            <Entry Text="{Binding LastNames}" />
+            <VerticalStackLayout Spacing="10">
+                <exe:LabeledEntry EntryText="{Binding Names}" LabelText="Nombres" />
+                <exe:LabeledEntry EntryText="{Binding LastNames}" LabelText="Apellidos" />
+                <exe:LabeledEntry EntryText="{Binding Email}" LabelText="Email" />
 
-            <Label Text="Correo electrónico" />
-            <Entry Text="{Binding Email}" />
+                <VerticalStackLayout Margin="0,40" Spacing="10">
+                    <exe:LabeledEntry
+                        EntryText="{Binding Password}"
+                        IsPassword="{Binding Source={x:Reference CheckPassword}, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
+                        LabelText="Contraseña" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding ConfirmPassword}"
+                        IsPassword="{Binding Source={x:Reference CheckPassword}, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
+                        LabelText="Confirmar contraseña" />
+                    <HorizontalStackLayout Margin="-10,0,0,0">
+                        <CheckBox x:Name="CheckPassword" IsChecked="{Binding IsPasswordVisible}" />
+                        <Label Text="Mostrar contraseña" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
 
-            <Label Text="Contraseña" />
-            <Entry IsPassword="True" Text="{Binding Password}" />
+                <!--<Label Text="Grupo cultural" />
+                <Picker SelectedIndex="{Binding CulturalGroup}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Indígena</x:String>
+                            <x:String>Afrodescendiente</x:String>
+                            <x:String>Mestizo</x:String>
+                            <x:String>Blanco</x:String>
+                            <x:String>Otro</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
-            <Label Text="Confirmar contraseña" />
-            <Entry IsPassword="True" Text="{Binding ConfirmPassword}" />
+                <exe:LabeledEntry EntryText="{Binding IdentificationNumber}" LabelText="Identification number" />
+                <exe:LabeledEntry EntryText="{Binding Province}" LabelText="Province" />
+                <exe:LabeledEntry EntryText="{Binding Canton}" LabelText="Canton" />
+                <exe:LabeledEntry EntryText="{Binding MainStreet}" LabelText="Main street" />
+                <exe:LabeledEntry EntryText="{Binding SecondaryStreet}" LabelText="Secondary street" />
 
-            <Label Text="Fecha de nacimiento" />
-            <DatePicker Date="{Binding BirthDate}" />
+                <Label Text="¿Cuenta con seguro?" />
+                <Switch IsToggled="{Binding HasInsurance}" />
 
-            <Label Text="Grupo cultural" />
-            <Picker SelectedIndex="{Binding CulturalGroup}">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Indígena</x:String>
-                        <x:String>Afrodescendiente</x:String>
-                        <x:String>Mestizo</x:String>
-                        <x:String>Blanco</x:String>
-                        <x:String>Otro</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                <exe:LabeledEntry EntryText="{Binding PhoneNumber}" LabelText="Phone number" />-->
 
-            <Label Text="Número de identificación" />
-            <Entry Text="{Binding IdentificationNumber}" />
-
-            <Label Text="Provincia" />
-            <Entry Text="{Binding Province}" />
-
-            <Label Text="Cantón" />
-            <Entry Text="{Binding Canton}" />
-
-            <Label Text="Calle principal" />
-            <Entry Text="{Binding MainStreet}" />
-
-            <Label Text="Calle secundaria" />
-            <Entry Text="{Binding SecondaryStreet}" />
-
-            <Label Text="¿Cuenta con seguro?" />
-            <Switch IsToggled="{Binding HasInsurance}" />
-
-            <Label Text="Número de teléfono" />
-            <Entry Text="{Binding PhoneNumber}" />
+            </VerticalStackLayout>
 
             <Button Command="{Binding RegisterCommand}" Text="Registrarse" />
 

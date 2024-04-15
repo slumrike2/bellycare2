@@ -1,4 +1,5 @@
-﻿using Barreto.Exe.Maui.ViewModels;
+﻿using Barreto.Exe.Maui.Utils;
+using Barreto.Exe.Maui.ViewModels;
 using BellyCare.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -32,7 +33,7 @@ namespace BellyCare.ViewModels
             };
         }
 
-        public void OnAppearing()
+        public async void OnAppearing()
         {
         }
         public void OnDisappearing()

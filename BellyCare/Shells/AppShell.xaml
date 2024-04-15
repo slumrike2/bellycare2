@@ -50,7 +50,7 @@
         <ShellContent.Icon>
             <FontImageSource
                 FontFamily="IconFont"
-                Glyph="{x:StaticResource icon:IconFont.Home}"
+                Glyph="{x:Static icon:IconFont.Home}"
                 Color="Gray" />
         </ShellContent.Icon>
     </ShellContent>

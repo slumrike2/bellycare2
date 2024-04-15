@@ -4,6 +4,7 @@ namespace BellyCare.Models
 {
     public class User
     {
+        public string Role { get; set; } = string.Empty;
         public string Names { get; set; } = string.Empty;
         public string Lastnames { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;

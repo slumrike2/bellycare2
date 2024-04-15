@@ -7,8 +7,16 @@ using Firebase.Database.Query;
 
 namespace BellyCare.ViewModels
 {
-    public partial class RegisterViewModel(FirebaseClient db) : BaseViewModel(db), IEventfulViewModel
+    public partial class RegisterViewModel : BaseViewModel, IEventfulViewModel
     {
+        public RegisterViewModel(FirebaseClient db) : base(db)
+        {
+            IsPatient = true;
+        }
+
+        [ObservableProperty]
+        bool isPatient;
+
         [ObservableProperty]
         string names;
 
@@ -51,11 +59,16 @@ namespace BellyCare.ViewModels
         [ObservableProperty]
         string phoneNumber;
 
+        [ObservableProperty]
+        bool isPasswordVisible;
+
+
         [RelayCommand]
-        async void Register()
+        async Task Register()
         {
             var user = new User
             {
+                Role = IsPatient ? "Patient" : "Doctor",
                 Names = Names,
                 Lastnames = LastNames,
                 Email = Email,
