@@ -13,15 +13,18 @@ namespace BellyCare.ViewModels
     {
         private readonly BaseOnlineRepository<Patient> patientRepository;
         private readonly BaseOnlineRepository<Doctor> doctorRepository;
+        private readonly BaseOnlineRepository<Admin> adminRepository;
 
         public LoginViewModel(
             ISettingsService settings, 
             INavigationService navigationService,
             BaseOnlineRepository<Patient> patientRepository, 
-            BaseOnlineRepository<Doctor> doctorRepository) : base(settings, navigationService)
+            BaseOnlineRepository<Doctor> doctorRepository,
+            BaseOnlineRepository<Admin> adminRepository) : base(settings, navigationService)
         {
             this.patientRepository = patientRepository;
             this.doctorRepository = doctorRepository;
+            this.adminRepository = adminRepository;
         }
 
         [ObservableProperty]
@@ -51,42 +54,39 @@ namespace BellyCare.ViewModels
             };
 
             // Check if the user is a patient or a doctor
-            var patientTask = patientRepository.GetAllBy(o => o.Email == Email);
-            var doctorTask = doctorRepository.GetAllBy(o => o.Email == Email);
+            var patientTask = patientRepository.GetAllBy(o => o.Email == Email && o.Password == Password);
+            var doctorTask = doctorRepository.GetAllBy(o => o.Email == Email && o.Password == Password);
+            var adminTask = adminRepository.GetAllBy(o => o.Email == Email && o.Password == Password);
 
-            await Task.WhenAll(patientTask, doctorTask);
+            await Task.WhenAll(patientTask, doctorTask, adminTask);
 
             Patient? patient = patientTask.Result.FirstOrDefault();
             Doctor? doctor = doctorTask.Result.FirstOrDefault();
+            Admin? admin = adminTask.Result.FirstOrDefault();
 
             // Check if the password is correct
-            bool isPasswordCorrect = false;
             if (patient != null)
             {
-                if (patient.Password == Password)
-                {
-                    isPasswordCorrect = true;
-                }
+                user = patient;
             }
             else if (doctor != null)
             {
-                if (doctor.Password == Password)
-                {
-                    isPasswordCorrect = true;
-                }
+                user = doctor;
             }
-
-            // If the password is correct, save the access token and restart the session
-            if (!isPasswordCorrect)
+            else if (admin != null)
             {
-                await AppUtils.ShowAlert("Correo o contraseña incorrectos.");
+                user = admin;
             }
             else
             {
-                settings.AccessToken = user.Email;
-                settings.User = patient is not null ? patient : doctor;
-                navigationService.RestartSession();
+                await AppUtils.ShowAlert("Correo o contraseña incorrectos.");
+                return;
             }
+
+            // If the password is correct, save the access token and restart the session
+            settings.AccessToken = user.Email;
+            settings.User = user;
+            navigationService.RestartSession();
         }
 
         public async void OnAppearing()

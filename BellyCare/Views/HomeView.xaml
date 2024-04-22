@@ -7,6 +7,12 @@
     xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
     x:DataType="vm:HomeViewModel">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding LogoutCommand}"
+            IconImageSource="logout_white_24dp.png"
+            Text="Salir" />
+    </ContentPage.ToolbarItems>
     <VerticalStackLayout>
         <Label
             HorizontalOptions="Center"

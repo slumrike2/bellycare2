@@ -34,6 +34,11 @@ public static class AppUtils
 
         await Application.Current.MainPage.DisplayAlert(title, message, "Aceptar");
     }
+    public static async Task<bool> ShowAlert(string message)
+    {
+        return await Application.Current.MainPage.DisplayAlert("ℹ️ Información", message, "Aceptar", "Cancelar");
+    }
+
     public static async Task CheckConnection()
     {
         if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
