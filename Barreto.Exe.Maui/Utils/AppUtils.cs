@@ -22,7 +22,7 @@ public static class AppUtils
     {
         await Application.Current.MainPage.DisplayAlert(title, message, "Aceptar");
     }
-    public static async Task ShowAlert(string message, AlertType type = AlertType.Info)
+    public static async Task<bool> ShowAlert(string message, AlertType type = AlertType.Info, bool hasCancelButton = false)
     {
         string title = type switch
         {
@@ -32,13 +32,16 @@ public static class AppUtils
             _ => "ℹ️ Información"
         };
 
-        await Application.Current.MainPage.DisplayAlert(title, message, "Aceptar");
+        if(hasCancelButton)
+        {
+            return await Application.Current.MainPage.DisplayAlert(title, message, "Aceptar", "Cancelar");
+        }
+        else
+        {
+            await Application.Current.MainPage.DisplayAlert(title, message, "Aceptar");
+            return true;
+        }
     }
-    public static async Task<bool> ShowAlert(string message)
-    {
-        return await Application.Current.MainPage.DisplayAlert("ℹ️ Información", message, "Aceptar", "Cancelar");
-    }
-
     public static async Task CheckConnection()
     {
         if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)

@@ -45,8 +45,8 @@
 
     <ShellContent
         Title="Inicio"
-        ContentTemplate="{DataTemplate local:HomeView}"
-        Route="HomeView">
+        ContentTemplate="{DataTemplate local:HomeRouterView}"
+        Route="HomeRouterView">
         <ShellContent.Icon>
             <FontImageSource
                 FontFamily="IconFont"

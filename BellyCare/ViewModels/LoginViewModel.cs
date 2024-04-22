@@ -64,18 +64,21 @@ namespace BellyCare.ViewModels
             Doctor? doctor = doctorTask.Result.FirstOrDefault();
             Admin? admin = adminTask.Result.FirstOrDefault();
 
-            // Check if the password is correct
+            // Check if the password is correct and assign the user to the settings
             if (patient != null)
             {
-                user = patient;
+                settings.Patient = patient;
+                settings.UserType = LoggedUserType.Patient;
             }
             else if (doctor != null)
             {
-                user = doctor;
+                settings.Doctor = doctor;
+                settings.UserType = LoggedUserType.Doctor;
             }
             else if (admin != null)
             {
-                user = admin;
+                settings.Admin = admin;
+                settings.UserType = LoggedUserType.Admin;
             }
             else
             {
@@ -85,7 +88,6 @@ namespace BellyCare.ViewModels
 
             // If the password is correct, save the access token and restart the session
             settings.AccessToken = user.Email;
-            settings.User = user;
             navigationService.RestartSession();
         }
 

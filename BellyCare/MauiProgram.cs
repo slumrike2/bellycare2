@@ -44,12 +44,12 @@ namespace BellyCare
             //DI ViewModels
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<RegisterViewModel>();
-            builder.Services.AddSingleton<HomeViewModel>();
+            builder.Services.AddSingleton<HomeRouterViewModel>();
 
             //DI Views
             builder.Services.AddSingleton<LoginView>();
             builder.Services.AddSingleton<RegisterView>();
-            builder.Services.AddSingleton<HomeView>();
+            builder.Services.AddSingleton<HomeRouterView>();
             
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
 

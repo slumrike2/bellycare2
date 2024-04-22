@@ -75,6 +75,9 @@
 	  <Compile Update="Shells\LoginShell.xaml.cs">
 	    <DependentUpon>LoginShell.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\HomeRouterView.xaml.cs">
+	    <DependentUpon>HomeRouterView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\LoginView.xaml.cs">
 	    <DependentUpon>LoginView.xaml</DependentUpon>
 	  </Compile>
@@ -84,7 +87,7 @@
 	  <MauiXaml Update="Shells\LoginShell.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\HomeView.xaml">
+	  <MauiXaml Update="Views\HomeRouterView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RegisterView.xaml">
