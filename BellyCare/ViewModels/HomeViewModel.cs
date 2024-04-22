@@ -1,10 +1,10 @@
-﻿using Barreto.Exe.Maui.Utils;
+﻿using Barreto.Exe.Maui.Services.Navigation;
 using Barreto.Exe.Maui.ViewModels;
-using Firebase.Database;
+using BellyCare.Services;
 
 namespace BellyCare.ViewModels
 {
-    public class HomeViewModel : BaseViewModel, IEventfulViewModel
+    public class HomeViewModel(ISettingsService settings, INavigationService navigationService) : BaseViewModel(settings, navigationService), IEventfulViewModel
     {
         public void OnAppearing()
         {

@@ -28,14 +28,6 @@
                     Text="¡Bienvenido a BellyCare!" />
             </VerticalStackLayout>
 
-            <VerticalStackLayout>
-                <Label Text="Indica tu rol de usuario" />
-                <HorizontalStackLayout RadioButtonGroup.GroupName="UserRole">
-                    <RadioButton Content="Paciente" IsChecked="{Binding IsPatient}" />
-                    <RadioButton Content="Profesional de la salud" />
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
-
             <VerticalStackLayout Spacing="10">
                 <exe:LabeledEntry
                     EntryText="{Binding Email}"

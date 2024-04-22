@@ -1,26 +1,24 @@
-﻿using Barreto.Exe.Maui.Utils;
+﻿using Barreto.Exe.Maui.Services.Navigation;
+using Barreto.Exe.Maui.Utils;
 using Barreto.Exe.Maui.ViewModels;
 using BellyCare.Models;
 using BellyCare.Repositories;
+using BellyCare.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Firebase.Database;
-using Firebase.Database.Offline;
-using Firebase.Database.Query;
 
 namespace BellyCare.ViewModels
 {
     public partial class RegisterViewModel : BaseViewModel, IEventfulViewModel
     {
-        private readonly BaseOnlineRepository<Doctor> doctorRepository;
         private readonly BaseOnlineRepository<Patient> patientRepository;
 
-        public RegisterViewModel(BaseOnlineRepository<Doctor> doctorRepository, BaseOnlineRepository<Patient> patientRepository)
+        public RegisterViewModel(
+            ISettingsService settings,
+            INavigationService navigationService,
+            BaseOnlineRepository<Patient> patientRepository) : base(settings, navigationService)
         {
-            this.doctorRepository = doctorRepository;
             this.patientRepository = patientRepository;
-
-            IsPatient = true;
 
 #if DEBUG
             Email = "luis@gmail.com";
@@ -28,9 +26,6 @@ namespace BellyCare.ViewModels
             ConfirmPassword = "Luis2024*";
 #endif
         }
-
-        [ObservableProperty]
-        bool isPatient;
 
         [ObservableProperty]
         string email;
@@ -72,61 +67,25 @@ namespace BellyCare.ViewModels
                 return;
             }
 
-            dynamic repository = IsPatient ? patientRepository : doctorRepository;
-
-            if(IsPatient)
+            //Verify if user already exists
+            var userExists = (await patientRepository.GetAllBy(o => o.Email == Email)).Count != 0;
+            if (userExists)
             {
-                await RegisterPatient();
-            }
-            else
-            {
-                await RegisterDoctor();
+                await AppUtils.ShowAlert("El usuario con ese correo electrónico ya está registrado como paciente.");
+                return;
             }
 
-            async Task RegisterPatient()
+            var user = new Patient
             {
-                //Verify if user already exists
-                var userExists = (await patientRepository.GetAllBy(o => o.Email == Email)).Any();
-                if (userExists)
-                {
-                    await AppUtils.ShowAlert("El usuario con ese correo electrónico ya está registrado como paciente.");
-                    return;
-                }
+                Email = Email,
+                Password = Password,
+            };
 
-                var user = new Patient
-                {
-                    Email = Email,
-                    Password = Password,
-                };
+            // Save user to database
+            string key = await patientRepository.Add(user);
 
-                // Save user to database
-                string key = await patientRepository.Add(user);
-
-                //Display success message
-                await AppUtils.ShowAlert($"Usuario registrado con éxito. {key}", AlertType.Success);
-            }
-            async Task RegisterDoctor()
-            {
-                //Verify if user already exists
-                var userExists = (await doctorRepository.GetAllBy(o => o.Email == Email)).Any();
-                if (userExists)
-                {
-                    await AppUtils.ShowAlert("El usuario con ese correo electrónico ya está registrado como profesional de la salud.");
-                    return;
-                }
-
-                var user = new Doctor
-                {
-                    Email = Email,
-                    Password = Password,
-                };
-
-                // Save user to database
-                string key = await doctorRepository.Add(user);
-
-                //Display success message
-                await AppUtils.ShowAlert($"Usuario registrado con éxito. {key}", AlertType.Success);
-            }
+            //Display success message
+            await AppUtils.ShowAlert($"Usuario registrado con éxito. {key}", AlertType.Success);
         }
 
         public void OnAppearing()

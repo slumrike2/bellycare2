@@ -1,4 +1,6 @@
-﻿using Barreto.Exe.Maui.Utils;
+﻿using Barreto.Exe.Maui.Services.Navigation;
+using Barreto.Exe.Maui.Services.Settings;
+using Barreto.Exe.Maui.Utils;
 using BellyCare.Repositories;
 using BellyCare.Services;
 using BellyCare.Shells;
@@ -30,7 +32,9 @@ namespace BellyCare
             {
                 OfflineDatabaseFactory = (t, s) => new Firebase.Database.Offline.OfflineDatabase(t, s)
             }));
+            builder.Services.AddSingleton<IBaseSettingsService, BaseSettingsService>();
             builder.Services.AddSingleton<ISettingsService, SettingsService>();
+            builder.Services.AddSingleton<INavigationService, NavigationService>();
             builder.Services.AddSingleton(typeof(BaseOnlineRepository<>));
 
             //DI Shells
