@@ -6,7 +6,9 @@
     xmlns:icon="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:local="clr-namespace:BellyCare.Views"
     Title="BellyCare"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.BackgroundColor="{StaticResource Primary}"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.TitleColor="White">
     <Shell.FlyoutHeader>
         <Grid BackgroundColor="{StaticResource Primary}">
             <HorizontalStackLayout Padding="20" HorizontalOptions="Start">
