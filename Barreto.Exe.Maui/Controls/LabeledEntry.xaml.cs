@@ -39,6 +39,13 @@ public partial class LabeledEntry : ContentView
         set => SetValue(IconProperty, value);
     }
 
+    public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(nameof(Keyboard), typeof(Keyboard), typeof(LabeledEntry), Keyboard.Default);
+    public Keyboard Keyboard
+    {
+        get => (Keyboard)GetValue(KeyboardProperty);
+        set => SetValue(KeyboardProperty, value);
+    }
+
     public LabeledEntry()
 	{
 		InitializeComponent();

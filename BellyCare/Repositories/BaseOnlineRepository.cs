@@ -12,13 +12,11 @@ namespace BellyCare.Repositories
         /// Gets all entities from the database.
         /// </summary>
         /// <returns> A list of entities or an empty list if there are none. </returns>
-        public async Task<List<T>> GetAll()
+        public async Task<List<FirebaseObject<T>>> GetAll()
         {
             try
             {
-                return (await db.Child(child).OnceAsync<T>())
-                    .Select(item => item.Object)
-                    .ToList();
+                return (await db.Child(child).OnceAsync<T>()).ToList();
             }
             catch (Exception ex)
             {
@@ -31,12 +29,12 @@ namespace BellyCare.Repositories
         /// </summary>
         /// <param name="selector"> The condition to be met. </param>
         /// <returns> A list of entities or an empty list if there are none. </returns>
-        public async Task<List<T>> GetAllBy(Func<T, bool> selector)
+        public async Task<List<FirebaseObject<T>>> GetAllBy(Func<FirebaseObject<T>, bool> selector)
         {
             try
             {
                 return (await db.Child(child).OnceAsync<T>())
-                    .Select(item => item.Object)
+                    .Select(item => item)
                     .Where(selector)
                     .ToList();
             }

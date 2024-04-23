@@ -54,30 +54,33 @@ namespace BellyCare.ViewModels
             };
 
             // Check if the user is a patient or a doctor
-            var patientTask = patientRepository.GetAllBy(o => o.Email == Email && o.Password == Password);
-            var doctorTask = doctorRepository.GetAllBy(o => o.Email == Email && o.Password == Password);
-            var adminTask = adminRepository.GetAllBy(o => o.Email == Email && o.Password == Password);
+            var patientTask = patientRepository.GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password);
+            var doctorTask = doctorRepository.GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password);
+            var adminTask = adminRepository.GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password);
 
             await Task.WhenAll(patientTask, doctorTask, adminTask);
 
-            Patient? patient = patientTask.Result.FirstOrDefault();
-            Doctor? doctor = doctorTask.Result.FirstOrDefault();
-            Admin? admin = adminTask.Result.FirstOrDefault();
+            var patient = patientTask.Result.FirstOrDefault();
+            var doctor = doctorTask.Result.FirstOrDefault();
+            var admin = adminTask.Result.FirstOrDefault();
 
             // Check if the password is correct and assign the user to the settings
             if (patient != null)
             {
-                settings.Patient = patient;
+                settings.AccessToken = patient.Key;
+                settings.Patient = patient.Object;
                 settings.UserType = LoggedUserType.Patient;
             }
             else if (doctor != null)
             {
-                settings.Doctor = doctor;
+                settings.AccessToken = doctor.Key;
+                settings.Doctor = doctor.Object;
                 settings.UserType = LoggedUserType.Doctor;
             }
             else if (admin != null)
             {
-                settings.Admin = admin;
+                settings.AccessToken = admin.Key;
+                settings.Admin = admin.Object;
                 settings.UserType = LoggedUserType.Admin;
             }
             else
@@ -87,8 +90,7 @@ namespace BellyCare.ViewModels
             }
 
             // If the password is correct, save the access token and restart the session
-            settings.AccessToken = user.Email;
-            navigationService.RestartSession();
+            navigation.RestartSession();
         }
 
         public async void OnAppearing()

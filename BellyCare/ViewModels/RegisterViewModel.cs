@@ -68,7 +68,7 @@ namespace BellyCare.ViewModels
             }
 
             //Verify if user already exists
-            var userExists = (await patientRepository.GetAllBy(o => o.Email == Email)).Count != 0;
+            var userExists = (await patientRepository.GetAllBy(o => o.Object.Email == Email)).Count != 0;
             if (userExists)
             {
                 await AppUtils.ShowAlert("El usuario con ese correo electrónico ya está registrado como paciente.");

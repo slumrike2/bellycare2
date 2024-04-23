@@ -8,6 +8,6 @@ namespace BellyCare.ViewModels
     public class BaseViewModel(ISettingsService settings, INavigationService navigationService) : ObservableObject
     {
         protected readonly ISettingsService settings = settings;
-        protected readonly INavigationService navigationService = navigationService;
+        protected readonly INavigationService navigation = navigationService;
     }
 }

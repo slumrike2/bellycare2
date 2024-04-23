@@ -32,6 +32,7 @@
                 <exe:LabeledEntry
                     EntryText="{Binding Email}"
                     Icon="{x:Static utils:IconFont.Email}"
+                    Keyboard="Email"
                     LabelText="Email" />
 
                 <VerticalStackLayout Spacing="10">

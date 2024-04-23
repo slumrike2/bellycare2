@@ -18,13 +18,37 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Controls\LabeledPicker.xaml.cs">
+	    <DependentUpon>LabeledPicker.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Controls\LabeledDatepicker.xaml.cs">
+	    <DependentUpon>LabeledDatepicker.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Controls\LabeledPicker.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\LabeledDatepicker.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\LabeledEntry.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.20" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.20" />
 	</ItemGroup>
 
 </Project>

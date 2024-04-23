@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView
-    x:Class="Barreto.Exe.Maui.Controls.LabeledEntry"
+    x:Class="Barreto.Exe.Maui.Controls.LabeledDatepicker"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:b="clr-namespace:Barreto.Exe.Maui.Controls"
     xmlns:icon="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     x:Name="root"
-    x:DataType="b:LabeledEntry">
+    x:DataType="b:LabeledDatepicker">
     <VerticalStackLayout>
         <Label
             x:Name="Label"
             Margin="0,0,0,5"
             Text="{Binding LabelText, Source={x:Reference root}}" />
+
         <Frame
             Margin="2,0"
             Padding="0"
@@ -26,20 +27,15 @@
                     <Image.Source>
                         <FontImageSource
                             FontFamily="IconFont"
-                            Glyph="{Binding Icon, Source={x:Reference root}}"
+                            Glyph="{x:Static icon:IconFont.Edit_calendar}"
                             Size="28"
                             Color="{AppThemeBinding Dark=White,
                                                     Light=Gray}" />
                     </Image.Source>
                 </Image>
-                <Entry
-                    x:Name="Entry"
-                    Grid.Column="1"
-                    IsPassword="{Binding IsPassword, Source={x:Reference root}}"
-                    Keyboard="{Binding Keyboard, Source={x:Reference root}}"
-                    Placeholder="{Binding PlaceholderText, Source={x:Reference root}}"
-                    Text="{Binding EntryText, Source={x:Reference root}, Mode=TwoWay}" />
+                <DatePicker Grid.Column="1" Date="{Binding Date, Source={x:Reference root}}" />
             </Grid>
+
         </Frame>
     </VerticalStackLayout>
 </ContentView>

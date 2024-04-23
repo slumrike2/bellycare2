@@ -32,6 +32,7 @@
                 <exe:LabeledEntry
                     EntryText="{Binding Email}"
                     Icon="{x:Static utils:IconFont.Email}"
+                    Keyboard="Email"
                     LabelText="Email" />
 
                 <VerticalStackLayout Spacing="10">
@@ -51,31 +52,6 @@
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </VerticalStackLayout>
-
-            <!--<Label Text="Grupo cultural" />
-                <Picker SelectedIndex="{Binding CulturalGroup}">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Indígena</x:String>
-                            <x:String>Afrodescendiente</x:String>
-                            <x:String>Mestizo</x:String>
-                            <x:String>Blanco</x:String>
-                            <x:String>Otro</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-
-                <exe:LabeledEntry EntryText="{Binding IdentificationNumber}" LabelText="Identification number" />
-                <exe:LabeledEntry EntryText="{Binding Province}" LabelText="Province" />
-                <exe:LabeledEntry EntryText="{Binding Canton}" LabelText="Canton" />
-                <exe:LabeledEntry EntryText="{Binding MainStreet}" LabelText="Main street" />
-                <exe:LabeledEntry EntryText="{Binding SecondaryStreet}" LabelText="Secondary street" />
-
-                <Label Text="¿Cuenta con seguro?" />
-                <Switch IsToggled="{Binding HasInsurance}" />
-
-                <exe:LabeledEntry EntryText="{Binding PhoneNumber}" LabelText="Phone number" />-->
-
 
             <Button Command="{Binding RegisterCommand}" Text="Registrarse" />
 

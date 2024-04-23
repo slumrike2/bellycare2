@@ -7,10 +7,10 @@
     xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
     x:DataType="vm:HomeRouterViewModel">
-    <!--<ContentPage.ToolbarItems>
+    <ContentPage.ToolbarItems>
         <ToolbarItem
             Command="{Binding LogoutCommand}"
             IconImageSource="logout_white_24dp.png"
             Text="Salir" />
-    </ContentPage.ToolbarItems>-->
+    </ContentPage.ToolbarItems>
 </base:BaseContentPage>
