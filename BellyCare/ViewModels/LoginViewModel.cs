@@ -103,6 +103,10 @@ namespace BellyCare.ViewModels
 
         public async void OnAppearing()
         {
+#if DEBUG
+            Email = "luis@gmail.com";
+            Password = "Luis2024*";
+#endif
         }
         public void OnDisappearing()
         {

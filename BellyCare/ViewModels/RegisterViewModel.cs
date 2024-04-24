@@ -19,12 +19,6 @@ namespace BellyCare.ViewModels
             BaseOnlineRepository<Patient> patientRepository) : base(settings, navigationService)
         {
             this.patientRepository = patientRepository;
-
-#if DEBUG
-            Email = "luis@gmail.com";
-            Password = "Luis2024*";
-            ConfirmPassword = "Luis2024*";
-#endif
         }
 
         [ObservableProperty]
@@ -101,6 +95,11 @@ namespace BellyCare.ViewModels
 
         public void OnAppearing()
         {
+#if DEBUG
+            Email = "luis@gmail.com";
+            Password = "Luis2024*";
+            ConfirmPassword = "Luis2024*";
+#endif
         }
         public void OnDisappearing()
         {
