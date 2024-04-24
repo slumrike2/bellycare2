@@ -23,8 +23,8 @@ namespace BellyCare.ViewModels
                 else
                 {
                     //Mensaje: Debe completar sus datos.
-                    //await AppUtils.ShowAlert("Debe completar sus datos.");
-                    //await navigation.NavigateToAsync<PatientProfileView>();
+                    await AppUtils.ShowAlert("Debe completar sus datos.");
+                    await navigation.NavigateToAsync<PatientProfileView>();
                 }
             }
             else if(settings.UserType == LoggedUserType.Doctor)

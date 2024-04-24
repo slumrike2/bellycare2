@@ -19,6 +19,9 @@ namespace BellyCare.ViewModels
             BaseOnlineRepository<Patient> patientRepository) : base(settings, navigationService)
         {
             this.patientRepository = patientRepository;
+
+            BirthDate = DateTime.Now - TimeSpan.FromDays(365 * 18);
+            LastMenstruationDate = DateTime.Now - TimeSpan.FromDays(90);
         }
 
         #region Properties
@@ -87,6 +90,12 @@ namespace BellyCare.ViewModels
                 return;
             }
 
+            bool confirmed = await AppUtils.ShowAlert("¿Está seguro de que desea guardar los datos?", hasCancelButton: true);
+            if(!confirmed)
+            {
+                return;
+            }
+
             Patient patient = new()
             {
                 IsFullRegistered = true,
@@ -107,6 +116,8 @@ namespace BellyCare.ViewModels
             try
             {
                 await patientRepository.Update(settings.AccessToken, patient);
+                await AppUtils.ShowAlert("Datos guardados correctamente.", AlertType.Success);
+                await navigation.GoBackAsync();
             }
             catch (Exception)
             {

@@ -11,7 +11,7 @@ public partial class LabeledPicker : ContentView
         set => SetValue(LabelTextProperty, value);
     }
 
-    public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(string), typeof(LabeledPicker), IconFont.Android);
+    public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(string), typeof(LabeledPicker), IconFont.Arrow_drop_down);
     public string Icon
     {
         get => (string)GetValue(IconProperty);
@@ -25,7 +25,7 @@ public partial class LabeledPicker : ContentView
         set => SetValue(Placeholderroperty, value);
     }
 
-    public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(LabeledPicker), null);
+    public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(LabeledPicker), null, BindingMode.TwoWay);
     public object SelectedItem
     {
         get => GetValue(SelectedItemProperty);
