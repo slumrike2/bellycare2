@@ -2,9 +2,9 @@
 
 namespace BellyCare.Shells
 {
-    public partial class AppShell : Shell
+    public partial class PatientShell : Shell
     {
-        public AppShell()
+        public PatientShell()
         {
             InitializeComponent();
 

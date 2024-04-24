@@ -12,18 +12,7 @@ namespace BellyCare.ViewModels
     public partial class PatientProfileViewModel : BaseViewModel, IEventfulViewModel
     {
         private readonly BaseOnlineRepository<Patient> patientRepository;
-
-        public PatientProfileViewModel(
-            ISettingsService settings, 
-            INavigationService navigationService,
-            BaseOnlineRepository<Patient> patientRepository) : base(settings, navigationService)
-        {
-            this.patientRepository = patientRepository;
-
-            BirthDate = DateTime.Now - TimeSpan.FromDays(365 * 18);
-            LastMenstruationDate = DateTime.Now - TimeSpan.FromDays(90);
-        }
-
+        
         #region Properties
         [ObservableProperty]
         string names;
@@ -80,6 +69,14 @@ namespace BellyCare.ViewModels
         string insuranceName;
         #endregion
 
+        public PatientProfileViewModel(
+            ISettingsService settings, 
+            INavigationService navigationService,
+            BaseOnlineRepository<Patient> patientRepository) : base(settings, navigationService)
+        {
+            this.patientRepository = patientRepository;
+        }
+
         [RelayCommand]
         async Task Save()
         {
@@ -99,18 +96,26 @@ namespace BellyCare.ViewModels
             Patient patient = new()
             {
                 IsFullRegistered = true,
-                Names = Names,
-                Lastnames = LastNames,
-                IdentificationNumber = IdentificationNumber,
-                PhoneNumber = Phone,
-                SelectedCulturalGroup = CulturalGroup,
-                Province = Province,
-                Canton = Canton,
-                Parish = Parish,
-                MainStreet = MainStreet,
-                SecondaryStreet = SecondaryStreet,
-                AdressReference = AddressReference,
-                InsuranceName = InsuranceName
+                Names = Names.Trim(),
+                Lastnames = LastNames.Trim(),
+                Email = settings.Patient.Email.Trim(),
+                Password = settings.Patient.Password.Trim(),
+                IdentificationNumber = IdentificationNumber.Trim(),
+                PhoneNumber = Phone.Trim(),
+                BirthDate = BirthDate,
+                SelectedCulturalGroup = CulturalGroup.Trim(),
+                PregnanciesCount = PregnanciesCount,
+                NaturalBirthsCount = NaturalBirthsCount,
+                CesareanBirthsCount = CesareanBirthsCount,
+                LastMenstruationDate = LastMenstruationDate,
+                Province = Province.Trim(),
+                Canton = Canton.Trim(),
+                Parish = Parish.Trim(),
+                MainStreet = MainStreet.Trim(),
+                SecondaryStreet = SecondaryStreet.Trim(),
+                AdressReference = AddressReference.Trim(),
+                HasInsurance = HasInsurance,
+                InsuranceName = InsuranceName?.Trim() ?? string.Empty,
             };
 
             try
@@ -148,8 +153,39 @@ namespace BellyCare.ViewModels
                 (!HasInsurance || !string.IsNullOrEmpty(InsuranceName));
         }
 
+        private async void PreloadForm()
+        {
+            Patient? patient = await patientRepository.GetById(settings.AccessToken);
+            if(patient == null)
+            {
+                await AppUtils.ShowAlert("Error al obtener los datos del paciente.");
+                await navigation.GoBackAsync();
+                return;
+            }
+
+            Names = patient.Names;
+            LastNames = patient.Lastnames;
+            IdentificationNumber = patient.IdentificationNumber;
+            Phone = patient.PhoneNumber;
+            BirthDate = patient.BirthDate ?? DateTime.Now;
+            CulturalGroup = patient.SelectedCulturalGroup;
+            PregnanciesCount = patient.PregnanciesCount;
+            NaturalBirthsCount = patient.NaturalBirthsCount;
+            CesareanBirthsCount = patient.CesareanBirthsCount;
+            LastMenstruationDate = patient.LastMenstruationDate ?? DateTime.Now;
+            Province = patient.Province;
+            Canton = patient.Canton;
+            Parish = patient.Parish;
+            MainStreet = patient.MainStreet;
+            SecondaryStreet = patient.SecondaryStreet;
+            AddressReference = patient.AdressReference;
+            HasInsurance = patient.HasInsurance;
+            InsuranceName = patient.InsuranceName;
+        }
+
         public void OnAppearing()
         {
+            PreloadForm();
         }
 
         public void OnDisappearing()

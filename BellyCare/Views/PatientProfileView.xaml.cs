@@ -9,4 +9,11 @@ public partial class PatientProfileView : BaseContentPage
     {
 		InitializeComponent();
 	}
+
+	protected override void OnAppearing()
+	{
+        base.OnAppearing();
+
+		ScrollView.ScrollToAsync(0, 0, false);
+    }
 }

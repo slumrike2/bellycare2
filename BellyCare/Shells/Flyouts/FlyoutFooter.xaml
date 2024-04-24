@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BellyCare.Shells.Flyouts.FlyoutFooter"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <VerticalStackLayout Margin="10">
+        <!--  Mensaje con todos los derechos reservados, el icono de copyright y la versión  -->
+        <Label
+            FontSize="Micro"
+            HorizontalOptions="Center"
+            Text="© Todos los derechos reservados."
+            TextColor="Gray" />
+        <Label
+            x:Name="lblVersion"
+            FontSize="Micro"
+            HorizontalOptions="Center"
+            Text="Versión 1.0.0"
+            TextColor="Gray" />
+    </VerticalStackLayout>
+</ContentView>

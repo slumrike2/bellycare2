@@ -12,11 +12,14 @@
             x:Name="Label"
             Margin="0,0,0,5"
             Text="{Binding LabelText, Source={x:Reference root}}" />
-        <Frame
+        <Border
             Margin="2,0"
             Padding="0"
             BackgroundColor="{AppThemeBinding Dark=Gray,
                                               Light=White}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8" />
+            </Border.StrokeShape>
             <Grid Padding="10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -38,8 +41,10 @@
                     IsPassword="{Binding IsPassword, Source={x:Reference root}}"
                     Keyboard="{Binding Keyboard, Source={x:Reference root}}"
                     Placeholder="{Binding PlaceholderText, Source={x:Reference root}}"
+                    PlaceholderColor="{AppThemeBinding Light=Gray,
+                                                       Dark=LightGray}"
                     Text="{Binding EntryText, Source={x:Reference root}, Mode=TwoWay}" />
             </Grid>
-        </Frame>
+        </Border>
     </VerticalStackLayout>
 </ContentView>

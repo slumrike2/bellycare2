@@ -11,7 +11,7 @@ public partial class LabeledDatepicker : ContentView
         set => SetValue(LabelTextProperty, value);
     }
 
-    public static readonly BindableProperty DateProperty = BindableProperty.Create(nameof(Date), typeof(DateTime), typeof(LabeledDatepicker), DateTime.Now);
+    public static readonly BindableProperty DateProperty = BindableProperty.Create(nameof(Date), typeof(DateTime), typeof(LabeledDatepicker), DateTime.Now, BindingMode.TwoWay);
     public DateTime Date
     {
         get => (DateTime)GetValue(DateProperty);

@@ -78,7 +78,7 @@ namespace BellyCare.ViewModels
             var user = new Patient
             {
                 Email = Email,
-                Password = Password,
+                Password = Password.Md5Encrypt()
             };
 
             // Save user to database
@@ -93,6 +93,13 @@ namespace BellyCare.ViewModels
         }
         public void OnDisappearing()
         {
+#if !DEBUG
+            //Clear fields
+            Email = string.Empty;
+            Password = string.Empty;
+            ConfirmPassword = string.Empty;
+            IsPasswordVisible = false;
+#endif
         }
     }
 }

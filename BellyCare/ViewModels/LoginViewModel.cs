@@ -34,9 +34,6 @@ namespace BellyCare.ViewModels
         string? password;
 
         [ObservableProperty]
-        string? test;
-
-        [ObservableProperty]
         bool isPasswordVisible;
 
         [RelayCommand]
@@ -54,9 +51,12 @@ namespace BellyCare.ViewModels
             };
 
             // Check if the user is a patient or a doctor
-            var patientTask = patientRepository.GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password);
-            var doctorTask = doctorRepository.GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password);
-            var adminTask = adminRepository.GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password);
+            var patientTask = patientRepository
+                .GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password.Md5Encrypt());
+            var doctorTask = doctorRepository
+                .GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password.Md5Encrypt());
+            var adminTask = adminRepository
+                .GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password.Md5Encrypt());
 
             await Task.WhenAll(patientTask, doctorTask, adminTask);
 
@@ -98,6 +98,12 @@ namespace BellyCare.ViewModels
         }
         public void OnDisappearing()
         {
+#if !DEBUG
+            //Clear fields
+            Email = string.Empty;
+            Password = string.Empty;
+            IsPasswordVisible = false;
+#endif
         }
     }
 }

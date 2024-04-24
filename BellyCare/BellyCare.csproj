@@ -59,6 +59,7 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
 	  <None Remove="Resources\Images\logout_white_24dp.svg" />
+	  <None Remove="Resources\Images\wave.png" />
 	  <None Remove="Resources\Raw\data.json" />
 	</ItemGroup>
 
@@ -72,6 +73,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Shells\Flyouts\FlyoutHeader.xaml.cs">
+	    <DependentUpon>FlyoutHeader.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Shells\PatientShell.xaml.cs">
+	    <DependentUpon>PatientShell.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Shells\LoginShell.xaml.cs">
 	    <DependentUpon>LoginShell.xaml</DependentUpon>
 	  </Compile>
@@ -84,10 +91,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Shells\Flyouts\FlyoutFooter.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Shells\Flyouts\FlyoutHeader.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Shells\PatientShell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Shells\LoginShell.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\HomeRouterView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PatientHomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PatientProfileView.xaml">
@@ -101,5 +120,7 @@
 	<ItemGroup>
 	  <Folder Include="Controls\" />
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionBellyCareHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

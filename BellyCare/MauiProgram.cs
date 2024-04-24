@@ -46,23 +46,25 @@ namespace BellyCare
             builder.Services.AddSingleton<RegisterViewModel>();
             builder.Services.AddSingleton<HomeRouterViewModel>();
             builder.Services.AddSingleton<PatientProfileViewModel>();
+            builder.Services.AddSingleton<PatientHomeViewModel>();
 
             //DI Views
             builder.Services.AddSingleton<LoginView>();
             builder.Services.AddSingleton<RegisterView>();
             builder.Services.AddSingleton<HomeRouterView>();
             builder.Services.AddSingleton<PatientProfileView>();
-            
+            builder.Services.AddSingleton<PatientHomeView>();
+
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderline", (h, v) =>
             {
 #if ANDROID
-            h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+                h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #endif
 #if WINDOWS
             h.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0,0,0,0);
@@ -71,7 +73,7 @@ namespace BellyCare
             Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("NoUnderline", (h, v) =>
             {
 #if ANDROID
-            h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+                h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #endif
 #if WINDOWS
             h.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0,0,0,0);

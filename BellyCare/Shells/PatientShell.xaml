@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="BellyCare.Shells.PatientShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:f="clr-namespace:BellyCare.Shells.Flyouts"
+    xmlns:icon="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
+    xmlns:local="clr-namespace:BellyCare.Views"
+    Title="BellyCare"
+    Shell.BackgroundColor="{StaticResource Primary}"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.TitleColor="White">
+    <Shell.FlyoutHeader>
+        <f:FlyoutHeader />
+    </Shell.FlyoutHeader>
+    <Shell.FlyoutFooter>
+        <f:FlyoutFooter />
+    </Shell.FlyoutFooter>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Title="Inicio"
+            ContentTemplate="{DataTemplate local:PatientHomeView}"
+            Route="PatientHomeView">
+            <ShellContent.Icon>
+                <FontImageSource
+                    FontFamily="IconFont"
+                    Glyph="{x:Static icon:IconFont.Home}"
+                    Color="Gray" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+        <ShellContent
+            Title="Perfil"
+            ContentTemplate="{DataTemplate local:PatientProfileView}"
+            Route="PatientProfileView">
+            <ShellContent.Icon>
+                <FontImageSource
+                    FontFamily="IconFont"
+                    Glyph="{x:Static icon:IconFont.Person}"
+                    Color="Gray" />
+            </ShellContent.Icon>
+        </ShellContent>
+    </FlyoutItem>
+
+</Shell>

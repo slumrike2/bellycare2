@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <base:BaseContentPage
-    x:Class="BellyCare.Views.HomeRouterView"
+    x:Class="BellyCare.Views.PatientHomeView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:Barreto.Exe.Maui.Views;assembly=Barreto.Exe.Maui"
+    xmlns:exe="clr-namespace:Barreto.Exe.Maui.Controls;assembly=Barreto.Exe.Maui"
     xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
-    x:DataType="vm:HomeRouterViewModel">
+    x:DataType="vm:PatientHomeViewModel">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Command="{Binding ClickLogoutCommand}"
@@ -14,10 +15,10 @@
             Text="Salir" />
     </ContentPage.ToolbarItems>
 
-    <ActivityIndicator
-        Margin="20"
-        IsRunning="True"
-        MaximumHeightRequest="100"
-        MaximumWidthRequest="100" />
-
+    <VerticalStackLayout>
+        <Label
+            HorizontalOptions="Center"
+            Text="Welcome to .NET MAUasI!"
+            VerticalOptions="Center" />
+    </VerticalStackLayout>
 </base:BaseContentPage>

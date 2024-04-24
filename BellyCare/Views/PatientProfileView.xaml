@@ -10,206 +10,212 @@
     Title="Perfil"
     x:DataType="vm:PatientProfileViewModel">
     <Grid RowDefinitions="*,Auto">
-        <ScrollView>
-            <VerticalStackLayout Margin="20" Spacing="10">
+        <ScrollView x:Name="ScrollView">
 
-                <!--  Informacion personal  -->
-                <Label Style="{StaticResource Headline}" Text="Información Personal" />
-                <exe:LabeledEntry
-                    EntryText="{Binding Names}"
-                    Icon="{Static utils:IconFont.Person}"
-                    LabelText="Nombres"
-                    PlaceholderText="Indica tu primer y segundo nombre" />
-                <exe:LabeledEntry
-                    EntryText="{Binding LastNames}"
-                    Icon="{Static utils:IconFont.Perm_identity}"
-                    LabelText="Apellidos"
-                    PlaceholderText="Indica tu primer y segundo apellido" />
-                <exe:LabeledEntry
-                    EntryText="{Binding IdentificationNumber}"
-                    Icon="{Static utils:IconFont.Numbers}"
-                    Keyboard="Numeric"
-                    LabelText="Número de cédula"
-                    PlaceholderText="Indica tu número de cédula" />
-                <exe:LabeledEntry
-                    EntryText="{Binding Phone}"
-                    Icon="{Static utils:IconFont.Phone}"
-                    Keyboard="Telephone"
-                    LabelText="Teléfono"
-                    PlaceholderText="Indica tu número de teléfono" />
-                <exe:LabeledDatepicker Date="{Binding BirthDate}" LabelText="Fecha de nacimiento" />
-                <exe:LabeledPicker
-                    LabelText="Grupo cultural"
-                    Placeholder="Selecciona tu grupo cultural"
-                    SelectedItem="{Binding CulturalGroup}">
-                    <exe:LabeledPicker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Mestizo</x:String>
-                            <x:String>Montubio</x:String>
-                            <x:String>Afroecuatoriano</x:String>
-                            <x:String>Indígena</x:String>
-                            <x:String>Blanco</x:String>
-                            <x:String>Otro</x:String>
-                        </x:Array>
-                    </exe:LabeledPicker.ItemsSource>
-                </exe:LabeledPicker>
+            <Grid>
+                <Image
+                    Margin="0,-60,0,0"
+                    Opacity="0.5"
+                    Source="wave.png"
+                    VerticalOptions="Start" />
 
-                <!--  Gray separator  -->
-                <BoxView
-                    Margin="20"
-                    BackgroundColor="LightGray"
-                    HeightRequest="1" />
+                <VerticalStackLayout Padding="20" Spacing="10">
 
-                <!--  Informacion de embarazo  -->
-                <Label Style="{StaticResource Headline}" Text="Información del Embarazo" />
-                <Grid ColumnDefinitions="1.5*,*">
+                    <!--  Informacion personal  -->
+                    <Label Style="{StaticResource Headline}" Text="Información Personal" />
+
                     <exe:LabeledEntry
-                        EntryText="{Binding PregnanciesCount}"
-                        Icon="{Static utils:IconFont.Pregnant_woman}"
-                        Keyboard="Numeric"
-                        LabelText="Cantidad de gestas"
-                        PlaceholderText="Coloca la cantidad de gestas que has tenido" />
-                    <Stepper
-                        Grid.Column="1"
-                        Maximum="20"
-                        Minimum="0"
-                        VerticalOptions="End"
-                        Value="{Binding PregnanciesCount}" />
-                </Grid>
-                <Grid ColumnDefinitions="1.5*,*">
+                        EntryText="{Binding Names}"
+                        Icon="{Static utils:IconFont.Person}"
+                        LabelText="Nombres"
+                        PlaceholderText="Indica tu primer y segundo nombre" />
                     <exe:LabeledEntry
-                        EntryText="{Binding NaturalBirthsCount}"
-                        Icon="{Static utils:IconFont.Pregnant_woman}"
-                        Keyboard="Numeric"
-                        LabelText="Cantidad de partos naturales"
-                        PlaceholderText="Coloca la cantidad de partos naturales que has tenido" />
-                    <Stepper
-                        Grid.Column="1"
-                        Maximum="20"
-                        Minimum="0"
-                        VerticalOptions="End"
-                        Value="{Binding NaturalBirthsCount}" />
-                </Grid>
-                <Grid ColumnDefinitions="1.5*,*">
+                        EntryText="{Binding LastNames}"
+                        Icon="{Static utils:IconFont.Perm_identity}"
+                        LabelText="Apellidos"
+                        PlaceholderText="Indica tu primer y segundo apellido" />
                     <exe:LabeledEntry
-                        EntryText="{Binding CesareanBirthsCount}"
-                        Icon="{Static utils:IconFont.Pregnant_woman}"
+                        EntryText="{Binding IdentificationNumber}"
+                        Icon="{Static utils:IconFont.Numbers}"
                         Keyboard="Numeric"
-                        LabelText="Cantidad de cesáreas"
-                        PlaceholderText="Coloca la cantidad de cesáreas que has tenido" />
-                    <Stepper
-                        Grid.Column="1"
-                        Maximum="20"
-                        Minimum="0"
-                        VerticalOptions="End"
-                        Value="{Binding CesareanBirthsCount}" />
-                </Grid>
-                <exe:LabeledDatepicker Date="{Binding LastMenstruationDate}" LabelText="Fecha de última menstruación" />
+                        LabelText="Número de cédula"
+                        PlaceholderText="Indica tu número de cédula" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding Phone}"
+                        Icon="{Static utils:IconFont.Phone}"
+                        Keyboard="Telephone"
+                        LabelText="Teléfono"
+                        PlaceholderText="Indica tu número de teléfono" />
+                    <exe:LabeledDatepicker Date="{Binding BirthDate}" LabelText="Fecha de nacimiento" />
+                    <exe:LabeledPicker
+                        LabelText="Grupo cultural"
+                        Placeholder="Selecciona tu grupo cultural"
+                        SelectedItem="{Binding CulturalGroup}">
+                        <exe:LabeledPicker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Mestizo</x:String>
+                                <x:String>Montubio</x:String>
+                                <x:String>Afroecuatoriano</x:String>
+                                <x:String>Indígena</x:String>
+                                <x:String>Blanco</x:String>
+                                <x:String>Otro</x:String>
+                            </x:Array>
+                        </exe:LabeledPicker.ItemsSource>
+                    </exe:LabeledPicker>
 
-                <!--  Gray separator  -->
-                <BoxView
-                    Margin="20"
-                    BackgroundColor="LightGray"
-                    HeightRequest="1" />
+                    <!--  Gray separator  -->
+                    <BoxView
+                        Margin="20,30"
+                        BackgroundColor="LightGray"
+                        HeightRequest="1" />
 
-                <!--  Informacion de vivienda  -->
-                <Label
-                    Margin="0,20,0,0"
-                    Style="{StaticResource Headline}"
-                    Text="Información de Vivienda" />
-                <exe:LabeledPicker
-                    Icon="{Static utils:IconFont.Arrow_drop_down}"
-                    LabelText="Provincia"
-                    Placeholder="Selecciona tu provincia"
-                    SelectedItem="{Binding Province}">
-                    <exe:LabeledPicker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Azuay</x:String>
-                            <x:String>Bolívar</x:String>
-                            <x:String>Cañar</x:String>
-                            <x:String>Carchi</x:String>
-                            <x:String>Chimborazo</x:String>
-                            <x:String>Cotopaxi</x:String>
-                            <x:String>El Oro</x:String>
-                            <x:String>Esmeraldas</x:String>
-                            <x:String>Galápagos</x:String>
-                            <x:String>Guayanas</x:String>
-                            <x:String>Imbabura</x:String>
-                            <x:String>Loja</x:String>
-                            <x:String>Los Ríos</x:String>
-                            <x:String>Manabí</x:String>
-                            <x:String>Morona Santiago</x:String>
-                            <x:String>Napo</x:String>
-                            <x:String>Sucumbíos</x:String>
-                            <x:String>Pastaza</x:String>
-                            <x:String>Pichincha</x:String>
-                            <x:String>Santa Elena</x:String>
-                            <x:String>Santo Domingo</x:String>
-                            <x:String>Francisco De Orellana</x:String>
-                            <x:String>Tungurahua</x:String>
-                            <x:String>Zamora Chinchipe</x:String>
-                        </x:Array>
-                    </exe:LabeledPicker.ItemsSource>
-                </exe:LabeledPicker>
-                <exe:LabeledEntry
-                    EntryText="{Binding Canton}"
-                    Icon="{Static utils:IconFont.Place}"
-                    LabelText="Cantón"
-                    PlaceholderText="Coloca el cantón donde vives" />
-                <exe:LabeledEntry
-                    EntryText="{Binding Parish}"
-                    Icon="{Static utils:IconFont.Place}"
-                    LabelText="Parroquia"
-                    PlaceholderText="Coloca la parroquia donde vives" />
-                <exe:LabeledEntry
-                    EntryText="{Binding MainStreet}"
-                    Icon="{Static utils:IconFont.Maps_home_work}"
-                    LabelText="Calle Principal"
-                    PlaceholderText="Coloca la calle principal donde vives" />
-                <exe:LabeledEntry
-                    EntryText="{Binding SecondaryStreet}"
-                    Icon="{Static utils:IconFont.Maps_home_work}"
-                    LabelText="Calle Secundaria"
-                    PlaceholderText="Coloca la calle secundaria donde vives" />
-                <exe:LabeledEntry
-                    EntryText="{Binding AddressReference}"
-                    Icon="{Static utils:IconFont.Description}"
-                    LabelText="Referencia"
-                    PlaceholderText="Coloca una referencia de tu dirección" />
+                    <!--  Informacion de embarazo  -->
+                    <Label Style="{StaticResource Headline}" Text="Información del Embarazo" />
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding PregnanciesCount}"
+                            Icon="{Static utils:IconFont.Pregnant_woman}"
+                            Keyboard="Numeric"
+                            LabelText="Cantidad de gestas"
+                            PlaceholderText="Coloca la cantidad de gestas que has tenido" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="20"
+                            Minimum="0"
+                            VerticalOptions="End"
+                            Value="{Binding PregnanciesCount}" />
+                    </Grid>
 
-                <!--  Gray separator  -->
-                <BoxView
-                    Margin="20"
-                    BackgroundColor="LightGray"
-                    HeightRequest="1" />
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding NaturalBirthsCount}"
+                            Icon="{Static utils:IconFont.Pregnant_woman}"
+                            Keyboard="Numeric"
+                            LabelText="Cantidad de partos naturales"
+                            PlaceholderText="Coloca la cantidad de partos naturales que has tenido" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="20"
+                            Minimum="0"
+                            VerticalOptions="End"
+                            Value="{Binding NaturalBirthsCount}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding CesareanBirthsCount}"
+                            Icon="{Static utils:IconFont.Pregnant_woman}"
+                            Keyboard="Numeric"
+                            LabelText="Cantidad de cesáreas"
+                            PlaceholderText="Coloca la cantidad de cesáreas que has tenido" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="20"
+                            Minimum="0"
+                            VerticalOptions="End"
+                            Value="{Binding CesareanBirthsCount}" />
+                    </Grid>
+                    <exe:LabeledDatepicker Date="{Binding LastMenstruationDate}" LabelText="Fecha de última menstruación" />
 
-                <!--  Informacion de seguro  -->
-                <Label
-                    Margin="0,20,0,0"
-                    Style="{StaticResource Headline}"
-                    Text="Información de Seguro" />
-                <HorizontalStackLayout>
-                    <Label Text="¿Cuenta con algún seguro de salud?" VerticalOptions="Center" />
-                    <Switch IsToggled="{Binding HasInsurance}" VerticalOptions="Center" />
-                </HorizontalStackLayout>
+                    <!--  Gray separator  -->
+                    <BoxView
+                        Margin="20,30"
+                        BackgroundColor="LightGray"
+                        HeightRequest="1" />
 
-                <exe:LabeledPicker
-                    IsVisible="{Binding HasInsurance}"
-                    LabelText="Tipo de seguro"
-                    Placeholder="Selecciona el tipo de seguro"
-                    SelectedItem="{Binding InsuranceName}">
-                    <exe:LabeledPicker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Seguro General Obligatorio (IESS General)</x:String>
-                            <x:String>Seguro Voluntario</x:String>
-                            <x:String>Seguro Social Campesino</x:String>
-                            <x:String>Seguro del Instituto de Seguridad Social de las Fuerzas Armadas (ISSFA)</x:String>
-                            <x:String>Seguro del Instituto de Seguridad Social de la Policía Nacional (ISSPOL)</x:String>
-                        </x:Array>
-                    </exe:LabeledPicker.ItemsSource>
-                </exe:LabeledPicker>
+                    <!--  Informacion de vivienda  -->
+                    <Label Style="{StaticResource Headline}" Text="Información de Vivienda" />
+                    <exe:LabeledPicker
+                        Icon="{Static utils:IconFont.Arrow_drop_down}"
+                        LabelText="Provincia"
+                        Placeholder="Selecciona tu provincia"
+                        SelectedItem="{Binding Province}">
+                        <exe:LabeledPicker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Azuay</x:String>
+                                <x:String>Bolívar</x:String>
+                                <x:String>Cañar</x:String>
+                                <x:String>Carchi</x:String>
+                                <x:String>Chimborazo</x:String>
+                                <x:String>Cotopaxi</x:String>
+                                <x:String>El Oro</x:String>
+                                <x:String>Esmeraldas</x:String>
+                                <x:String>Galápagos</x:String>
+                                <x:String>Guayanas</x:String>
+                                <x:String>Imbabura</x:String>
+                                <x:String>Loja</x:String>
+                                <x:String>Los Ríos</x:String>
+                                <x:String>Manabí</x:String>
+                                <x:String>Morona Santiago</x:String>
+                                <x:String>Napo</x:String>
+                                <x:String>Sucumbíos</x:String>
+                                <x:String>Pastaza</x:String>
+                                <x:String>Pichincha</x:String>
+                                <x:String>Santa Elena</x:String>
+                                <x:String>Santo Domingo</x:String>
+                                <x:String>Francisco De Orellana</x:String>
+                                <x:String>Tungurahua</x:String>
+                                <x:String>Zamora Chinchipe</x:String>
+                            </x:Array>
+                        </exe:LabeledPicker.ItemsSource>
+                    </exe:LabeledPicker>
+                    <exe:LabeledEntry
+                        EntryText="{Binding Canton}"
+                        Icon="{Static utils:IconFont.Place}"
+                        LabelText="Cantón"
+                        PlaceholderText="Coloca el cantón donde vives" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding Parish}"
+                        Icon="{Static utils:IconFont.Place}"
+                        LabelText="Parroquia"
+                        PlaceholderText="Coloca la parroquia donde vives" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding MainStreet}"
+                        Icon="{Static utils:IconFont.Maps_home_work}"
+                        LabelText="Calle Principal"
+                        PlaceholderText="Coloca la calle principal donde vives" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding SecondaryStreet}"
+                        Icon="{Static utils:IconFont.Maps_home_work}"
+                        LabelText="Calle Secundaria"
+                        PlaceholderText="Coloca la calle secundaria donde vives" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding AddressReference}"
+                        Icon="{Static utils:IconFont.Description}"
+                        LabelText="Referencia"
+                        PlaceholderText="Coloca una referencia de tu dirección" />
 
-            </VerticalStackLayout>
+                    <!--  Gray separator  -->
+                    <BoxView
+                        Margin="20,30"
+                        BackgroundColor="LightGray"
+                        HeightRequest="1" />
+
+                    <!--  Informacion de seguro  -->
+                    <Label Style="{StaticResource Headline}" Text="Información de Seguro" />
+                    <HorizontalStackLayout>
+                        <Label Text="¿Cuenta con algún seguro de salud?" VerticalOptions="Center" />
+                        <Switch IsToggled="{Binding HasInsurance}" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <exe:LabeledPicker
+                        IsVisible="{Binding HasInsurance}"
+                        LabelText="Tipo de seguro"
+                        Placeholder="Selecciona el tipo de seguro"
+                        SelectedItem="{Binding InsuranceName}">
+                        <exe:LabeledPicker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Seguro General Obligatorio (IESS General)</x:String>
+                                <x:String>Seguro Voluntario</x:String>
+                                <x:String>Seguro Social Campesino</x:String>
+                                <x:String>Seguro del Instituto de Seguridad Social de las Fuerzas Armadas (ISSFA)</x:String>
+                                <x:String>Seguro del Instituto de Seguridad Social de la Policía Nacional (ISSPOL)</x:String>
+                            </x:Array>
+                        </exe:LabeledPicker.ItemsSource>
+                    </exe:LabeledPicker>
+
+                </VerticalStackLayout>
+
+            </Grid>
         </ScrollView>
 
         <Button
