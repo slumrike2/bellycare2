@@ -68,7 +68,18 @@ namespace BellyCare.ViewModels
             }
 
             //Verify if user already exists
-            var userExists = (await patientRepository.GetAllBy(o => o.Object.Email == Email)).Count != 0;
+            bool userExists = false;
+            try
+            {
+                userExists = (await patientRepository.GetAllBy(o => o.Object.Email == Email)).Count != 0;
+            }
+            catch (Exception ex)
+            {
+                await AppUtils.ShowAlert("Error al verificar si el usuario ya existe. Chequea tu conexión a internet.");
+                return;
+            }
+
+
             if (userExists)
             {
                 await AppUtils.ShowAlert("El usuario con ese correo electrónico ya está registrado como paciente.");
@@ -82,7 +93,7 @@ namespace BellyCare.ViewModels
             };
 
             // Save user to database
-            string key = await patientRepository.Add(user);
+            string key = patientRepository.Add(user);
 
             //Display success message
             await AppUtils.ShowAlert($"Usuario registrado con éxito. {key}", AlertType.Success);

@@ -58,7 +58,15 @@ namespace BellyCare.ViewModels
             var adminTask = adminRepository
                 .GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password.Md5Encrypt());
 
-            await Task.WhenAll(patientTask, doctorTask, adminTask);
+            try
+            {
+                await Task.WhenAll(patientTask, doctorTask, adminTask);
+            }
+            catch (Exception ex)
+            {
+                await AppUtils.ShowAlert("Error al iniciar sesión. Chequea tu conexión a internet.");
+                return;
+            }
 
             var patient = patientTask.Result.FirstOrDefault();
             var doctor = doctorTask.Result.FirstOrDefault();

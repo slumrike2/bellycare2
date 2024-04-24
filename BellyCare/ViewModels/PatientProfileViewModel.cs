@@ -120,7 +120,8 @@ namespace BellyCare.ViewModels
 
             try
             {
-                await patientRepository.Update(settings.AccessToken, patient);
+                patientRepository.Update(settings.AccessToken, patient);
+                settings.Patient = patient;
                 await AppUtils.ShowAlert("Datos guardados correctamente.", AlertType.Success);
                 await navigation.GoBackAsync();
             }
@@ -155,12 +156,16 @@ namespace BellyCare.ViewModels
 
         private async void PreloadForm()
         {
-            Patient? patient = await patientRepository.GetById(settings.AccessToken);
-            if(patient == null)
+            Patient patient;
+
+            try
             {
-                await AppUtils.ShowAlert("Error al obtener los datos del paciente.");
-                await navigation.GoBackAsync();
-                return;
+                patient = await patientRepository.GetById(settings.AccessToken);
+            }
+            catch (Exception)
+            {
+                //Offline mode
+                patient = settings.Patient;
             }
 
             Names = patient.Names;

@@ -1,4 +1,5 @@
 ﻿using Firebase.Database;
+using Firebase.Database.Offline;
 using Newtonsoft.Json;
 
 namespace BellyCare.Repositories
@@ -66,12 +67,13 @@ namespace BellyCare.Repositories
         /// </summary>
         /// <param name="entity"> The entity to be added. </param>
         /// <returns> The Firebase Key of the entity. </returns>
-        public async Task<string> Add(T entity)
+        public string Add(T entity)
         {
             try
             {
-                var result = await db.Child(child).PostAsync(JsonConvert.SerializeObject(entity));
-                return result.Key;
+                return db.Child(child)
+                    .AsRealtimeDatabase<T>()
+                    .Post(entity);
             }
             catch (Exception ex)
             {
@@ -84,11 +86,13 @@ namespace BellyCare.Repositories
         /// </summary>
         /// <param name="id"> The Firebase Key of the entity. </param>
         /// <param name="entity"> The entity to be updated. </param>
-        public async Task Update(string id, T entity)
+        public void Update(string id, T entity)
         {
             try
             {
-                await db.Child(child + "/" + id).PutAsync(JsonConvert.SerializeObject(entity));
+                db.Child(child)
+                    .AsRealtimeDatabase<T>()
+                    .Put(id, entity);
             }
             catch (Exception ex)
             {
@@ -100,11 +104,13 @@ namespace BellyCare.Repositories
         /// Deletes an entity from the database.
         /// </summary>
         /// <param name="id"> The Firebase Key of the entity. </param>
-        public async Task Delete(string id)
+        public void Delete(string id)
         {
             try
             {
-                await db.Child(child + "/" + id).DeleteAsync();
+                db.Child(child)
+                    .AsRealtimeDatabase<T>()
+                    .Delete(id);
             }
             catch (Exception ex)
             {

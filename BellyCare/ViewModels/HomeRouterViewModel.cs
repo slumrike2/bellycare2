@@ -35,24 +35,20 @@ namespace BellyCare.ViewModels
             if(settings.UserType == LoggedUserType.Patient)
             {
                 bool isFullRegistered = false;
+                Patient patient;
 
-                for(int i = 0; i < 3; i++)
+                try
                 {
-                    try
-                    {
-                        Patient? patient = await patientRepository.GetById(settings.AccessToken);
-                        isFullRegistered = patient?.IsFullRegistered ?? false;
-                        break;
-                    }
-                    catch (Exception ex)
-                    {
-                        await AppUtils.ShowAlert("Error al obtener los datos del paciente.");
-                        Logout();
-                    }
+                    patient = await patientRepository.GetById(settings.AccessToken);
                 }
-
-
-                if(isFullRegistered)
+                catch (Exception)
+                {
+                    //Offline mode
+                    patient = settings.Patient;
+                }
+                
+                isFullRegistered = patient?.IsFullRegistered ?? false;
+                if (isFullRegistered)
                 {
                     //await navigation.NavigateToAsync<PatientHomeView>();
                     Application.Current.MainPage = new PatientShell();
