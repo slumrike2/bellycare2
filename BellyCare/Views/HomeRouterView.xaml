@@ -6,7 +6,7 @@
     xmlns:base="clr-namespace:Barreto.Exe.Maui.Views;assembly=Barreto.Exe.Maui"
     xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
-    x:DataType="vm:HomeRouterViewModel">
+    x:DataType="vm:AdminHomeViewModel">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Command="{Binding ClickLogoutCommand}"

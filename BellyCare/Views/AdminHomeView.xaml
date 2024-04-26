@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="BellyCare.Views.AdminHomeView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:Barreto.Exe.Maui.Views;assembly=Barreto.Exe.Maui"
+    xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
+    xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
+    x:DataType="vm:HomeRouterViewModel">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding ClickLogoutCommand}"
+            IconImageSource="logout_white_24dp.png"
+            Text="Salir" />
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <Border
+            Margin="20"
+            HeightRequest="56"
+            HorizontalOptions="End"
+            StrokeThickness="0"
+            VerticalOptions="End"
+            ZIndex="1">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16" StrokeThickness="0" />
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow
+                    Opacity="0.4"
+                    Radius="10"
+                    Offset="1.5,5" />
+            </Border.Shadow>
+
+            <Button
+                BackgroundColor="{StaticResource Primary}"
+                FontSize="16"
+                ImageSource="add_white_24dp.png"
+                Text="Crear"
+                TextColor="White" />
+        </Border>
+
+
+        <ScrollView>
+            <Grid RowDefinitions="Auto,*">
+                <!--  Header  -->
+                <VerticalStackLayout Margin="20">
+                    <Label
+                        FontAttributes="None"
+                        FontSize="22"
+                        Style="{StaticResource Headline}"
+                        Text="Bienvenido,"
+                        TextColor="{AppThemeBinding Dark={StaticResource Gray200},
+                                                    Light={StaticResource PrimaryDarkText}}" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Title"
+                        Text="Administrador"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkBackgroudCard},
+                                                    Light={StaticResource Primary}}" />
+                </VerticalStackLayout>
+
+                <Border
+                    Grid.Row="1"
+                    Background="{AppThemeBinding Dark={StaticResource DarkBackgroudCard},
+                                                 Light={StaticResource LightBackgroudCard}}"
+                    StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="40,40,0,0" StrokeThickness="0" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Padding="20" Background="{AppThemeBinding Dark={StaticResource DarkBackgroudCard}, Light={StaticResource LightBackgroudCard}}">
+
+                        <SearchBar Placeholder="Búsqueda" />
+
+                        <Border
+                            Margin="0,10"
+                            Padding="20"
+                            Background="{AppThemeBinding Dark={StaticResource Gray900},
+                                                         Light={StaticResource Gray200}}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20" StrokeThickness="1" />
+                            </Border.StrokeShape>
+                            <Grid Margin="1" ColumnDefinitions="Auto, 10, *">
+                                <Grid>
+
+                                    <Label
+                                        FontFamily="IconFont"
+                                        FontSize="40"
+                                        Text="{Static utils:IconFont.Badge}"
+                                        VerticalOptions="Center" />
+                                </Grid>
+
+                                <VerticalStackLayout Grid.Column="2">
+                                    <Label FontAttributes="Bold" Text="LBARRETO1" />
+                                    <Label LineBreakMode="TailTruncation" Text="Luis Alejandro Barreto Marín Santa Maria" />
+                                    <Label Grid.Row="2" Text="Médico Especialista" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+        </ScrollView>
+    </Grid>
+
+
+</base:BaseContentPage>

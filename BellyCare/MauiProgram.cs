@@ -40,6 +40,7 @@ namespace BellyCare
             //DI Shells
             builder.Services.AddSingleton<AppShell>();
             builder.Services.AddSingleton<LoginShell>();
+            builder.Services.AddSingleton<AdminShell>();
 
             //DI ViewModels
             builder.Services.AddSingleton<LoginViewModel>();
@@ -47,6 +48,7 @@ namespace BellyCare
             builder.Services.AddSingleton<HomeRouterViewModel>();
             builder.Services.AddSingleton<PatientProfileViewModel>();
             builder.Services.AddSingleton<PatientHomeViewModel>();
+            builder.Services.AddSingleton<AdminHomeViewModel>();
 
             //DI Views
             builder.Services.AddSingleton<LoginView>();
@@ -54,6 +56,7 @@ namespace BellyCare
             builder.Services.AddSingleton<HomeRouterView>();
             builder.Services.AddSingleton<PatientProfileView>();
             builder.Services.AddSingleton<PatientHomeView>();
+            builder.Services.AddSingleton<AdminHomeView>();
 
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
 

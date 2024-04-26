@@ -34,36 +34,57 @@ namespace BellyCare.ViewModels
             //Check if the user is a patient, doctor or admin and string Test
             if(settings.UserType == LoggedUserType.Patient)
             {
-                bool isFullRegistered = false;
-                Patient patient;
-
-                try
-                {
-                    patient = await patientRepository.GetById(settings.AccessToken);
-                }
-                catch (Exception)
-                {
-                    //Offline mode
-                    patient = settings.Patient;
-                }
-                
-                isFullRegistered = patient?.IsFullRegistered ?? false;
-                if (isFullRegistered)
-                {
-                    //await navigation.NavigateToAsync<PatientHomeView>();
-                    Application.Current.MainPage = new PatientShell();
-                }
-                else
-                {
-                    await AppUtils.ShowAlert("Debe completar sus datos.");
-                    await navigation.NavigateToAsync<PatientProfileView>();
-                }
+                await GoToPatient();
             }
             else if(settings.UserType == LoggedUserType.Doctor)
             {
             }
             else if(settings.UserType == LoggedUserType.Admin)
             {
+                await GoToAdmin();
+            }
+        }
+
+        private async Task GoToAdmin()
+        {
+            Admin admin;
+
+            try
+            {
+                admin = await adminRepository.GetById(settings.AccessToken);
+            }
+            catch (Exception)
+            {
+                //Offline mode
+                //admin = settings.Admin;
+            }
+
+            Application.Current.MainPage = new AdminShell();
+        }
+
+        private async Task GoToPatient()
+        {
+            Patient patient;
+
+            try
+            {
+                patient = await patientRepository.GetById(settings.AccessToken);
+            }
+            catch (Exception)
+            {
+                //Offline mode
+                patient = settings.Patient;
+            }
+
+            bool isFullRegistered = patient?.IsFullRegistered ?? false;
+            if (isFullRegistered)
+            {
+                Application.Current.MainPage = new PatientShell();
+            }
+            else
+            {
+                await AppUtils.ShowAlert("Debe completar sus datos.");
+                await navigation.NavigateToAsync<PatientProfileView>();
             }
         }
 
