@@ -15,10 +15,44 @@
             Text="Salir" />
     </ContentPage.ToolbarItems>
 
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUasI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <Grid RowDefinitions="Auto,*">
+            <!--  Header  -->
+            <VerticalStackLayout>
+                <!--  Welcome text  -->
+                <VerticalStackLayout Margin="20">
+                    <Label
+                        FontAttributes="None"
+                        FontSize="22"
+                        Style="{StaticResource Headline}"
+                        Text="Bienvenida,"
+                        TextColor="{AppThemeBinding Dark={StaticResource Gray200},
+                                                    Light={StaticResource PrimaryDarkText}}" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Title"
+                        Text="{Binding Name}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkBackgroudCard},
+                                                    Light={StaticResource Primary}}" />
+                </VerticalStackLayout>
+
+                <Border
+                    Background="{AppThemeBinding Dark={StaticResource DarkBackgroudCard},
+                                                 Light={StaticResource LightBackgroudCard}}"
+                    HeightRequest="40"
+                    StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="40,40,0,0" StrokeThickness="0" />
+                    </Border.StrokeShape>
+                </Border>
+            </VerticalStackLayout>
+
+            <Grid
+                Grid.Row="1"
+                Padding="20"
+                Background="{AppThemeBinding Dark={StaticResource DarkBackgroudCard},
+                                             Light={StaticResource LightBackgroudCard}}" />
+        </Grid>
+    </ScrollView>
+
 </base:BaseContentPage>
