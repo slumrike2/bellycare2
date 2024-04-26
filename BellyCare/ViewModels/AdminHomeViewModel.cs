@@ -20,6 +20,9 @@ namespace BellyCare.ViewModels
         [ObservableProperty]
         ObservableCollection<Doctor> doctors = [];
 
+        [ObservableProperty]
+        bool isDoctorsListEmpty;
+
         public AdminHomeViewModel(
             ISettingsService settings, 
             INavigationService navigationService,
@@ -52,6 +55,7 @@ namespace BellyCare.ViewModels
                 AppUtils.ShowAlert("No se ha podido obtener la lista de profesionales de la salud. Chequea tu conexión a internet.", AlertType.Warning);
             }
 
+            IsDoctorsListEmpty = Doctors.Count == 0;
             IsLoading = false;
         }
         public void OnDisappearing()

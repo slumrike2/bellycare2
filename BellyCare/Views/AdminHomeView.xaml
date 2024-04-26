@@ -4,9 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:base="clr-namespace:Barreto.Exe.Maui.Views;assembly=Barreto.Exe.Maui"
+    xmlns:m="clr-namespace:BellyCare.Models;assembly=BellyCare"
     xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
-    x:DataType="vm:HomeRouterViewModel">
+    x:DataType="vm:AdminHomeViewModel">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Command="{Binding ClickLogoutCommand}"
@@ -72,32 +73,51 @@
 
                         <SearchBar Placeholder="Búsqueda" />
 
-                        <Border
-                            Margin="0,10"
-                            Padding="20"
-                            Background="{AppThemeBinding Dark={StaticResource Gray900},
-                                                         Light={StaticResource Gray200}}">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="20" StrokeThickness="1" />
-                            </Border.StrokeShape>
-                            <Grid Margin="1" ColumnDefinitions="Auto, 10, *">
-                                <Grid>
+                        <VerticalStackLayout Margin="20" IsVisible="{Binding IsDoctorsListEmpty}">
+                            <Label
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="Aún se han creado usuarios para profesionales de la salud." />
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="¡Comienza haciendo click en (+) Crear!" />
+                            <Image Margin="0,20" Source="doctors.png" />
+                        </VerticalStackLayout>
 
-                                    <Label
-                                        FontFamily="IconFont"
-                                        FontSize="40"
-                                        Text="{Static utils:IconFont.Badge}"
-                                        VerticalOptions="Center" />
-                                </Grid>
+                        <CollectionView ItemsSource="{Binding Doctors}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="m:Doctor">
+                                    <Border
+                                        Margin="0,10"
+                                        Padding="20"
+                                        Background="{AppThemeBinding Dark={StaticResource Gray900},
+                                                                     Light={StaticResource Gray200}}">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="20" StrokeThickness="1" />
+                                        </Border.StrokeShape>
+                                        <Grid Margin="1" ColumnDefinitions="Auto, 10, *">
+                                            <Grid>
 
-                                <VerticalStackLayout Grid.Column="2">
-                                    <Label FontAttributes="Bold" Text="LBARRETO1" />
-                                    <Label LineBreakMode="TailTruncation" Text="Luis Alejandro Barreto Marín Santa Maria" />
-                                    <Label Grid.Row="2" Text="Médico Especialista" />
-                                </VerticalStackLayout>
-                            </Grid>
-                        </Border>
+                                                <Label
+                                                    FontFamily="IconFont"
+                                                    FontSize="40"
+                                                    Text="{Static utils:IconFont.Badge}"
+                                                    VerticalOptions="Center" />
+                                            </Grid>
 
+                                            <VerticalStackLayout Grid.Column="2">
+                                                <Label FontAttributes="Bold" Text="{Binding Code}" />
+                                                <Label LineBreakMode="TailTruncation" Text="{Binding Names}" />
+                                                <Label LineBreakMode="TailTruncation" Text="{Binding Lastnames}" />
+                                                <Label LineBreakMode="TailTruncation" Text="{Binding Speciality}" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </VerticalStackLayout>
                 </Border>
             </Grid>
