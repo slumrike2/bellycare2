@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="BellyCare.Views.AdminCreateDoctorView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:Barreto.Exe.Maui.Views;assembly=Barreto.Exe.Maui"
+    xmlns:exe="clr-namespace:Barreto.Exe.Maui.Controls;assembly=Barreto.Exe.Maui"
+    xmlns:m="clr-namespace:BellyCare.Models;assembly=BellyCare"
+    xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
+    xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
+    x:DataType="vm:AdminCreateDoctorViewModel">
+    <ContentPage.Resources>
+        <utils:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentPage.Resources>
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView>
+            <Grid>
+                <Image
+                    Margin="0,-60,0,0"
+                    Opacity="0.5"
+                    Source="wave.png"
+                    VerticalOptions="Start" />
+                <VerticalStackLayout Padding="20" Spacing="10">
+
+                    <!--  Informacion de registro  -->
+                    <Label Style="{StaticResource Headline}" Text="Información de Registro" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding Email}"
+                        Icon="{Static utils:IconFont.Person}"
+                        Keyboard="Email"
+                        LabelText="Email"
+                        PlaceholderText="Indica email del nuevo usuario" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding Password}"
+                        Icon="{Static utils:IconFont.Key}"
+                        IsPassword="{Binding Source={x:Reference CheckPassword}, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
+                        LabelText="Contraseña"
+                        PlaceholderText="Indica contraseña del nuevo usuario" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding ConfirmPassword}"
+                        Icon="{Static utils:IconFont.Key}"
+                        IsPassword="{Binding Source={x:Reference CheckPassword}, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
+                        LabelText="Confirmar Contraseña"
+                        PlaceholderText="Confirma la contraseña del nuevo usuario" />
+                    <HorizontalStackLayout Margin="-10,0,0,0">
+                        <CheckBox x:Name="CheckPassword" IsChecked="{Binding IsPasswordVisible}" />
+                        <Label Text="Mostrar contraseña" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+
+                    <!--  Informacion personal  -->
+                    <Label Style="{StaticResource Headline}" Text="Información Personal" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding Names}"
+                        Icon="{Static utils:IconFont.Person}"
+                        LabelText="Nombres"
+                        PlaceholderText="Indica primer y segundo nombre" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding LastNames}"
+                        Icon="{Static utils:IconFont.Perm_identity}"
+                        LabelText="Apellidos"
+                        PlaceholderText="Indica primer y segundo apellido" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding IdentificationNumber}"
+                        Icon="{Static utils:IconFont.Numbers}"
+                        Keyboard="Numeric"
+                        LabelText="Número de cédula"
+                        PlaceholderText="Indica tu número de cédula" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding Phone}"
+                        Icon="{Static utils:IconFont.Phone}"
+                        Keyboard="Telephone"
+                        LabelText="Teléfono"
+                        PlaceholderText="Indica tu número de teléfono" />
+                    <exe:LabeledDatepicker Date="{Binding BirthDate}" LabelText="Fecha de nacimiento" />
+
+
+                    <!--  Informacion profesional  -->
+                    <Label Style="{StaticResource Headline}" Text="Información Profesional" />
+                    <exe:LabeledPicker
+                        LabelText="Especialidad"
+                        Placeholder="Selecciona la especialidad del nuevo usuario"
+                        SelectedItem="{Binding SelectedSpeciality}">
+                        <exe:LabeledPicker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Doctor</x:String>
+                                <x:String>Enfermera/o</x:String>
+                                <x:String>Nutricionista</x:String>
+                            </x:Array>
+                        </exe:LabeledPicker.ItemsSource>
+                    </exe:LabeledPicker>
+                    <exe:LabeledEntry
+                        EntryText="{Binding ProfessionalCode}"
+                        Icon="{Static utils:IconFont.Numbers}"
+                        IsEnabled="False"
+                        Keyboard="Numeric"
+                        LabelText="Código de Profesional (Generado Automáticamente)" />
+
+                </VerticalStackLayout>
+            </Grid>
+
+        </ScrollView>
+
+
+        <Button
+            Grid.Row="1"
+            Margin="20,10"
+            Command="{Binding SaveCommand}"
+            Text="Guardar" />
+    </Grid>
+</base:BaseContentPage>

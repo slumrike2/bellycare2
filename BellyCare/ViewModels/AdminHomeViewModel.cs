@@ -4,6 +4,7 @@ using Barreto.Exe.Maui.ViewModels;
 using BellyCare.Models;
 using BellyCare.Repositories;
 using BellyCare.Services;
+using BellyCare.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
@@ -18,7 +19,7 @@ namespace BellyCare.ViewModels
         bool isLoading;
 
         [ObservableProperty]
-        ObservableCollection<Doctor> doctors = [];
+        ObservableCollection<FirebaseDoctor> doctors = [];
 
         [ObservableProperty]
         bool isDoctorsListEmpty;
@@ -37,17 +38,37 @@ namespace BellyCare.ViewModels
             Logout();
         }
 
+        [RelayCommand]
+        async Task ClickCreateDoctor()
+        {
+            await navigation.NavigateToAsync<AdminCreateDoctorView>();
+        }
+
+        [RelayCommand]
+        void TapDetail(FirebaseDoctor doctor)
+        {
+            navigation.NavigateToAsync<AdminCreateDoctorView>(new()
+            {
+                { "DoctorId", doctor.Id },
+                { "Doctor", doctor.Doctor }
+            });
+        }
+
         public async void OnAppearing()
         {
             IsLoading = true;
 
             try
             {
-                var doctors = (await doctorRepository.GetAll())?.Select(d => d.Object);
+                var doctors = (await doctorRepository.GetAll())?.Select(d => new FirebaseDoctor()
+                {
+                    Id = d.Key,
+                    Doctor = d.Object
+                });
 
                 if (doctors != null)
                 {
-                    Doctors = new ObservableCollection<Doctor>(doctors);
+                    Doctors = new ObservableCollection<FirebaseDoctor>(doctors);
                 }
             }
             catch (Exception ex)

@@ -34,6 +34,7 @@
 
             <Button
                 BackgroundColor="{StaticResource Primary}"
+                Command="{Binding ClickCreateDoctorCommand}"
                 FontSize="16"
                 ImageSource="add_white_24dp.png"
                 Text="Crear"
@@ -88,7 +89,7 @@
 
                         <CollectionView ItemsSource="{Binding Doctors}">
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="m:Doctor">
+                                <DataTemplate x:DataType="m:FirebaseDoctor">
                                     <Border
                                         Margin="0,10"
                                         Padding="20"
@@ -108,12 +109,16 @@
                                             </Grid>
 
                                             <VerticalStackLayout Grid.Column="2">
-                                                <Label FontAttributes="Bold" Text="{Binding Code}" />
-                                                <Label LineBreakMode="TailTruncation" Text="{Binding Names}" />
-                                                <Label LineBreakMode="TailTruncation" Text="{Binding Lastnames}" />
-                                                <Label LineBreakMode="TailTruncation" Text="{Binding Speciality}" />
+                                                <Label FontAttributes="Bold" Text="{Binding Doctor.Code}" />
+                                                <Label LineBreakMode="TailTruncation" Text="{Binding Doctor.Names}" />
+                                                <Label LineBreakMode="TailTruncation" Text="{Binding Doctor.Lastnames}" />
+                                                <Label LineBreakMode="TailTruncation" Text="{Binding Doctor.Speciality}" />
                                             </VerticalStackLayout>
                                         </Grid>
+
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AdminHomeViewModel}}, Path=TapDetailCommand}" CommandParameter="{Binding .}" />
+                                        </Border.GestureRecognizers>
                                     </Border>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

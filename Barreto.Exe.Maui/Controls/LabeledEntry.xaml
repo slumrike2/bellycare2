@@ -38,6 +38,7 @@
                 <Entry
                     x:Name="Entry"
                     Grid.Column="1"
+                    IsEnabled="{Binding IsEnabled, Source={x:Reference root}}"
                     IsPassword="{Binding IsPassword, Source={x:Reference root}}"
                     Keyboard="{Binding Keyboard, Source={x:Reference root}}"
                     Placeholder="{Binding PlaceholderText, Source={x:Reference root}}"

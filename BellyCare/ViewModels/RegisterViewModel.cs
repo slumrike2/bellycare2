@@ -83,7 +83,7 @@ namespace BellyCare.ViewModels
             var user = new Patient
             {
                 Email = Email,
-                Password = Password.Md5Encrypt()
+                Password = Password.ToMd5()
             };
 
             // Save user to database

@@ -52,11 +52,11 @@ namespace BellyCare.ViewModels
 
             // Check if the user is a patient or a doctor
             var patientTask = patientRepository
-                .GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password.Md5Encrypt());
+                .GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password.ToMd5());
             var doctorTask = doctorRepository
-                .GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password.Md5Encrypt());
+                .GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password.ToMd5());
             var adminTask = adminRepository
-                .GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password.Md5Encrypt());
+                .GetAllBy(o => o.Object.Email == Email && o.Object.Password == Password.ToMd5());
 
             try
             {

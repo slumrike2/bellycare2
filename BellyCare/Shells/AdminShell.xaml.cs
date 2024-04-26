@@ -10,6 +10,7 @@ namespace BellyCare.Shells
 
             Routing.RegisterRoute(nameof(PatientProfileView), typeof(PatientProfileView));
             Routing.RegisterRoute(nameof(PatientHomeView), typeof(PatientHomeView));
+            Routing.RegisterRoute(nameof(AdminCreateDoctorView), typeof(AdminCreateDoctorView));
         }
     }
 }

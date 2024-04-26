@@ -72,7 +72,7 @@ public static class AppUtils
             return false;
         }
     }
-    public static string Md5Encrypt(this string input)
+    public static string ToMd5(this string input)
     {
         using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
         {
