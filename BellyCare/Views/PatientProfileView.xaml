@@ -48,21 +48,11 @@
                     <exe:LabeledDatepicker Date="{Binding BirthDate}" LabelText="Fecha de nacimiento" />
                     <VerticalStackLayout>
                         <exe:LabeledPicker
+                            ItemsSource="{Binding CulturalGroups}"
                             LabelText="Grupo cultural"
                             Placeholder="Selecciona tu grupo cultural"
                             SelectedItem="{Binding CulturalGroup}"
-                            SelectedItemChanged="{Binding SelectedCulturalGroupChanged}">
-                            <exe:LabeledPicker.ItemsSource>
-                                <x:Array Type="{x:Type x:String}">
-                                    <x:String>Mestizo</x:String>
-                                    <x:String>Montubio</x:String>
-                                    <x:String>Afroecuatoriano</x:String>
-                                    <x:String>Indígena</x:String>
-                                    <x:String>Blanco</x:String>
-                                    <x:String>Otro</x:String>
-                                </x:Array>
-                            </exe:LabeledPicker.ItemsSource>
-                        </exe:LabeledPicker>
+                            SelectedItemChanged="{Binding SelectedCulturalGroupChanged}" />
                         <exe:LabeledEntry
                             EntryText="{Binding CulturalGroupAlt}"
                             Icon="{Static utils:IconFont.Person}"

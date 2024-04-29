@@ -31,6 +31,9 @@ namespace BellyCare.ViewModels
         DateTime birthDate;
 
         [ObservableProperty]
+        string[] culturalGroups = ["Mestizo", "Montubio", "Afroecuatoriano", "Indígena", "Blanco", "Otro"];
+
+        [ObservableProperty]
         string culturalGroup;
 
         [ObservableProperty]
@@ -80,10 +83,10 @@ namespace BellyCare.ViewModels
         [ObservableProperty]
         EventHandler selectedCulturalGroupChanged = (sender, e) =>
         {
-            if (sender is LabeledPicker picker)
+            var labeledPicker = sender as LabeledPicker;
+            if (labeledPicker?.BindingContext is PatientProfileViewModel vm)
             {
-                var viewModel = (PatientProfileViewModel)picker.BindingContext;
-                viewModel.IsOtherCulturalGroup = viewModel.CulturalGroup == "Otro";
+                vm.IsOtherCulturalGroup = vm.CulturalGroup == "Otro";
             }
         };
         #endregion
@@ -122,7 +125,7 @@ namespace BellyCare.ViewModels
                 IdentificationNumber = IdentificationNumber.Trim(),
                 PhoneNumber = Phone.Trim(),
                 BirthDate = BirthDate,
-                SelectedCulturalGroup = CulturalGroup.Trim(),
+                SelectedCulturalGroup = CulturalGroup.Trim() == "Otro" ? CulturalGroupAlt.Trim() : CulturalGroup.Trim(),
                 PregnanciesCount = PregnanciesCount,
                 NaturalBirthsCount = NaturalBirthsCount,
                 CesareanBirthsCount = CesareanBirthsCount,
@@ -189,12 +192,15 @@ namespace BellyCare.ViewModels
                 patient = settings.Patient;
             }
 
+            bool isAltCultureGroup = !CulturalGroups.Contains(patient.SelectedCulturalGroup);
+
             Names = patient.Names;
             LastNames = patient.Lastnames;
             IdentificationNumber = patient.IdentificationNumber;
             Phone = patient.PhoneNumber;
             BirthDate = patient.BirthDate ?? DateTime.Now;
-            CulturalGroup = patient.SelectedCulturalGroup;
+            CulturalGroup = isAltCultureGroup ? "Otro" : patient.SelectedCulturalGroup;
+            CulturalGroupAlt = isAltCultureGroup ? patient.SelectedCulturalGroup : string.Empty;
             PregnanciesCount = patient.PregnanciesCount;
             NaturalBirthsCount = patient.NaturalBirthsCount;
             CesareanBirthsCount = patient.CesareanBirthsCount;
