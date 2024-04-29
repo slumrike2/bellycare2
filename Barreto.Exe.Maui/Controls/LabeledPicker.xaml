@@ -41,6 +41,7 @@
                     Title="{Binding Placeholder, Source={x:Reference root}}"
                     Grid.Column="1"
                     ItemsSource="{Binding ItemsSource, Source={x:Reference root}}"
+                    SelectedIndexChanged="SelectedIndexChangedHandler"
                     SelectedItem="{Binding SelectedItem, Source={x:Reference root}}"
                     TitleColor="{AppThemeBinding Light=Gray,
                                                  Dark=LightGray}" />

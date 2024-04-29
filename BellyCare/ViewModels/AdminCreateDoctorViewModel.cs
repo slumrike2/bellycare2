@@ -90,7 +90,6 @@ namespace BellyCare.ViewModels
                 await UpdateDoctor();
             }
         }
-
         async Task CreateDoctor()
         {
             Doctor doctor = new()
@@ -131,7 +130,6 @@ namespace BellyCare.ViewModels
                 await navigation.GoBackAsync();
             }
         }
-
         async Task UpdateDoctor()
         {
             Doctor doctor = new()
@@ -172,6 +170,8 @@ namespace BellyCare.ViewModels
                     Names = doctor.Names;
                     LastNames = doctor.Lastnames;
                     Email = doctor.Email;
+                    Password = string.Empty;
+                    ConfirmPassword = string.Empty;
                     IdentificationNumber = doctor.IdentificationNumber;
                     Phone = doctor.PhoneNumber;
                     BirthDate = doctor.BirthDate ?? DateTime.Now;
@@ -194,7 +194,19 @@ namespace BellyCare.ViewModels
                 await navigation.GoBackAsync();
             }
         }
-
+        async Task ResetForm()
+        {
+            Email = string.Empty;
+            Password = string.Empty;
+            ConfirmPassword = string.Empty;
+            Names = string.Empty;
+            LastNames = string.Empty;
+            IdentificationNumber = string.Empty;
+            Phone = string.Empty;
+            BirthDate = DateTime.Now;
+            SelectedSpeciality = string.Empty;
+            ProfessionalCode = await GenerateDoctorCode();
+        }
         bool IsFormFilled()
         {
             return
@@ -210,7 +222,6 @@ namespace BellyCare.ViewModels
                 BirthDate != null &&
                 !string.IsNullOrEmpty(SelectedSpeciality);
         }
-
         async Task<string> GenerateDoctorCode()
         {
             string code = "BC";
@@ -243,15 +254,12 @@ namespace BellyCare.ViewModels
             // Is editing doctor
             if(!string.IsNullOrEmpty(DoctorId))
             {
-                // Load doctor data
                 await PreloadForm();
             }
             // Is creating doctor
             else
             {
-                // Set default values
-                BirthDate = DateTime.Now;
-                ProfessionalCode = await GenerateDoctorCode();
+                await ResetForm();
             }
         }
 

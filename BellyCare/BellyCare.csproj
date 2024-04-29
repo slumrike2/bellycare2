@@ -62,6 +62,7 @@
 	  <None Remove="Resources\Images\create.svg" />
 	  <None Remove="Resources\Images\doctors.svg" />
 	  <None Remove="Resources\Images\logout_white_24dp.svg" />
+	  <None Remove="Resources\Images\qr.svg" />
 	  <None Remove="Resources\Images\wave.png" />
 	  <None Remove="Resources\Raw\data.json" />
 	</ItemGroup>

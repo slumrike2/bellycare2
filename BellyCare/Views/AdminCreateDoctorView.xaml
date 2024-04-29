@@ -48,6 +48,11 @@
                         <Label Text="Mostrar contraseña" VerticalOptions="Center" />
                     </HorizontalStackLayout>
 
+                    <!--  Gray separator  -->
+                    <BoxView
+                        Margin="20,30"
+                        BackgroundColor="LightGray"
+                        HeightRequest="1" />
 
                     <!--  Informacion personal  -->
                     <Label Style="{StaticResource Headline}" Text="Información Personal" />
@@ -75,6 +80,11 @@
                         PlaceholderText="Indica tu número de teléfono" />
                     <exe:LabeledDatepicker Date="{Binding BirthDate}" LabelText="Fecha de nacimiento" />
 
+                    <!--  Gray separator  -->
+                    <BoxView
+                        Margin="20,30"
+                        BackgroundColor="LightGray"
+                        HeightRequest="1" />
 
                     <!--  Informacion profesional  -->
                     <Label Style="{StaticResource Headline}" Text="Información Profesional" />
@@ -90,12 +100,27 @@
                             </x:Array>
                         </exe:LabeledPicker.ItemsSource>
                     </exe:LabeledPicker>
-                    <exe:LabeledEntry
-                        EntryText="{Binding ProfessionalCode}"
-                        Icon="{Static utils:IconFont.Numbers}"
-                        IsEnabled="False"
-                        Keyboard="Numeric"
-                        LabelText="Código de Profesional (Generado Automáticamente)" />
+
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+                        <Label
+                            Grid.ColumnSpan="2"
+                            Margin="0,0,0,5"
+                            Text="Código de Profesional (Generado Automáticamente)" />
+
+                        <Button
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            ImageSource="qr.png" />
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            Text="{Binding ProfessionalCode}"
+                            VerticalOptions="Center" />
+                    </Grid>
 
                 </VerticalStackLayout>
             </Grid>

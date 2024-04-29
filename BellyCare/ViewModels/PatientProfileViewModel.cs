@@ -1,4 +1,5 @@
-﻿using Barreto.Exe.Maui.Services.Navigation;
+﻿using Barreto.Exe.Maui.Controls;
+using Barreto.Exe.Maui.Services.Navigation;
 using Barreto.Exe.Maui.Utils;
 using Barreto.Exe.Maui.ViewModels;
 using BellyCare.Models;
@@ -12,7 +13,7 @@ namespace BellyCare.ViewModels
     public partial class PatientProfileViewModel : BaseViewModel, IEventfulViewModel
     {
         private readonly BaseOnlineRepository<Patient> patientRepository;
-        
+
         #region Properties
         [ObservableProperty]
         string names;
@@ -31,6 +32,12 @@ namespace BellyCare.ViewModels
 
         [ObservableProperty]
         string culturalGroup;
+
+        [ObservableProperty]
+        string culturalGroupAlt;
+
+        [ObservableProperty]
+        bool isOtherCulturalGroup;
 
         [ObservableProperty]
         int pregnanciesCount;
@@ -67,6 +74,18 @@ namespace BellyCare.ViewModels
 
         [ObservableProperty]
         string insuranceName;
+        #endregion
+
+        #region Events
+        [ObservableProperty]
+        EventHandler selectedCulturalGroupChanged = (sender, e) =>
+        {
+            if (sender is LabeledPicker picker)
+            {
+                var viewModel = (PatientProfileViewModel)picker.BindingContext;
+                viewModel.IsOtherCulturalGroup = viewModel.CulturalGroup == "Otro";
+            }
+        };
         #endregion
 
         public PatientProfileViewModel(
@@ -132,6 +151,7 @@ namespace BellyCare.ViewModels
             }
         }
 
+
         private bool IsFormFilled()
         {
             return 
@@ -141,6 +161,7 @@ namespace BellyCare.ViewModels
                 !string.IsNullOrEmpty(Phone) &&
                 BirthDate != null &&
                 !string.IsNullOrEmpty(CulturalGroup) &&
+                (CulturalGroup != "Otro" || !string.IsNullOrEmpty(CulturalGroupAlt)) &&
                 PregnanciesCount > 0 &&
                 NaturalBirthsCount >= 0 &&
                 CesareanBirthsCount >= 0 &&

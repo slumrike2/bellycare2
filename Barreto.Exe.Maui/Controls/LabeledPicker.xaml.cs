@@ -39,9 +39,21 @@ public partial class LabeledPicker : ContentView
         set => SetValue(ItemsSourceProperty, value);
     }
 
+    public static readonly BindableProperty SelectedItemChangedProperty = BindableProperty.Create(nameof(SelectedItemChanged), typeof(EventHandler), typeof(LabeledPicker), null);
+    public EventHandler SelectedItemChanged
+    {
+        get => (EventHandler)GetValue(SelectedItemChangedProperty);
+        set => SetValue(SelectedItemChangedProperty, value);
+    }
 
     public LabeledPicker()
 	{
 		InitializeComponent();
 	}
+
+    public void SelectedIndexChangedHandler(object sender, EventArgs e)
+    {
+        SelectedItemChanged?.Invoke(this, e);
+    }
+
 }
