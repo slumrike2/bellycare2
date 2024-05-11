@@ -4,6 +4,8 @@ using Barreto.Exe.Maui.ViewModels;
 using BellyCare.Models;
 using BellyCare.Repositories;
 using BellyCare.Services;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -211,7 +213,7 @@ namespace BellyCare.ViewModels
         {
             return
                 //Validate password and confirm password if creating doctor
-                (string.IsNullOrEmpty(DoctorId) || (!string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(ConfirmPassword))) &&
+                (!string.IsNullOrEmpty(DoctorId) || (!string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(ConfirmPassword))) &&
                 
                 //Validate rest of the fields
                 !string.IsNullOrEmpty(Email) &&
@@ -247,6 +249,16 @@ namespace BellyCare.ViewModels
                     return null;
                 }
             } while (true);
+        }
+
+        [RelayCommand]
+        async Task CopyCode()
+        {
+            await Clipboard.SetTextAsync(ProfessionalCode);
+
+            //Display toast
+            var toast = Toast.Make("Copiado al portapapeles", ToastDuration.Short);
+            await toast.Show();
         }
 
         public async void OnAppearing()

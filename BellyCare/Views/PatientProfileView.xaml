@@ -211,6 +211,21 @@
                         </exe:LabeledPicker.ItemsSource>
                     </exe:LabeledPicker>
 
+                    <!--  Gray separator  -->
+                    <BoxView
+                        Margin="20,30"
+                        BackgroundColor="LightGray"
+                        HeightRequest="1" />
+
+                    <!--  Informacion de su doctor  -->
+                    <Label Style="{StaticResource Headline}" Text="Seguimiento Profesional" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding DoctorCode}"
+                        Icon="{Static utils:IconFont.Numbers}"
+                        LabelText="Código del profesional de la salud"
+                        PlaceholderText="Código de su doctor/nutricionista/enfermero(a)" />
+
+
                 </VerticalStackLayout>
 
             </Grid>

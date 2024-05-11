@@ -59,8 +59,10 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
 	  <None Remove="Resources\Images\add_white_24dp.svg" />
+	  <None Remove="Resources\Images\copy.svg" />
 	  <None Remove="Resources\Images\create.svg" />
 	  <None Remove="Resources\Images\doctors.svg" />
+	  <None Remove="Resources\Images\grape.png" />
 	  <None Remove="Resources\Images\logout_white_24dp.svg" />
 	  <None Remove="Resources\Images\qr.svg" />
 	  <None Remove="Resources\Images\wave.png" />

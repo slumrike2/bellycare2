@@ -8,6 +8,7 @@
     xmlns:m="clr-namespace:BellyCare.Models;assembly=BellyCare"
     xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
+    Title="Profesional"
     x:DataType="vm:AdminCreateDoctorViewModel">
     <ContentPage.Resources>
         <utils:InverseBooleanConverter x:Key="InverseBooleanConverter" />
@@ -110,7 +111,8 @@
                         <Button
                             Grid.Row="1"
                             Grid.Column="0"
-                            ImageSource="qr.png" />
+                            Command="{Binding CopyCodeCommand}"
+                            ImageSource="copy.png" />
 
                         <Label
                             Grid.Row="1"

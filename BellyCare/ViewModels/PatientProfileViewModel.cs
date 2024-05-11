@@ -13,6 +13,7 @@ namespace BellyCare.ViewModels
     public partial class PatientProfileViewModel : BaseViewModel, IEventfulViewModel
     {
         private readonly BaseOnlineRepository<Patient> patientRepository;
+        private readonly BaseOnlineRepository<Doctor> doctorRepository;
 
         #region Properties
         [ObservableProperty]
@@ -77,6 +78,9 @@ namespace BellyCare.ViewModels
 
         [ObservableProperty]
         string insuranceName;
+
+        [ObservableProperty]
+        string doctorCode;
         #endregion
 
         #region Events
@@ -94,9 +98,11 @@ namespace BellyCare.ViewModels
         public PatientProfileViewModel(
             ISettingsService settings, 
             INavigationService navigationService,
-            BaseOnlineRepository<Patient> patientRepository) : base(settings, navigationService)
+            BaseOnlineRepository<Patient> patientRepository,
+            BaseOnlineRepository<Doctor> doctorRepository) : base(settings, navigationService)
         {
             this.patientRepository = patientRepository;
+            this.doctorRepository = doctorRepository;
         }
 
         [RelayCommand]
@@ -114,6 +120,27 @@ namespace BellyCare.ViewModels
             {
                 return;
             }
+
+            //Validate doctor code
+            if(!string.IsNullOrEmpty(DoctorCode))
+            {
+                try
+                {
+                    var doctor = (await doctorRepository.GetAllBy(x => x.Object.Code == DoctorCode.Trim())).FirstOrDefault();
+
+                    if(doctor == null)
+                    {
+                        await AppUtils.ShowAlert("El código de doctor ingresado no es válido.");
+                        return;
+                    }
+                }
+                catch (Exception)
+                {
+                    await AppUtils.ShowAlert("Error al validar el código de doctor. Por favor, inténtelo de nuevo.");
+                    return;
+                }
+            }
+
 
             Patient patient = new()
             {
@@ -138,6 +165,7 @@ namespace BellyCare.ViewModels
                 AdressReference = AddressReference.Trim(),
                 HasInsurance = HasInsurance,
                 InsuranceName = InsuranceName?.Trim() ?? string.Empty,
+                DoctorCode = DoctorCode
             };
 
             try
@@ -213,6 +241,7 @@ namespace BellyCare.ViewModels
             AddressReference = patient.AdressReference;
             HasInsurance = patient.HasInsurance;
             InsuranceName = patient.InsuranceName;
+            DoctorCode = patient.DoctorCode;
         }
 
         public void OnAppearing()

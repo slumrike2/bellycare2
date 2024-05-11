@@ -16,5 +16,6 @@
         public string AdressReference { get; set; }
         public bool HasInsurance { get; set; }
         public string InsuranceName { get; set; }
+        public string DoctorCode { get; set; }
     }
 }
