@@ -50,6 +50,7 @@ namespace BellyCare
             builder.Services.AddSingleton<PatientHomeViewModel>();
             builder.Services.AddSingleton<AdminHomeViewModel>();
             builder.Services.AddSingleton<AdminCreateDoctorViewModel>();
+            builder.Services.AddSingleton<PatientProgressViewModel>();
 
             //DI Views
             builder.Services.AddSingleton<LoginView>();
@@ -59,6 +60,7 @@ namespace BellyCare
             builder.Services.AddSingleton<PatientHomeView>();
             builder.Services.AddSingleton<AdminHomeView>();
             builder.Services.AddSingleton<AdminCreateDoctorView>();
+            builder.Services.AddSingleton<PatientProgressView>();
 
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
 

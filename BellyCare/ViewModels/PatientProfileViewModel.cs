@@ -165,7 +165,7 @@ namespace BellyCare.ViewModels
                 AdressReference = AddressReference.Trim(),
                 HasInsurance = HasInsurance,
                 InsuranceName = InsuranceName?.Trim() ?? string.Empty,
-                DoctorCode = DoctorCode
+                DoctorCode = DoctorCode,
             };
 
             try

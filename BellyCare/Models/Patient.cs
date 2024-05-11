@@ -1,4 +1,6 @@
-﻿namespace BellyCare.Models
+﻿using Firebase.Database;
+
+namespace BellyCare.Models
 {
     public class Patient : User
     {
@@ -17,5 +19,7 @@
         public bool HasInsurance { get; set; }
         public string InsuranceName { get; set; }
         public string DoctorCode { get; set; }
+
+        public TrackEntry[]? TrackEntries { get; set; }
     }
 }

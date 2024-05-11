@@ -9,6 +9,13 @@ namespace BellyCare.Repositories
         private readonly FirebaseClient db = db;
         private readonly string child = typeof(T).Name;
 
+        public string Child
+        {
+            get => child;
+            //set => child = value;
+        }
+
+
         /// <summary>
         /// Gets all entities from the database.
         /// </summary>

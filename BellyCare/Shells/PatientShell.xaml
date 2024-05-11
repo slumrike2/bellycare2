@@ -31,16 +31,29 @@
         </ShellContent>
 
         <ShellContent
-            Title="Perfil"
-            ContentTemplate="{DataTemplate local:PatientProfileView}"
-            Route="PatientProfileView">
+            Title="Progreso"
+            ContentTemplate="{DataTemplate local:PatientProgressView}"
+            Route="PatientProgressView">
             <ShellContent.Icon>
                 <FontImageSource
                     FontFamily="IconFont"
-                    Glyph="{x:Static icon:IconFont.Person}"
+                    Glyph="{x:Static icon:IconFont.Book}"
                     Color="Gray" />
             </ShellContent.Icon>
         </ShellContent>
     </FlyoutItem>
+
+
+    <ShellContent
+        Title="Perfil"
+        ContentTemplate="{DataTemplate local:PatientProfileView}"
+        Route="PatientProfileView">
+        <ShellContent.Icon>
+            <FontImageSource
+                FontFamily="IconFont"
+                Glyph="{x:Static icon:IconFont.Person}"
+                Color="Gray" />
+        </ShellContent.Icon>
+    </ShellContent>
 
 </Shell>
