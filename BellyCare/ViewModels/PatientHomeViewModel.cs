@@ -13,6 +13,7 @@ namespace BellyCare.ViewModels
     public partial class PatientHomeViewModel : BaseViewModel, IEventfulViewModel
     {
         private readonly BaseOnlineRepository<Patient> patientRepository;
+        private readonly BaseOnlineRepository<Doctor> doctorRepository;
         private readonly BaseOnlineRepository<TrackEntry> trackRepository;
 
         private readonly IEnumerable<dynamic> fruitGrowthData = new List<dynamic>
@@ -81,14 +82,19 @@ namespace BellyCare.ViewModels
 
         [ObservableProperty]
         string currentFruit;
+
+        [ObservableProperty]
+        string doctorName;
         #endregion
 
         public PatientHomeViewModel
             (ISettingsService settings, 
             INavigationService navigationService,
-            BaseOnlineRepository<Patient> patientRepository) : base(settings, navigationService)
+            BaseOnlineRepository<Patient> patientRepository,
+            BaseOnlineRepository<Doctor> doctorRepository) : base(settings, navigationService)
         {
             this.patientRepository = patientRepository;
+            this.doctorRepository = doctorRepository;
             trackRepository = patientRepository.GetChildRepository<TrackEntry>(settings.AccessToken, "TrackEntries");
         }
 
@@ -98,11 +104,20 @@ namespace BellyCare.ViewModels
             Logout();
         }
 
-        public void OnAppearing()
+        public async void OnAppearing()
         {
             Name = settings.Patient.Names;
 
-            if (settings.Patient.LastMenstruationDate is not DateTime lastMenstruationDate) return;
+            SetCurrentWeekData();
+
+            await SetDoctorInfo();
+        }
+
+        private void SetCurrentWeekData()
+        {
+            if (settings.Patient.LastMenstruationDate is null) return;
+
+            var lastMenstruationDate = settings.Patient.LastMenstruationDate.Value;
 
             ProbableBithDate = lastMenstruationDate.AddDays(280);
             ProbableBithDateFormatted = string.Format("{0:dd} de {0:MMMM} del {0:yyyy}", ProbableBithDate);
@@ -111,11 +126,10 @@ namespace BellyCare.ViewModels
             CurrentWeek = (int)(DateTime.Now - lastMenstruationDate).TotalDays / 7;
             CurrentProgress = (280 - DaysLeft) / 280.0;
 
-            // Find the data for the current week
             var currentWeekData = fruitGrowthData.FirstOrDefault(data => data.Week >= CurrentWeek || (data.Week == 42 && CurrentWeek > 42));
 
             if (currentWeekData != null)
-            { 
+            {
                 CurrentSize = currentWeekData.Size;
                 CurrentWeight = currentWeekData.Weight;
                 CurrentFruit = currentWeekData.Fruit + ".png";
@@ -127,7 +141,29 @@ namespace BellyCare.ViewModels
                 CurrentWeight = 0;
                 CurrentFruit = "fetus.png";
             }
+        }
 
+        private async Task SetDoctorInfo()
+        {
+            var doctor = (await doctorRepository.GetAllBy(x => x.Object.Code == settings.Patient.DoctorCode)).FirstOrDefault();
+            if (doctor != null)
+            {
+                switch (doctor.Object.Speciality)
+                {
+                    case "Doctor":
+                        DoctorName = "Dr.";
+                        break;
+                    default:
+                        DoctorName = doctor.Object.Speciality;
+                        break;
+                }
+
+                DoctorName += " " + doctor.Object.Names + " " + doctor.Object.Lastnames;
+            }
+            else
+            {
+                DoctorName = "Profesional de la salud no asignado";
+            }
         }
 
         public void OnDisappearing()

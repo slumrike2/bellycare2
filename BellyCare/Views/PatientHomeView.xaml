@@ -67,7 +67,7 @@
                     </Border.StrokeShape>
 
                     <Grid
-                        ColumnDefinitions="2*,*"
+                        ColumnDefinitions="1.5*,*"
                         RowDefinitions="Auto, Auto"
                         RowSpacing="10">
                         <Image
@@ -189,7 +189,7 @@
 
 
                             <VerticalStackLayout Grid.Column="1">
-                                <Label LineBreakMode="TailTruncation" Text="Dr. Mario Neta" />
+                                <Label LineBreakMode="WordWrap" Text="{Binding DoctorName}" />
                                 <Label LineBreakMode="TailTruncation" Text="0 mensajes sin leer" />
                             </VerticalStackLayout>
 
