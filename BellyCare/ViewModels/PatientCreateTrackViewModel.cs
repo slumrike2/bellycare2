@@ -144,6 +144,27 @@ namespace BellyCare.ViewModels
             Note = Entry.TrackEntry.Note ?? string.Empty;
         }
 
+        void ResetForm()
+        {
+            Date = DateTime.Now;
+            Weight = string.Empty;
+            BellySize = string.Empty;
+            HeartRate = string.Empty;
+            RespiratoryRate = string.Empty;
+            OxygenSaturation = string.Empty;
+            BloodPressure = string.Empty;
+            Hemoglobin = string.Empty;
+            Glucose = string.Empty;
+            Temperature = string.Empty;
+            AbdominalCircumference = string.Empty;
+            LabResults = string.Empty;
+            VdrlTest = false;
+            VdrlResult = false;
+            VdrlDate = DateTime.Now;
+            Treatment = string.Empty;
+            Note = string.Empty;
+        }
+
         public void OnAppearing()
         {
             if(Entry is not null)
@@ -161,6 +182,7 @@ namespace BellyCare.ViewModels
 
         public void OnDisappearing()
         {
+            ResetForm();
         }
     }
 }
