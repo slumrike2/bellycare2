@@ -7,12 +7,27 @@ namespace BellyCare.Repositories
     public class BaseOnlineRepository <T> (FirebaseClient db) where T : class
     {
         private readonly FirebaseClient db = db;
-        private readonly string child = typeof(T).Name;
+        private string child = typeof(T).Name;
 
         public string Child
         {
             get => child;
-            //set => child = value;
+            protected set => child = value;
+        }
+
+        public BaseOnlineRepository<J> GetChildRepository<J>(params string[] strings) where J : class
+        {
+            var repository = new BaseOnlineRepository<J>(db)
+            {
+                Child = typeof(T).Name
+            };
+
+            foreach (var str in strings)
+            {
+                repository.Child += "/" + str;
+            }
+
+            return repository;
         }
 
 

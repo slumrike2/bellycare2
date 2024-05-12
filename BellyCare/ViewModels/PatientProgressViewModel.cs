@@ -3,7 +3,9 @@ using Barreto.Exe.Maui.ViewModels;
 using BellyCare.Models;
 using BellyCare.Repositories;
 using BellyCare.Services;
+using BellyCare.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
 namespace BellyCare.ViewModels
@@ -12,9 +14,10 @@ namespace BellyCare.ViewModels
     public partial class PatientProgressViewModel : BaseViewModel, IEventfulViewModel
     {
         private readonly BaseOnlineRepository<Patient> patientRepository;
+        private BaseOnlineRepository<TrackEntry> trackRepository;
 
         [ObservableProperty]
-        ObservableCollection<TrackEntry> trackEntries;
+        ObservableCollection<FirebaseTrackEntry> trackEntries;
 
         [ObservableProperty]
         string patientId;
@@ -30,17 +33,29 @@ namespace BellyCare.ViewModels
             this.patientRepository = patientRepository;
         }
 
+        [RelayCommand]
+        async Task TapDetail(FirebaseTrackEntry entry)
+        {
+            await navigation.NavigateToAsync<PatientCreateTrackView>(new()
+            {
+                { "TrackRepository", trackRepository },
+                { "Entry", entry}
+            });
+        }
+
         public async void OnAppearing()
         {
             IsLoading = true;
 
             string patientId = PatientId ?? settings.AccessToken;
+            trackRepository = patientRepository.GetChildRepository<TrackEntry>(patientId, "TrackEntries");
 
-            var entries =
-                (await patientRepository.GetAllBy(x => x.Key == patientId))
-                .FirstOrDefault()?
-                .Object
-                .TrackEntries;
+            var entries = (await trackRepository.GetAll()).Select(x => new FirebaseTrackEntry()
+            {
+                Id = x.Key,
+                TrackEntry = x.Object
+
+            }).ToList();
 
             if (entries is null)
             {
@@ -49,7 +64,7 @@ namespace BellyCare.ViewModels
                 return;
             }
 
-            TrackEntries = new ObservableCollection<TrackEntry>(entries);
+            TrackEntries = new(entries);
 
             IsLoading = false;
         }
