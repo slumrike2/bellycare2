@@ -9,10 +9,134 @@
     xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
     Title="Seguimiento físico"
     x:DataType="vm:PatientCreateTrackViewModel">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.Resources>
+        <utils:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentPage.Resources>
+    <Grid RowDefinitions="*,Auto">
+        <ScrollView x:Name="ScrollView">
+            <Grid>
+                <Image
+                    Margin="0,-60,0,0"
+                    Opacity="0.5"
+                    Source="wave.png"
+                    VerticalOptions="Start" />
+
+                <VerticalStackLayout Padding="20" Spacing="10">
+
+                    <exe:LabeledDatepicker Date="{Binding Date}" LabelText="Fecha del seguimiento" />
+
+                    <exe:LabeledEntry
+                        EntryText="{Binding Weight}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Numeric"
+                        LabelText="Peso (kg)"
+                        PlaceholderText="Indica el peso actual en kilogramos" />
+
+                    <exe:LabeledEntry
+                        EntryText="{Binding BellySize}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Numeric"
+                        LabelText="Talla (cm)"
+                        PlaceholderText="Indica la talla en centímetros" />
+
+
+                    <exe:LabeledEntry
+                        EntryText="{Binding HeartRate}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Numeric"
+                        LabelText="Frecuencia cardíaca (LPM)"
+                        PlaceholderText="Indica la frecuencia cardíaca" />
+
+                    <exe:LabeledEntry
+                        EntryText="{Binding RespiratoryRate}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Numeric"
+                        LabelText="Frecuencia respiratoria (RPM)"
+                        PlaceholderText="Indica la frecuencia respiratoria" />
+
+                    <exe:LabeledEntry
+                        EntryText="{Binding OxygenSaturation}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Numeric"
+                        LabelText="Saturación de oxígeno (SPO2)"
+                        PlaceholderText="Indica la saturación de oxígeno" />
+
+                    <exe:LabeledEntry
+                        EntryText="{Binding BloodPressure}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Numeric"
+                        LabelText="Presión arterial"
+                        PlaceholderText="Indica la presión arterial" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding Hemoglobin}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Numeric"
+                        LabelText="Hemoglobina"
+                        PlaceholderText="Indica la hemoglobina" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding Glucose}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Numeric"
+                        LabelText="Glucosa"
+                        PlaceholderText="Indica la glucosa" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding Temperature}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Numeric"
+                        LabelText="Temperatura (C°)"
+                        PlaceholderText="Indica la temperatura en grados centígrados" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding AbdominalCircumference}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Numeric"
+                        LabelText="Circunferencia abdominal (cm)"
+                        PlaceholderText="Indica la circunferencia abdominal en centímetros" />
+
+                    <!--<exe:LabeledEntry
+                        EntryText="{Binding LabResults}"
+                        Icon="{Static utils:IconFont.Format_list_numbered}"
+                        Keyboard="Default"
+                        LabelText="Resultados de laboratorio"
+                        PlaceholderText="Indica los resultados de laboratorio" />-->
+
+                    <HorizontalStackLayout>
+                        <Label Text="¿Prueba VDLR realizada?" VerticalOptions="Center" />
+                        <RadioButton Content="No" IsChecked="{Binding VdrlTest, Converter={StaticResource InverseBooleanConverter}}" />
+                        <RadioButton Content="Sí" IsChecked="{Binding VdrlTest}" />
+                    </HorizontalStackLayout>
+
+                    <VerticalStackLayout IsVisible="{Binding VdrlTest}" Spacing="10">
+                        <exe:LabeledDatepicker Date="{Binding VdrlDate}" LabelText="Fecha de la prueba VDLR" />
+
+                        <VerticalStackLayout>
+                            <Label Text="¿Resultado de la prueba VDLR?" VerticalOptions="Center" />
+                            <RadioButton Content="Positivo" IsChecked="{Binding VdrlResult}" />
+                            <RadioButton Content="Negativo" IsChecked="{Binding VdrlResult, Converter={StaticResource InverseBooleanConverter}}" />
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+
+                    <exe:LabeledEditor
+                        EditorText="{Binding Treatment}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Default"
+                        LabelText="Tratamiento"
+                        PlaceholderText="Indica el tratamiento que fue asignado" />
+
+                    <exe:LabeledEditor
+                        EditorText="{Binding Note}"
+                        Icon="{Static utils:IconFont.Medical_information}"
+                        Keyboard="Default"
+                        LabelText="Observaciones"
+                        PlaceholderText="Indica las observaciones" />
+
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+
+        <Button
+            Grid.Row="1"
+            Margin="20,10"
+            Command="{Binding SaveCommand}"
+            Text="Guardar" />
+    </Grid>
 </base:BaseContentPage>

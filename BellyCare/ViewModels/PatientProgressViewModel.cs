@@ -43,6 +43,12 @@ namespace BellyCare.ViewModels
             });
         }
 
+        [RelayCommand]
+        async Task Create()
+        {
+            await navigation.NavigateToAsync<PatientCreateTrackView>();
+        }
+
         public async void OnAppearing()
         {
             IsLoading = true;

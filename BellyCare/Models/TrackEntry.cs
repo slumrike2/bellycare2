@@ -2,15 +2,14 @@
 {
     public class TrackEntry
     {
-        public string Id { get; set; }
         public DateTime Date { get; set; }
         public double? Weight { get; set; }
         public double? BellySize { get; set; }
         public double? HeartRate { get; set; }
         public double? RespiratoryRate { get; set; }
         public double? OxygenSaturation { get; set; }
-        public string BloodPressure { get; set; }
-        public string Hemoglobin { get; set; }
+        public double? BloodPressure { get; set; }
+        public double? Hemoglobin { get; set; }
         public double? Glucose { get; set; }
         public double? Temperature { get; set; }
         public double? AbdominalCircumference { get; set; }
@@ -19,8 +18,8 @@
         public bool? VdrlResult { get; set; }
         public DateTime? VdrlDate { get; set; }
         public string Treatment { get; set; }
-        public double? IMC { get; set; }
         public string Note { get; set; }
+        public double? IMC { get; set; }
     }
 
     public class FirebaseTrackEntry

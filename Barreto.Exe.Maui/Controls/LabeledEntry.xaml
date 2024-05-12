@@ -25,16 +25,14 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Image>
-                    <Image.Source>
-                        <FontImageSource
-                            FontFamily="IconFont"
-                            Glyph="{Binding Icon, Source={x:Reference root}}"
-                            Size="28"
-                            Color="{AppThemeBinding Dark=White,
-                                                    Light=Gray}" />
-                    </Image.Source>
-                </Image>
+
+                <Label
+                    FontFamily="IconFont"
+                    FontSize="28"
+                    Text="{Binding Icon, Source={x:Reference root}}"
+                    TextColor="{AppThemeBinding Dark=White,
+                                                Light=Gray}"
+                    VerticalOptions="Center" />
                 <Entry
                     x:Name="Entry"
                     Grid.Column="1"

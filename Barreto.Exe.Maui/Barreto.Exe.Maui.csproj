@@ -23,6 +23,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Controls\LabeledEditor.xaml.cs">
+	    <DependentUpon>LabeledEditor.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Controls\LabeledPicker.xaml.cs">
 	    <DependentUpon>LabeledPicker.xaml</DependentUpon>
 	  </Compile>
@@ -32,6 +35,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Controls\LabeledEditor.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\LabeledPicker.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView
-    x:Class="Barreto.Exe.Maui.Controls.LabeledPicker"
+    x:Class="Barreto.Exe.Maui.Controls.LabeledEditor"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:b="clr-namespace:Barreto.Exe.Maui.Controls"
     xmlns:icon="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     x:Name="root"
-    x:DataType="b:LabeledPicker">
-    <VerticalStackLayout>
+    x:DataType="b:LabeledEditor">
+    <Grid MinimumHeightRequest="150" RowDefinitions="Auto,*">
         <Label
             x:Name="Label"
             Margin="0,0,0,5"
             Text="{Binding LabelText, Source={x:Reference root}}" />
-
         <Border
+            Grid.Row="1"
             Margin="2,0"
             Padding="0"
             BackgroundColor="{AppThemeBinding Dark=Gray,
-                                              Light=White}">
+                                              Light=White}"
+            VerticalOptions="Fill">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="8" />
             </Border.StrokeShape>
@@ -26,7 +27,6 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-
                 <Label
                     FontFamily="IconFont"
                     FontSize="28"
@@ -34,17 +34,17 @@
                     TextColor="{AppThemeBinding Dark=White,
                                                 Light=Gray}"
                     VerticalOptions="Center" />
-                <Picker
-                    x:Name="Picker"
-                    Title="{Binding Placeholder, Source={x:Reference root}}"
+                <Editor
+                    x:Name="Entry"
                     Grid.Column="1"
-                    ItemsSource="{Binding ItemsSource, Source={x:Reference root}}"
-                    SelectedIndexChanged="SelectedIndexChangedHandler"
-                    SelectedItem="{Binding SelectedItem, Source={x:Reference root}}"
-                    TitleColor="{AppThemeBinding Light=Gray,
-                                                 Dark=LightGray}" />
+                    AutoSize="TextChanges"
+                    IsEnabled="{Binding IsEnabled, Source={x:Reference root}}"
+                    Keyboard="{Binding Keyboard, Source={x:Reference root}}"
+                    Placeholder="{Binding PlaceholderText, Source={x:Reference root}}"
+                    PlaceholderColor="{AppThemeBinding Light=Gray,
+                                                       Dark=LightGray}"
+                    Text="{Binding EditorText, Source={x:Reference root}, Mode=TwoWay}" />
             </Grid>
-
         </Border>
-    </VerticalStackLayout>
+    </Grid>
 </ContentView>

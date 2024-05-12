@@ -21,21 +21,14 @@
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="8" />
             </Border.StrokeShape>
-            <Grid Padding="10,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image>
-                    <Image.Source>
-                        <FontImageSource
-                            FontFamily="IconFont"
-                            Glyph="{x:Static icon:IconFont.Edit_calendar}"
-                            Size="28"
-                            Color="{AppThemeBinding Dark=White,
-                                                    Light=Gray}" />
-                    </Image.Source>
-                </Image>
+            <Grid Padding="10,0" ColumnDefinitions="Auto, *">
+                <Label
+                    FontFamily="IconFont"
+                    FontSize="28"
+                    Text="{x:Static icon:IconFont.Edit_calendar}"
+                    TextColor="{AppThemeBinding Dark=White,
+                                                Light=Gray}"
+                    VerticalOptions="Center" />
                 <DatePicker Grid.Column="1" Date="{Binding Date, Source={x:Reference root}}" />
             </Grid>
 
