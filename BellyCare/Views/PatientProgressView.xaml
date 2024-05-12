@@ -56,11 +56,11 @@
                             <Label Text="IMC Actual" TextColor="#E2D8F3" />
                             <Label
                                 FontSize="60"
-                                Text="20.00"
+                                Text="{Binding CurrentImc, StringFormat='IMC: {0:F2}'}"
                                 TextColor="#E2D8F3" />
                             <Label
                                 FontSize="20"
-                                Text="¡Saludable!"
+                                Text="{Binding HealthStatus}"
                                 TextColor="#E2D8F3" />
                         </VerticalStackLayout>
                     </Border>
@@ -95,7 +95,7 @@
 
                                             <Label
                                                 Grid.Column="1"
-                                                Text="{Binding TrackEntry.Date}"
+                                                Text="{Binding TrackEntry.FormattedDate}"
                                                 VerticalOptions="Center" />
 
                                             <Label

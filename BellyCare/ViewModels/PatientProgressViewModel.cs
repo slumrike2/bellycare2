@@ -25,6 +25,12 @@ namespace BellyCare.ViewModels
         [ObservableProperty]
         bool isLoading;
 
+        [ObservableProperty]
+        double currentImc;
+
+        [ObservableProperty]
+        string healthStatus;
+
         public PatientProgressViewModel(
             ISettingsService settings, 
             INavigationService navigationService,
@@ -46,7 +52,41 @@ namespace BellyCare.ViewModels
         [RelayCommand]
         async Task Create()
         {
-            await navigation.NavigateToAsync<PatientCreateTrackView>();
+            await navigation.NavigateToAsync<PatientCreateTrackView>(new()
+            {
+                { "TrackRepository", trackRepository },
+            });
+        }
+
+        void SetHealthStatus()
+        {
+            double? imc = TrackEntries.OrderByDescending(x => x.TrackEntry.Date)?.FirstOrDefault()?.TrackEntry.IMC;
+
+            if (imc is null)
+            {
+                CurrentImc = 0;
+                HealthStatus = "Sin datos";
+                return;
+            }
+
+            CurrentImc = imc.Value;
+
+            if (imc < 18.5)
+            {
+                HealthStatus = "Bajo peso";
+            }
+            else if (imc < 24.9)
+            {
+                HealthStatus = "¡Saludable!";
+            }
+            else if (imc < 29.9)
+            {
+                HealthStatus = "Sobrepeso";
+            }
+            else
+            {
+                HealthStatus = "Obesidad";
+            }
         }
 
         public async void OnAppearing()
@@ -61,7 +101,8 @@ namespace BellyCare.ViewModels
                 Id = x.Key,
                 TrackEntry = x.Object
 
-            }).ToList();
+            }).ToList()
+            .OrderByDescending(x => x.TrackEntry.Date);
 
             if (entries is null)
             {
@@ -71,6 +112,8 @@ namespace BellyCare.ViewModels
             }
 
             TrackEntries = new(entries);
+
+            SetHealthStatus();
 
             IsLoading = false;
         }

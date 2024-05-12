@@ -3,6 +3,7 @@
     public class TrackEntry
     {
         public DateTime Date { get; set; }
+        public string FormattedDate => string.Format("{0:dd} de {0:MMMM} del {0:yyyy}", Date);
         public double? Weight { get; set; }
         public double? BellySize { get; set; }
         public double? HeartRate { get; set; }
