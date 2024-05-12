@@ -19,16 +19,28 @@ public class NavigationService : INavigationService
         await Shell.Current.GoToAsync("..");
     }
 
-    public Task NavigateToAsync<T>(Dictionary<string, object> routeParameters = null) where T : Page
+    public Task NavigateToAsync<T>(Dictionary<string, object> routeParameters = null, bool isAbsolute = false) where T : Page
     {
+        string route = typeof(T).Name;
+
+        if(isAbsolute)
+        {
+            route = $"//{route}";
+        }
+
         return
             routeParameters != null
-                ? Shell.Current.GoToAsync(typeof(T).Name, routeParameters)
-                : Shell.Current.GoToAsync(typeof(T).Name);
+                ? Shell.Current.GoToAsync(route, routeParameters)
+                : Shell.Current.GoToAsync(route);
     }
 
-    public Task NavigateToAsync(string route)
+    public Task NavigateToAsync(string route, bool isAbsolute = false)
     {
+        if(isAbsolute)
+        {
+            return Shell.Current.GoToAsync($"//{route}");
+        }
+
         return Shell.Current.GoToAsync(route);
     }
 

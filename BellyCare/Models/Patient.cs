@@ -20,6 +20,6 @@ namespace BellyCare.Models
         public string InsuranceName { get; set; }
         public string DoctorCode { get; set; }
 
-        public TrackEntry[]? TrackEntries { get; set; }
+        public Dictionary<string, TrackEntry> TrackEntries { get; set; }
     }
 }

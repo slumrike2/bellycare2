@@ -5,6 +5,7 @@ using Barreto.Exe.Maui.ViewModels;
 using BellyCare.Models;
 using BellyCare.Repositories;
 using BellyCare.Services;
+using BellyCare.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -14,6 +15,7 @@ namespace BellyCare.ViewModels
     {
         private readonly BaseOnlineRepository<Patient> patientRepository;
         private readonly BaseOnlineRepository<Doctor> doctorRepository;
+        private Patient patient;
 
         #region Properties
         [ObservableProperty]
@@ -166,6 +168,7 @@ namespace BellyCare.ViewModels
                 HasInsurance = HasInsurance,
                 InsuranceName = InsuranceName?.Trim() ?? string.Empty,
                 DoctorCode = DoctorCode,
+                TrackEntries = this.patient.TrackEntries
             };
 
             try
@@ -173,7 +176,7 @@ namespace BellyCare.ViewModels
                 patientRepository.Update(settings.AccessToken, patient);
                 settings.Patient = patient;
                 await AppUtils.ShowAlert("Datos guardados correctamente.", AlertType.Success);
-                await navigation.GoBackAsync();
+                await navigation.NavigateToAsync<PatientHomeView>(isAbsolute: true);
             }
             catch (Exception)
             {
@@ -206,20 +209,8 @@ namespace BellyCare.ViewModels
                 (!HasInsurance || !string.IsNullOrEmpty(InsuranceName));
         }
 
-        private async void PreloadForm()
+        private void PreloadForm()
         {
-            Patient patient;
-
-            try
-            {
-                patient = await patientRepository.GetById(settings.AccessToken);
-            }
-            catch (Exception)
-            {
-                //Offline mode
-                patient = settings.Patient;
-            }
-
             bool isAltCultureGroup = !CulturalGroups.Contains(patient.SelectedCulturalGroup);
 
             Names = patient.Names;
@@ -244,8 +235,18 @@ namespace BellyCare.ViewModels
             DoctorCode = patient.DoctorCode;
         }
 
-        public void OnAppearing()
+        public async void OnAppearing()
         {
+            try
+            {
+                patient = await patientRepository.GetById(settings.AccessToken);
+            }
+            catch (Exception)
+            {
+                //Offline mode
+                patient = settings.Patient;
+            }
+
             PreloadForm();
         }
 

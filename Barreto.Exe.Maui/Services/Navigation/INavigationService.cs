@@ -4,9 +4,9 @@ public interface INavigationService
 {
     void RestartSession();
 
-    Task NavigateToAsync<T>(Dictionary<string, object> routeParameters = null) where T : Page;
+    Task NavigateToAsync<T>(Dictionary<string, object> routeParameters = null, bool isAbsolute = false) where T : Page;
 
-    Task NavigateToAsync(string route);
+    Task NavigateToAsync(string route, bool isAbsolute = false);
 
     Task PopAsync();
 
