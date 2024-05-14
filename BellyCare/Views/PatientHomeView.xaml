@@ -25,7 +25,7 @@
                         FontAttributes="None"
                         FontSize="22"
                         Style="{StaticResource Headline}"
-                        Text="Bienvenida,"
+                        Text="{Binding Greeting}"
                         TextColor="{AppThemeBinding Dark={StaticResource Gray200},
                                                     Light={StaticResource PrimaryDarkText}}" />
                     <Label
@@ -54,7 +54,7 @@
                                              Light={StaticResource LightBackgroudCard}}"
                 ColumnDefinitions="*,*"
                 ColumnSpacing="10"
-                RowDefinitions="Auto, Auto, Auto">
+                RowDefinitions="Auto, Auto, Auto, Auto">
 
                 <Border
                     Grid.ColumnSpan="2"
@@ -189,8 +189,8 @@
 
 
                             <VerticalStackLayout Grid.Column="1">
-                                <Label LineBreakMode="WordWrap" Text="{Binding DoctorName}" />
-                                <Label LineBreakMode="TailTruncation" Text="0 mensajes sin leer" />
+                                <Label LineBreakMode="WordWrap" Text="{Binding ChatName}" />
+                                <Label LineBreakMode="TailTruncation" Text="{Binding UnreadMessages, StringFormat='{0} mensajes nuevos'}" />
                             </VerticalStackLayout>
 
                             <Button
@@ -200,6 +200,45 @@
                                 FontFamily="IconFont"
                                 FontSize="Subtitle"
                                 Text="{Static utils:IconFont.Message}"
+                                TextColor="White" />
+                        </Grid>
+
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="3" Grid.ColumnSpan="2">
+
+                    <Border
+                        Padding="20"
+                        Background="Transparent"
+                        IsVisible="{Binding IsDoctor}"
+                        StrokeThickness="1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" StrokeThickness="1" />
+                        </Border.StrokeShape>
+
+                        <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10">
+
+                            <Label
+                                Grid.Column="0"
+                                FontFamily="IconFont"
+                                FontSize="Title"
+                                Text="{Static utils:IconFont.Data_exploration}"
+                                VerticalOptions="Center" />
+
+
+                            <Label
+                                Grid.Column="1"
+                                LineBreakMode="WordWrap"
+                                Text="Visualizar progreso IMC"
+                                VerticalOptions="Center" />
+
+                            <Button
+                                Grid.Column="2"
+                                BackgroundColor="{StaticResource Primary}"
+                                CornerRadius="10"
+                                FontFamily="IconFont"
+                                Text="{Static utils:IconFont.Keyboard_arrow_right}"
                                 TextColor="White" />
                         </Grid>
 

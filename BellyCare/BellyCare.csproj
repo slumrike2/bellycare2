@@ -100,6 +100,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Shells\DoctorShell.xaml.cs">
+	    <DependentUpon>DoctorShell.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Shells\Flyouts\FlyoutHeader.xaml.cs">
 	    <DependentUpon>FlyoutHeader.xaml</DependentUpon>
 	  </Compile>
@@ -121,6 +124,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Shells\DoctorShell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Shells\Flyouts\FlyoutFooter.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -140,6 +146,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AdminHomeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DoctorHomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\HomeRouterView.xaml">

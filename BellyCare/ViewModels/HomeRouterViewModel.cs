@@ -31,36 +31,23 @@ namespace BellyCare.ViewModels
 
         public async void OnAppearing()
         {
-            //Check if the user is a patient, doctor or admin and string Test
             if(settings.UserType == LoggedUserType.Patient)
             {
                 await GoToPatient();
             }
             else if(settings.UserType == LoggedUserType.Doctor)
             {
+                GoToDoctor();
             }
             else if(settings.UserType == LoggedUserType.Admin)
             {
-                await GoToAdmin();
+                GoToAdmin();
             }
         }
 
-        private async Task GoToAdmin()
-        {
-            Admin admin;
+        private void GoToDoctor() => Application.Current.MainPage = new DoctorShell();
 
-            try
-            {
-                admin = await adminRepository.GetById(settings.AccessToken);
-            }
-            catch (Exception)
-            {
-                //Offline mode
-                //admin = settings.Admin;
-            }
-
-            Application.Current.MainPage = new AdminShell();
-        }
+        private void GoToAdmin() => Application.Current.MainPage = new AdminShell();
 
         private async Task GoToPatient()
         {

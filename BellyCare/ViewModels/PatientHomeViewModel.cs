@@ -10,6 +10,8 @@ using System.Collections;
 
 namespace BellyCare.ViewModels
 {
+    [QueryProperty(nameof(PatientId), nameof(PatientId))]
+    [QueryProperty(nameof(Patient), nameof(Patient))]
     public partial class PatientHomeViewModel : BaseViewModel, IEventfulViewModel
     {
         private readonly BaseOnlineRepository<Patient> patientRepository;
@@ -57,6 +59,18 @@ namespace BellyCare.ViewModels
 
         #region Properties
         [ObservableProperty]
+        bool isDoctor;
+
+        [ObservableProperty]
+        string patientId;
+
+        [ObservableProperty]
+        Patient patient;
+
+        [ObservableProperty]
+        string greeting;
+
+        [ObservableProperty]
         string name;
 
         [ObservableProperty]
@@ -84,7 +98,10 @@ namespace BellyCare.ViewModels
         string currentFruit;
 
         [ObservableProperty]
-        string doctorName;
+        string chatName;
+
+        [ObservableProperty]
+        int unreadMessages;
         #endregion
 
         public PatientHomeViewModel
@@ -106,18 +123,30 @@ namespace BellyCare.ViewModels
 
         public async void OnAppearing()
         {
-            Name = settings.Patient.Names;
+            IsDoctor = settings.UserType == LoggedUserType.Doctor;
 
-            SetCurrentWeekData();
+            if (IsDoctor)
+            {
+                Greeting = Patient.Names;
+                Name = Patient.Lastnames;
+                SetDoctorChatInfo();
+            }
+            else
+            {
+                Greeting = "Bienvenida,";
+                Name = settings.Patient.Names;
+                await SetPatientChatInfo();
+            }
 
-            await SetDoctorInfo();
+            var patient = IsDoctor ? Patient : settings.Patient;
+            SetCurrentWeekData(patient);
         }
 
-        private void SetCurrentWeekData()
+        private void SetCurrentWeekData(Patient patient)
         {
-            if (settings.Patient.LastMenstruationDate is null) return;
+            if (patient.LastMenstruationDate is null) return;
 
-            var lastMenstruationDate = settings.Patient.LastMenstruationDate.Value;
+            var lastMenstruationDate = patient.LastMenstruationDate.Value;
 
             ProbableBithDate = lastMenstruationDate.AddDays(280);
             ProbableBithDateFormatted = string.Format("{0:dd} de {0:MMMM} del {0:yyyy}", ProbableBithDate);
@@ -143,7 +172,7 @@ namespace BellyCare.ViewModels
             }
         }
 
-        private async Task SetDoctorInfo()
+        private async Task SetPatientChatInfo()
         {
             var doctor = (await doctorRepository.GetAllBy(x => x.Object.Code == settings.Patient.DoctorCode)).FirstOrDefault();
             if (doctor != null)
@@ -151,19 +180,23 @@ namespace BellyCare.ViewModels
                 switch (doctor.Object.Speciality)
                 {
                     case "Doctor":
-                        DoctorName = "Dr.";
+                        ChatName = "Dr.";
                         break;
                     default:
-                        DoctorName = doctor.Object.Speciality;
+                        ChatName = doctor.Object.Speciality;
                         break;
                 }
 
-                DoctorName += " " + doctor.Object.Names + " " + doctor.Object.Lastnames;
+                ChatName += " " + doctor.Object.Names + " " + doctor.Object.Lastnames;
             }
             else
             {
-                DoctorName = "Profesional de la salud no asignado";
+                ChatName = "Profesional de la salud no asignado";
             }
+        }
+        private void SetDoctorChatInfo()
+        {
+            ChatName = $"Chatear con {Patient.Names}";
         }
 
         public void OnDisappearing()

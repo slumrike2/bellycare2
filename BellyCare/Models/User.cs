@@ -6,6 +6,7 @@ namespace BellyCare.Models
     {
         public string Names { get; set; }
         public string Lastnames { get; set; }
+        public string FormattedName => $"{Names} {Lastnames}";
         public string Email { get; set; }
         public string Password { get; set; }
         public string IdentificationNumber { get; set; }

@@ -60,11 +60,13 @@ namespace BellyCare.ViewModels
 
             try
             {
-                var doctors = (await doctorRepository.GetAll())?.Select(d => new FirebaseDoctor()
+                var doctors = (await doctorRepository.GetAll())?
+                .Select(d => new FirebaseDoctor()
                 {
                     Id = d.Key,
                     Doctor = d.Object
-                });
+                })
+                .ToList();
 
                 if (doctors != null)
                 {

@@ -87,6 +87,16 @@ namespace BellyCare.ViewModels
             {
                 HealthStatus = "Obesidad";
             }
+
+            // Update IMC in patient if logged user is patient
+            if (PatientId is null)
+            {
+                var patient = settings.Patient;
+                patient.CurrentIMC = imc.Value;
+                settings.Patient = patient;
+
+                patientRepository.Update(settings.AccessToken, patient);
+            }
         }
 
         public async void OnAppearing()
