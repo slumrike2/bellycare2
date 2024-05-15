@@ -7,6 +7,7 @@
     xmlns:exe="clr-namespace:Barreto.Exe.Maui.Controls;assembly=Barreto.Exe.Maui"
     xmlns:utils="clr-namespace:Barreto.Exe.Maui.Utils;assembly=Barreto.Exe.Maui"
     xmlns:vm="clr-namespace:BellyCare.ViewModels;assembly=BellyCare"
+    Title="Monitoreo Paciente"
     x:DataType="vm:PatientHomeViewModel">
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -184,13 +185,17 @@
                                 Grid.Column="0"
                                 FontFamily="IconFont"
                                 FontSize="Title"
-                                Text="{Static utils:IconFont.Badge}"
+                                Text="{Static utils:IconFont.Message}"
                                 VerticalOptions="Center" />
 
 
                             <VerticalStackLayout Grid.Column="1">
-                                <Label LineBreakMode="WordWrap" Text="{Binding ChatName}" />
-                                <Label LineBreakMode="TailTruncation" Text="{Binding UnreadMessages, StringFormat='{0} mensajes nuevos'}" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding ChatName}" />
+                                <Label LineBreakMode="TailTruncation" Text="Atención directa" />
+                                <!--<Label LineBreakMode="TailTruncation" Text="{Binding UnreadMessages, StringFormat='{0} mensajes nuevos'}" />-->
                             </VerticalStackLayout>
 
                             <Button
@@ -199,8 +204,8 @@
                                 Command="{Binding ClickChatCommand}"
                                 CornerRadius="10"
                                 FontFamily="IconFont"
-                                FontSize="Subtitle"
-                                Text="{Static utils:IconFont.Message}"
+                                FontSize="20"
+                                Text="{Static utils:IconFont.Keyboard_arrow_right}"
                                 TextColor="White" />
                         </Grid>
 
@@ -224,15 +229,17 @@
                                 Grid.Column="0"
                                 FontFamily="IconFont"
                                 FontSize="Title"
-                                Text="{Static utils:IconFont.Data_exploration}"
+                                Text="{Static utils:IconFont.Bar_chart}"
                                 VerticalOptions="Center" />
 
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label
+                                    FontAttributes="Bold"
+                                    LineBreakMode="WordWrap"
+                                    Text="Visualizar progreso IMC" />
+                                <Label LineBreakMode="TailTruncation" Text="Monitoreo en línea" />
+                            </VerticalStackLayout>
 
-                            <Label
-                                Grid.Column="1"
-                                LineBreakMode="WordWrap"
-                                Text="Visualizar progreso IMC"
-                                VerticalOptions="Center" />
 
                             <Button
                                 Grid.Column="2"
@@ -240,6 +247,7 @@
                                 Command="{Binding ClickProgressViewCommand}"
                                 CornerRadius="10"
                                 FontFamily="IconFont"
+                                FontSize="20"
                                 Text="{Static utils:IconFont.Keyboard_arrow_right}"
                                 TextColor="White" />
                         </Grid>

@@ -79,7 +79,6 @@ namespace BellyCare.ViewModels
 
         async Task RefreshMessages()
         {
-            IsLoading = true;
             var messages = (await MessageRepository.GetAll()).Select(m => m.Object).ToList();
             if (messages != null)
             {
@@ -90,13 +89,13 @@ namespace BellyCare.ViewModels
 
                 Messages = new ObservableCollection<ChatMessage>(messages);
             }
-            IsLoading = false;
 
             CollectionView.ScrollTo(0);
         }
 
         public async void OnAppearing()
         {
+            IsLoading = true;
 
             Messages = [];
 
@@ -107,6 +106,8 @@ namespace BellyCare.ViewModels
             {
                 await RefreshMessages();
             });
+
+            IsLoading = false;
         }
 
         public void OnDisappearing()
