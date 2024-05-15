@@ -86,11 +86,18 @@ namespace BellyCare.ViewModels
                 Password = Password.ToMd5()
             };
 
-            // Save user to database
-            string key = await patientRepository.Add(user);
+            try
+            {
+                // Save user to database
+                string key = await patientRepository.Add(user);
 
-            //Display success message
-            await AppUtils.ShowAlert($"Usuario registrado con éxito.", AlertType.Success);
+                //Display success message
+                await AppUtils.ShowAlert($"Usuario registrado con éxito.", AlertType.Success);
+            }
+            catch (Exception ex)
+            {
+                await AppUtils.ShowAlert("Error al registrar el usuario. Chequea tu conexión a internet.", AlertType.Error);
+            }
         }
 
         public void OnAppearing()

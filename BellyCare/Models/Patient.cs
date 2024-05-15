@@ -22,6 +22,8 @@ namespace BellyCare.Models
         public string DoctorCode { get; set; }
         public double CurrentIMC { get; set; }
 
+        public string ChatId { get; set; }
+
         public Dictionary<string, TrackEntry> TrackEntries { get; set; }
     }
 

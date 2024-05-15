@@ -15,6 +15,7 @@ namespace BellyCare.ViewModels
     {
         private readonly BaseOnlineRepository<Patient> patientRepository;
         private readonly BaseOnlineRepository<Doctor> doctorRepository;
+        private readonly BaseOnlineRepository<Chat> chatRepository;
         private Patient patient;
 
         #region Properties
@@ -104,10 +105,12 @@ namespace BellyCare.ViewModels
             ISettingsService settings, 
             INavigationService navigationService,
             BaseOnlineRepository<Patient> patientRepository,
-            BaseOnlineRepository<Doctor> doctorRepository) : base(settings, navigationService)
+            BaseOnlineRepository<Doctor> doctorRepository,
+            BaseOnlineRepository<Chat> chatRepository) : base(settings, navigationService)
         {
             this.patientRepository = patientRepository;
             this.doctorRepository = doctorRepository;
+            this.chatRepository = chatRepository;
         }
 
         [RelayCommand]
@@ -126,7 +129,8 @@ namespace BellyCare.ViewModels
                 return;
             }
 
-            //Validate doctor code
+            //Validate doctor code and create chat if it's valid
+            string chatId = null;
             if(!string.IsNullOrEmpty(DoctorCode))
             {
                 try
@@ -137,6 +141,23 @@ namespace BellyCare.ViewModels
                     {
                         await AppUtils.ShowAlert("El código de doctor ingresado no es válido.");
                         return;
+                    }
+
+                    //If chat doesn't exist or is changing doctor, create new chat
+                    if(this.patient.ChatId == null || this.patient.DoctorCode != DoctorCode)
+                    {
+                        chatId = await chatRepository.Add(new()
+                        {
+                            DoctorId = doctor.Key,
+                            PatientId = settings.AccessToken,
+                            UnreadMessagesByDoctor = 0,
+                            UnreadMessagesByPatient = 0,
+                            Messages = []
+                        });
+                    }
+                    else
+                    {
+                        chatId = this.patient.ChatId;
                     }
                 }
                 catch (Exception)
@@ -171,6 +192,7 @@ namespace BellyCare.ViewModels
                 HasInsurance = HasInsurance,
                 InsuranceName = InsuranceName?.Trim() ?? string.Empty,
                 DoctorCode = DoctorCode,
+                ChatId = chatId,
                 TrackEntries = this.patient.TrackEntries
             };
 

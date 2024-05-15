@@ -74,6 +74,11 @@ namespace BellyCare.Repositories
         /// <returns> The entity or null if it doesn't exist. </returns>
         public async Task<T> GetById(string id)
         {
+            if(string.IsNullOrEmpty(id))
+            {
+                return default;
+            }
+
             try
             {
                 return await db.Child(child + "/" + id).OnceSingleAsync<T>();

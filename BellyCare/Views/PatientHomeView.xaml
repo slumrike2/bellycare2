@@ -196,6 +196,7 @@
                             <Button
                                 Grid.Column="2"
                                 BackgroundColor="{StaticResource Primary}"
+                                Command="{Binding ClickChatCommand}"
                                 CornerRadius="10"
                                 FontFamily="IconFont"
                                 FontSize="Subtitle"

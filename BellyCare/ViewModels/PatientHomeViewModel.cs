@@ -18,6 +18,9 @@ namespace BellyCare.ViewModels
         private readonly BaseOnlineRepository<Patient> patientRepository;
         private readonly BaseOnlineRepository<Doctor> doctorRepository;
         private readonly BaseOnlineRepository<TrackEntry> trackRepository;
+        private readonly BaseOnlineRepository<Chat> chatRepository;
+
+        private Chat chat;
 
         private readonly IEnumerable<dynamic> fruitGrowthData = new List<dynamic>
         {
@@ -109,11 +112,13 @@ namespace BellyCare.ViewModels
             (ISettingsService settings, 
             INavigationService navigationService,
             BaseOnlineRepository<Patient> patientRepository,
-            BaseOnlineRepository<Doctor> doctorRepository) : base(settings, navigationService)
+            BaseOnlineRepository<Doctor> doctorRepository,
+            BaseOnlineRepository<Chat> chatRepository) : base(settings, navigationService)
         {
             this.patientRepository = patientRepository;
             this.doctorRepository = doctorRepository;
             trackRepository = patientRepository.GetChildRepository<TrackEntry>(settings.AccessToken, "TrackEntries");
+            this.chatRepository = chatRepository;
         }
 
         [RelayCommand]
@@ -131,9 +136,32 @@ namespace BellyCare.ViewModels
             });
         }
 
+        [RelayCommand]
+        async Task ClickChat()
+        {
+            var patient = IsDoctor ? Patient : settings.Patient;
+
+            await navigation.NavigateToAsync<ChatView>(new()
+            {
+                { "ChatId", patient.ChatId },
+                { "ChatRepository", chatRepository },
+                { "MessageRepository", chatRepository.GetChildRepository<ChatMessage>(patient.ChatId, "Messages") }
+            });
+        }
+
         public async void OnAppearing()
         {
             IsDoctor = settings.UserType == LoggedUserType.Doctor;
+            var patient = IsDoctor ? Patient : settings.Patient;
+
+            try
+            {
+                chat = await chatRepository.GetById(patient.ChatId);
+            }
+            catch (Exception)
+            {
+                ChatName = "Error al cargar información del chat.";
+            }
 
             if (IsDoctor)
             {
@@ -148,7 +176,6 @@ namespace BellyCare.ViewModels
                 await SetPatientChatInfo();
             }
 
-            var patient = IsDoctor ? Patient : settings.Patient;
             SetCurrentWeekData(patient);
         }
 
@@ -184,29 +211,38 @@ namespace BellyCare.ViewModels
 
         private async Task SetPatientChatInfo()
         {
-            var doctor = (await doctorRepository.GetAllBy(x => x.Object.Code == settings.Patient.DoctorCode)).FirstOrDefault();
-            if (doctor != null)
+            try
             {
-                switch (doctor.Object.Speciality)
+                var doctor = (await doctorRepository.GetAllBy(x => x.Object.Code == settings.Patient.DoctorCode)).FirstOrDefault();
+                if (doctor != null)
                 {
-                    case "Doctor":
-                        ChatName = "Dr.";
-                        break;
-                    default:
-                        ChatName = doctor.Object.Speciality;
-                        break;
-                }
+                    switch (doctor.Object.Speciality)
+                    {
+                        case "Doctor":
+                            ChatName = "Dr.";
+                            break;
+                        default:
+                            ChatName = doctor.Object.Speciality;
+                            break;
+                    }
 
-                ChatName += " " + doctor.Object.Names + " " + doctor.Object.Lastnames;
+                    ChatName += " " + doctor.Object.Names + " " + doctor.Object.Lastnames;
+                    UnreadMessages = chat.UnreadMessagesByPatient;
+                }
+                else
+                {
+                    ChatName = "Profesional de la salud no asignado.";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ChatName = "Profesional de la salud no asignado";
+                ChatName = "Error al cargar información del profesional de la salud.";
             }
         }
         private void SetDoctorChatInfo()
         {
             ChatName = $"Chatear con {Patient.Names}";
+            UnreadMessages = chat.UnreadMessagesByDoctor;
         }
 
         public void OnDisappearing()

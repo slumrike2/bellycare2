@@ -1,4 +1,5 @@
 ﻿using Barreto.Exe.Maui.Services.Navigation;
+using Barreto.Exe.Maui.Utils;
 using Barreto.Exe.Maui.ViewModels;
 using BellyCare.Models;
 using BellyCare.Repositories;
@@ -6,6 +7,7 @@ using BellyCare.Services;
 using BellyCare.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Firebase.Database;
 using System.Collections.ObjectModel;
 
 namespace BellyCare.ViewModels
@@ -109,28 +111,36 @@ namespace BellyCare.ViewModels
         public async void OnAppearing()
         {
             IsLoading = true;
+            bool isError = false;
 
             string patientId = PatientId ?? settings.AccessToken;
             trackRepository = patientRepository.GetChildRepository<TrackEntry>(patientId, "TrackEntries");
 
-            var entries = (await trackRepository.GetAll()).Select(x => new FirebaseTrackEntry()
+            IOrderedEnumerable<FirebaseTrackEntry>? entries = null;
+            try
             {
-                Id = x.Key,
-                TrackEntry = x.Object
+                entries = (await trackRepository.GetAll()).Select(x => new FirebaseTrackEntry()
+                {
+                    Id = x.Key,
+                    TrackEntry = x.Object
 
-            }).ToList()
-            .OrderByDescending(x => x.TrackEntry.Date);
+                }).ToList()
+                .OrderByDescending(x => x.TrackEntry.Date);
 
-            if (entries is null)
+                TrackEntries = new(entries);
+
+                SetHealthStatus();
+
+            }
+            catch (Exception ex)
             {
-                //TODO - Show message
-                IsLoading = false;
-                return;
+                isError = true;
             }
 
-            TrackEntries = new(entries);
-
-            SetHealthStatus();
+            if (entries is null || isError)
+            {
+                await AppUtils.ShowAlert("Error al cargar los datos.", AlertType.Error);
+            }
 
             IsLoading = false;
         }
