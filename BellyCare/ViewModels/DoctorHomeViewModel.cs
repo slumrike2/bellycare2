@@ -5,6 +5,8 @@ using BellyCare.Models;
 using BellyCare.Repositories;
 using BellyCare.Services;
 using BellyCare.Views;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
@@ -21,6 +23,9 @@ namespace BellyCare.ViewModels
         #region Properties
         [ObservableProperty]
         string doctorName;
+
+        [ObservableProperty]
+        string doctorCode;
 
         [ObservableProperty]
         bool isListEmpty;
@@ -47,10 +52,21 @@ namespace BellyCare.ViewModels
             });
         }
 
+        [RelayCommand]
+        async Task CopyCode()
+        {
+            await Clipboard.SetTextAsync(DoctorCode);
+
+            //Display toast
+            var toast = Toast.Make("Copiado al portapapeles", ToastDuration.Short);
+            await toast.Show();
+        }
+
         public async void OnAppearing()
         {
             var doctor = settings.Doctor;
             DoctorName = $"{doctor.Speciality} {doctor.Names} {doctor.Lastnames}";
+            DoctorCode = doctor.Code;
 
             try
             {

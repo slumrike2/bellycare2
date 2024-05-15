@@ -89,13 +89,13 @@ namespace BellyCare.Repositories
         /// </summary>
         /// <param name="entity"> The entity to be added. </param>
         /// <returns> The Firebase Key of the entity. </returns>
-        public string Add(T entity)
+        public async Task<string> Add(T entity)
         {
             try
             {
-                return db.Child(child)
-                    .AsRealtimeDatabase<T>()
-                    .Post(entity);
+                var result = await db.Child(child).PostAsync(JsonConvert.SerializeObject(entity));
+
+                return result.Key;
             }
             catch (Exception ex)
             {
@@ -108,13 +108,11 @@ namespace BellyCare.Repositories
         /// </summary>
         /// <param name="id"> The Firebase Key of the entity. </param>
         /// <param name="entity"> The entity to be updated. </param>
-        public void Update(string id, T entity)
+        public async Task Update(string id, T entity)
         {
             try
             {
-                db.Child(child)
-                    .AsRealtimeDatabase<T>()
-                    .Put(id, entity);
+                await db.Child(child + "/" + id).PutAsync(JsonConvert.SerializeObject(entity));
             }
             catch (Exception ex)
             {

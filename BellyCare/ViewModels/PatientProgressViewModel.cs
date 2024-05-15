@@ -58,7 +58,7 @@ namespace BellyCare.ViewModels
             });
         }
 
-        void SetHealthStatus()
+        async void SetHealthStatus()
         {
             double? imc = TrackEntries.OrderByDescending(x => x.TrackEntry.Date)?.FirstOrDefault()?.TrackEntry.IMC;
 
@@ -88,14 +88,21 @@ namespace BellyCare.ViewModels
                 HealthStatus = "Obesidad";
             }
 
-            // Update IMC in patient if logged user is patient
-            if (PatientId is null)
-            {
-                var patient = settings.Patient;
-                patient.CurrentIMC = imc.Value;
-                settings.Patient = patient;
+            //Determine if the user is a doctor or patient
+            bool isDoctor = settings.UserType == LoggedUserType.Doctor;
 
-                patientRepository.Update(settings.AccessToken, patient);
+            //Get the patient id and object based on the user type
+            string id  = isDoctor ? PatientId : settings.AccessToken;
+            Patient patient = settings.Patient ?? await patientRepository.GetById(PatientId);
+
+            //Update the patient's current IMC
+            patient.CurrentIMC = imc.Value;
+            await patientRepository.Update(id, patient);
+
+            //If the user is a patient, update the settings
+            if (!isDoctor)
+            {
+                settings.Patient = patient;
             }
         }
 

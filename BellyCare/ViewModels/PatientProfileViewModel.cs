@@ -19,6 +19,9 @@ namespace BellyCare.ViewModels
 
         #region Properties
         [ObservableProperty]
+        bool isDoctor;
+
+        [ObservableProperty]
         string names;
 
         [ObservableProperty]
@@ -173,7 +176,7 @@ namespace BellyCare.ViewModels
 
             try
             {
-                patientRepository.Update(settings.AccessToken, patient);
+                await patientRepository.Update(settings.AccessToken, patient);
                 settings.Patient = patient;
                 await AppUtils.ShowAlert("Datos guardados correctamente.", AlertType.Success);
                 await navigation.NavigateToAsync<PatientHomeView>(isAbsolute: true);

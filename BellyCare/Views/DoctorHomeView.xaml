@@ -31,6 +31,24 @@
                     Text="{Binding DoctorName}"
                     TextColor="{AppThemeBinding Dark={StaticResource DarkBackgroudCard},
                                                 Light={StaticResource Primary}}" />
+
+                <HorizontalStackLayout>
+                    <Label
+                        FontAttributes="None"
+                        FontSize="Body"
+                        Text="{Binding DoctorCode, StringFormat='Código: {0}'}"
+                        TextColor="{AppThemeBinding Dark={StaticResource Gray200},
+                                                    Light={StaticResource PrimaryDarkText}}"
+                        VerticalOptions="Center" />
+                    <Button
+                        BackgroundColor="Transparent"
+                        FontFamily="IconFont"
+                        FontSize="20"
+                        Text="{Static utils:IconFont.Content_copy}"
+                        TextColor="{AppThemeBinding Dark={StaticResource Gray200},
+                                                    Light={StaticResource PrimaryDarkText}}" />
+
+                </HorizontalStackLayout>
             </VerticalStackLayout>
 
             <Border
@@ -42,7 +60,7 @@
                     <RoundRectangle CornerRadius="40,40,0,0" StrokeThickness="0" />
                 </Border.StrokeShape>
 
-                <VerticalStackLayout Padding="20" Background="{AppThemeBinding Dark={StaticResource DarkBackgroudCard}, Light={StaticResource LightBackgroudCard}}">
+                <Grid Padding="20" Background="{AppThemeBinding Dark={StaticResource DarkBackgroudCard}, Light={StaticResource LightBackgroudCard}}">
 
                     <!--<SearchBar Placeholder="Búsqueda" />-->
 
@@ -65,7 +83,11 @@
                                         Background="Transparent">
                                         <Grid Margin="1" ColumnDefinitions="Auto, 10, *, Auto">
 
-                                            <Border Padding="10,0" Background="{StaticResource Primary}">
+                                            <Border
+                                                Padding="10,0"
+                                                Background="{StaticResource Primary}"
+                                                HeightRequest="60"
+                                                WidthRequest="60">
                                                 <Border.StrokeShape>
                                                     <RoundRectangle CornerRadius="10" StrokeThickness="0" />
                                                 </Border.StrokeShape>
@@ -106,7 +128,7 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </VerticalStackLayout>
+                </Grid>
             </Border>
         </Grid>
     </ScrollView>

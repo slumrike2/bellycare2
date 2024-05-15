@@ -104,16 +104,26 @@ namespace BellyCare.ViewModels
 
             try
             {
+                string entryId;
                 if (Entry is not null)
                 {
-                    TrackRepository.Update(Entry.Id, track);
+                    await TrackRepository.Update(Entry.Id, track);
+                    entryId = Entry.Id;
                 }
                 else
                 {
-                    TrackRepository.Add(track);
+                    entryId = await TrackRepository.Add(track);
                 }
 
-                await AppUtils.ShowAlert("Datos guardados correctamente", AlertType.Success);
+                //If is patient, save track to offline data
+                if (settings.UserType == LoggedUserType.Patient)
+                {
+                    var patient = settings.Patient;
+                    patient.TrackEntries.Add(entryId, track);
+                    settings.Patient = patient;
+                }
+
+                await AppUtils.ShowAlert("Datos guardados correctamente.", AlertType.Success);
                 await navigation.GoBackAsync();
             }
             catch

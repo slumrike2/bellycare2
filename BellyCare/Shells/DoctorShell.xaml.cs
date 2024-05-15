@@ -8,9 +8,9 @@ namespace BellyCare.Shells
         {
             InitializeComponent();
 
-            Routing.RegisterRoute(nameof(PatientProfileView), typeof(PatientProfileView));
             Routing.RegisterRoute(nameof(PatientHomeView), typeof(PatientHomeView));
-            Routing.RegisterRoute(nameof(AdminCreateDoctorView), typeof(AdminCreateDoctorView));
+            Routing.RegisterRoute(nameof(PatientProgressView), typeof(PatientProgressView));
+            Routing.RegisterRoute(nameof(PatientCreateTrackView), typeof(PatientCreateTrackView));
         }
     }
 }

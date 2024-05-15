@@ -110,8 +110,8 @@
 
                         <VerticalStackLayout>
                             <Label Text="¿Resultado de la prueba VDLR?" VerticalOptions="Center" />
-                            <RadioButton Content="Positivo" IsChecked="{Binding VdrlResult}" />
                             <RadioButton Content="Negativo" IsChecked="{Binding VdrlResult, Converter={StaticResource InverseBooleanConverter}}" />
+                            <RadioButton Content="Positivo" IsChecked="{Binding VdrlResult}" />
                         </VerticalStackLayout>
                     </VerticalStackLayout>
 

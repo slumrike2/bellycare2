@@ -111,7 +111,7 @@ namespace BellyCare.ViewModels
 
             try
             {
-                string key = doctorRepository.Add(doctor);
+                string key = await doctorRepository.Add(doctor);
                 if (string.IsNullOrEmpty(key))
                 {
                     error = true;

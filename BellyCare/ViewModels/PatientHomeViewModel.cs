@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections;
+using BellyCare.Views;
 
 namespace BellyCare.ViewModels
 {
@@ -119,6 +120,15 @@ namespace BellyCare.ViewModels
         void ClickLogout()
         {
             Logout();
+        }
+
+        [RelayCommand]
+        async Task ClickProgressView()
+        {
+            await navigation.NavigateToAsync<PatientProgressView>(new()
+            {
+                { "PatientId", PatientId },
+            });
         }
 
         public async void OnAppearing()

@@ -236,6 +236,7 @@
                             <Button
                                 Grid.Column="2"
                                 BackgroundColor="{StaticResource Primary}"
+                                Command="{Binding ClickProgressViewCommand}"
                                 CornerRadius="10"
                                 FontFamily="IconFont"
                                 Text="{Static utils:IconFont.Keyboard_arrow_right}"

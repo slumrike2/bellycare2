@@ -87,10 +87,10 @@ namespace BellyCare.ViewModels
             };
 
             // Save user to database
-            string key = patientRepository.Add(user);
+            string key = await patientRepository.Add(user);
 
             //Display success message
-            await AppUtils.ShowAlert($"Usuario registrado con éxito. {key}", AlertType.Success);
+            await AppUtils.ShowAlert($"Usuario registrado con éxito.", AlertType.Success);
         }
 
         public void OnAppearing()
