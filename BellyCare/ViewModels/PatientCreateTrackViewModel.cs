@@ -115,18 +115,29 @@ namespace BellyCare.ViewModels
                     entryId = await TrackRepository.Add(track);
                 }
 
-                //If is patient, save track to offline data
+                //If is patient, update track to offline data
                 if (settings.UserType == LoggedUserType.Patient)
                 {
                     var patient = settings.Patient;
-                    patient.TrackEntries.Add(entryId, track);
+
+                    bool exist = patient.TrackEntries.Any(x => x.Key == entryId);
+
+                    if (exist)
+                    {
+                        patient.TrackEntries[entryId] = track;
+                    }
+                    else
+                    {
+                        patient.TrackEntries.Add(entryId, track);
+                    }
+
                     settings.Patient = patient;
                 }
 
                 await AppUtils.ShowAlert("Datos guardados correctamente.", AlertType.Success);
                 await navigation.GoBackAsync();
             }
-            catch
+            catch(Exception ex)
             {
                 await AppUtils.ShowAlert("Ocurrió un error al guardar los datos, por favor intenta de nuevo.", AlertType.Error);
             }

@@ -18,9 +18,11 @@
 
             <VerticalStackLayout>
                 <Image
+                    Margin="10"
                     HeightRequest="100"
                     HorizontalOptions="Center"
-                    Source="dotnet_bot.jpg" />
+                    Source="logo.png"
+                    WidthRequest="100" />
 
                 <Label
                     FontSize="Title"

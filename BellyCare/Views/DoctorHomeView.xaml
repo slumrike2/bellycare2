@@ -42,6 +42,7 @@
                         VerticalOptions="Center" />
                     <Button
                         BackgroundColor="Transparent"
+                        Command="{Binding CopyCodeCommand}"
                         FontFamily="IconFont"
                         FontSize="20"
                         Text="{Static utils:IconFont.Content_copy}"

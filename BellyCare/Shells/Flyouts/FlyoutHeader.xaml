@@ -6,9 +6,10 @@
     <Grid BackgroundColor="{StaticResource Primary}">
         <HorizontalStackLayout Padding="20" HorizontalOptions="Start">
             <Image
+                Aspect="AspectFill"
                 HeightRequest="100"
-                HorizontalOptions="Start"
-                Source="dotnet_bot.png"
+                HorizontalOptions="Center"
+                Source="logo.png"
                 WidthRequest="100" />
             <Label
                 Margin="20,0,0,0"
