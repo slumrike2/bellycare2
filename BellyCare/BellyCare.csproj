@@ -87,6 +87,7 @@
 	  <None Remove="Resources\Images\turnip.png" />
 	  <None Remove="Resources\Images\watermelon.png" />
 	  <None Remove="Resources\Images\wave.png" />
+	  <None Remove="Resources\Raw\data.example.json" />
 	  <None Remove="Resources\Raw\data.json" />
 	</ItemGroup>
 
@@ -121,6 +122,12 @@
 	  <Compile Update="Views\LoginView.xaml.cs">
 	    <DependentUpon>LoginView.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiAsset Update="Resources\Raw\data.example.json">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
 	</ItemGroup>
 
 	<ItemGroup>

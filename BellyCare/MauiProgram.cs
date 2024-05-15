@@ -25,7 +25,11 @@ namespace BellyCare
                     fonts.AddFont("MaterialIcons-Regular.ttf", "IconFont");
                 });
 
-            string dbUrl = AppUtils.GetConfigValue("FIREBASE_URL");
+#if DEBUG
+            string dbUrl = AppUtils.GetConfigValue("FIREBASE_URL_DEV");
+#else
+            string dbUrl = AppUtils.GetConfigValue("FIREBASE_URL_PROD");
+#endif
 
             //DI Services
             builder.Services.AddSingleton(new FirebaseClient(dbUrl, new()
