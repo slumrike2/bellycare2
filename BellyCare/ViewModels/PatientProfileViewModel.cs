@@ -201,7 +201,17 @@ namespace BellyCare.ViewModels
                 await patientRepository.Update(settings.AccessToken, patient);
                 settings.Patient = patient;
                 await AppUtils.ShowAlert("Datos guardados correctamente.", AlertType.Success);
-                await navigation.NavigateToAsync<PatientHomeView>(isAbsolute: true);
+
+                try
+                {
+                    //Navigate to patient home when is absolute window
+                    await navigation.NavigateToAsync<PatientHomeView>(isAbsolute: true);
+                }
+                catch
+                {
+                    //Navigate to patient home when is realative window
+                    await navigation.GoBackAsync();
+                }
             }
             catch (Exception)
             {

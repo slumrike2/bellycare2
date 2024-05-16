@@ -120,6 +120,11 @@ namespace BellyCare.ViewModels
                 {
                     var patient = settings.Patient;
 
+                    if(patient.TrackEntries is null)
+                    {
+                        patient.TrackEntries = [];
+                    }
+
                     bool exist = patient.TrackEntries.Any(x => x.Key == entryId);
 
                     if (exist)

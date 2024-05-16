@@ -83,7 +83,8 @@ namespace BellyCare.ViewModels
             var user = new Patient
             {
                 Email = Email,
-                Password = Password.ToMd5()
+                Password = Password.ToMd5(),
+                TrackEntries = []
             };
 
             try
