@@ -231,7 +231,7 @@ namespace BellyCare.ViewModels
                 BirthDate != null &&
                 !string.IsNullOrEmpty(CulturalGroup) &&
                 (CulturalGroup != "Otro" || !string.IsNullOrEmpty(CulturalGroupAlt)) &&
-                PregnanciesCount > 0 &&
+                PregnanciesCount >= 0 &&
                 NaturalBirthsCount >= 0 &&
                 CesareanBirthsCount >= 0 &&
                 LastMenstruationDate != null &&
