@@ -39,7 +39,10 @@ namespace BellyCare.ViewModels
         string? oxygenSaturation;
 
         [ObservableProperty]
-        string bloodPressure;
+        string bloodPressureMin;
+
+        [ObservableProperty]
+        string bloodPressureMax;
 
         [ObservableProperty]
         string hemoglobin;
@@ -88,7 +91,8 @@ namespace BellyCare.ViewModels
                 HeartRate = double.TryParse(HeartRate, out double heartRate) ? heartRate : null,
                 RespiratoryRate = double.TryParse(RespiratoryRate, out double respiratoryRate) ? respiratoryRate : null,
                 OxygenSaturation = double.TryParse(OxygenSaturation, out double oxygenSaturation) ? oxygenSaturation : null,
-                BloodPressure = double.TryParse(BloodPressure, out double bloodPressure) ? bloodPressure : null,
+                BloodPressureMin = double.TryParse(BloodPressureMin, out double bloodPressureMin) ? bloodPressureMin : null,
+                BloodPressureMax = double.TryParse(BloodPressureMax, out double bloodPressureMax) ? bloodPressureMax : null,
                 Hemoglobin = double.TryParse(Hemoglobin, out double hemoglobin) ? hemoglobin : null,
                 Glucose = double.TryParse(Glucose, out double glucose) ? glucose : null,
                 Temperature = double.TryParse(Temperature, out double temperature) ? temperature : null,
@@ -99,8 +103,11 @@ namespace BellyCare.ViewModels
                 VdrlDate = VdrlDate,
                 Treatment = Treatment,
                 Note = Note,
-                IMC = weight != 0 && bellySize != 0 ? weight / (bellySize / 100) : 0
+                IMC = weight != 0 && bellySize != 0 ? weight / Math.Pow(bellySize / 100, 2) : 0
             };
+
+            bool isValid = await ValidateForm(track);
+            if (!isValid) return;
 
             try
             {
@@ -157,7 +164,8 @@ namespace BellyCare.ViewModels
             HeartRate = Entry.TrackEntry.HeartRate?.ToString() ?? string.Empty;
             RespiratoryRate = Entry.TrackEntry.RespiratoryRate?.ToString() ?? string.Empty;
             OxygenSaturation = Entry.TrackEntry.OxygenSaturation?.ToString() ?? string.Empty;
-            BloodPressure = Entry.TrackEntry.BloodPressure?.ToString() ?? string.Empty;
+            BloodPressureMin = Entry.TrackEntry.BloodPressureMin?.ToString() ?? string.Empty;
+            BloodPressureMax = Entry.TrackEntry.BloodPressureMax?.ToString() ?? string.Empty;
             Hemoglobin = Entry.TrackEntry.Hemoglobin?.ToString() ?? string.Empty;
             Glucose = Entry.TrackEntry.Glucose?.ToString() ?? string.Empty;
             Temperature = Entry.TrackEntry.Temperature?.ToString() ?? string.Empty;
@@ -178,7 +186,8 @@ namespace BellyCare.ViewModels
             HeartRate = string.Empty;
             RespiratoryRate = string.Empty;
             OxygenSaturation = string.Empty;
-            BloodPressure = string.Empty;
+            BloodPressureMin = string.Empty;
+            BloodPressureMax = string.Empty;
             Hemoglobin = string.Empty;
             Glucose = string.Empty;
             Temperature = string.Empty;
@@ -189,6 +198,87 @@ namespace BellyCare.ViewModels
             VdrlDate = DateTime.Now;
             Treatment = string.Empty;
             Note = string.Empty;
+        }
+
+        async Task<bool> ValidateForm(TrackEntry track)
+        {
+            if (track == null) return false;
+
+            bool isValid = true;
+            string message = string.Empty;
+
+            if (track.Weight.HasValue && (track.Weight < 30 || track.Weight > 160))
+            {
+                isValid = false;
+                message += "El peso debe estar entre 30 y 160 kg.\n";
+            }
+
+            if (track.BellySize.HasValue && (track.BellySize < 130 || track.BellySize > 220))
+            {
+                isValid = false;
+                message += "La altura debe estar entre 130 y 220 cm.\n";
+            }
+
+            if (track.HeartRate.HasValue && (track.HeartRate < 40 || track.HeartRate > 130))
+            {
+                isValid = false;
+                message += "La frecuencia cardiaca debe estar entre 40 y 130 ppm.\n";
+            }
+
+            if (track.RespiratoryRate.HasValue && (track.RespiratoryRate < 11 || track.RespiratoryRate > 30))
+            {
+                isValid = false;
+                message += "La frecuencia respiratoria debe estar entre 11 y 30 rpm.\n";
+            }
+
+            if (track.OxygenSaturation.HasValue && (track.OxygenSaturation < 85 || track.OxygenSaturation > 100))
+            {
+                isValid = false;
+                message += "La saturación de oxígeno debe estar entre 85 y 100%.\n";
+            }
+
+            if (track.BloodPressureMin.HasValue && (track.BloodPressureMin < 50 || track.BloodPressureMin > 120))
+            {
+                isValid = false;
+                message += "La presión arterial mínima debe estar entre 50 y 120 mmHg.\n";
+            }
+
+            if (track.BloodPressureMax.HasValue && (track.BloodPressureMax < 70 || track.BloodPressureMax > 180))
+            {
+                isValid = false;
+                message += "La presión arterial máxima debe estar entre 80 y 180 mmHg.\n";
+            }
+
+            if (track.Hemoglobin.HasValue && (track.Hemoglobin < 10 || track.Hemoglobin > 20))
+            {
+                isValid = false;
+                message += "La hemoglobina debe estar entre 10 y 20 g/dL.\n";
+            }
+
+            if (track.Glucose.HasValue && (track.Glucose < 70 || track.Glucose > 140))
+            {
+                isValid = false;
+                message += "La glucosa debe estar entre 70 y 140 mg/dL.\n";
+            }
+
+            if (track.Temperature.HasValue && (track.Temperature < 35 || track.Temperature > 40))
+            {
+                isValid = false;
+                message += "La temperatura debe estar entre 35 y 40 °C.\n";
+            }
+
+            if (track.AbdominalCircumference.HasValue && (track.AbdominalCircumference < 50 || track.AbdominalCircumference > 150))
+            {
+                isValid = false;
+                message += "La circunferencia abdominal debe estar entre 50 y 150 cm.\n";
+            }
+
+            if (!isValid)
+            {
+                await AppUtils.ShowAlert(message, AlertType.Error);
+            }
+
+            return isValid;
         }
 
         public void OnAppearing()

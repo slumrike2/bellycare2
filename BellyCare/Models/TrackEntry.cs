@@ -9,7 +9,8 @@
         public double? HeartRate { get; set; }
         public double? RespiratoryRate { get; set; }
         public double? OxygenSaturation { get; set; }
-        public double? BloodPressure { get; set; }
+        public double? BloodPressureMin { get; set; }
+        public double? BloodPressureMax { get; set; }
         public double? Hemoglobin { get; set; }
         public double? Glucose { get; set; }
         public double? Temperature { get; set; }

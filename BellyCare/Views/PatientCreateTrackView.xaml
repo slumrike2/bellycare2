@@ -36,61 +36,132 @@
                         EntryText="{Binding BellySize}"
                         Icon="{Static utils:IconFont.Medical_information}"
                         Keyboard="Numeric"
-                        LabelText="Talla (cm)"
-                        PlaceholderText="Indica la talla en centímetros" />
+                        LabelText="Altura (cm)"
+                        PlaceholderText="Indica la altura en centímetros" />
 
 
-                    <exe:LabeledEntry
-                        EntryText="{Binding HeartRate}"
-                        Icon="{Static utils:IconFont.Medical_information}"
-                        Keyboard="Numeric"
-                        LabelText="Frecuencia cardíaca (LPM)"
-                        PlaceholderText="Indica la frecuencia cardíaca" />
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding HeartRate}"
+                            Icon="{Static utils:IconFont.Medical_information}"
+                            Keyboard="Numeric"
+                            LabelText="Frecuencia cardíaca (LPM)" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="130"
+                            Minimum="40"
+                            VerticalOptions="End"
+                            Value="{Binding HeartRate}" />
+                    </Grid>
 
-                    <exe:LabeledEntry
-                        EntryText="{Binding RespiratoryRate}"
-                        Icon="{Static utils:IconFont.Medical_information}"
-                        Keyboard="Numeric"
-                        LabelText="Frecuencia respiratoria (RPM)"
-                        PlaceholderText="Indica la frecuencia respiratoria" />
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding RespiratoryRate}"
+                            Icon="{Static utils:IconFont.Medical_information}"
+                            Keyboard="Numeric"
+                            LabelText="Frecuencia respiratoria (RPM)" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="30"
+                            Minimum="11"
+                            VerticalOptions="End"
+                            Value="{Binding RespiratoryRate}" />
+                    </Grid>
 
-                    <exe:LabeledEntry
-                        EntryText="{Binding OxygenSaturation}"
-                        Icon="{Static utils:IconFont.Medical_information}"
-                        Keyboard="Numeric"
-                        LabelText="Saturación de oxígeno (SPO2)"
-                        PlaceholderText="Indica la saturación de oxígeno" />
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding OxygenSaturation}"
+                            Icon="{Static utils:IconFont.Medical_information}"
+                            Keyboard="Numeric"
+                            LabelText="Saturación de oxígeno (%)" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="100"
+                            Minimum="85"
+                            VerticalOptions="End"
+                            Value="{Binding OxygenSaturation}" />
+                    </Grid>
 
-                    <exe:LabeledEntry
-                        EntryText="{Binding BloodPressure}"
-                        Icon="{Static utils:IconFont.Medical_information}"
-                        Keyboard="Numeric"
-                        LabelText="Presión arterial"
-                        PlaceholderText="Indica la presión arterial" />
-                    <exe:LabeledEntry
-                        EntryText="{Binding Hemoglobin}"
-                        Icon="{Static utils:IconFont.Medical_information}"
-                        Keyboard="Numeric"
-                        LabelText="Hemoglobina"
-                        PlaceholderText="Indica la hemoglobina" />
-                    <exe:LabeledEntry
-                        EntryText="{Binding Glucose}"
-                        Icon="{Static utils:IconFont.Medical_information}"
-                        Keyboard="Numeric"
-                        LabelText="Glucosa"
-                        PlaceholderText="Indica la glucosa" />
-                    <exe:LabeledEntry
-                        EntryText="{Binding Temperature}"
-                        Icon="{Static utils:IconFont.Medical_information}"
-                        Keyboard="Numeric"
-                        LabelText="Temperatura (C°)"
-                        PlaceholderText="Indica la temperatura en grados centígrados" />
-                    <exe:LabeledEntry
-                        EntryText="{Binding AbdominalCircumference}"
-                        Icon="{Static utils:IconFont.Medical_information}"
-                        Keyboard="Numeric"
-                        LabelText="Circunferencia abdominal (cm)"
-                        PlaceholderText="Indica la circunferencia abdominal en centímetros" />
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding BloodPressureMax}"
+                            Icon="{Static utils:IconFont.Medical_information}"
+                            Keyboard="Numeric"
+                            LabelText="Presión arterial sistólica (máx. mmHg)" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="180"
+                            Minimum="80"
+                            VerticalOptions="End"
+                            Value="{Binding BloodPressureMax}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding BloodPressureMin}"
+                            Icon="{Static utils:IconFont.Medical_information}"
+                            Keyboard="Numeric"
+                            LabelText="Presión arterial diastólica (mín. mmHg" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="120"
+                            Minimum="50"
+                            VerticalOptions="End"
+                            Value="{Binding BloodPressureMin}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding Hemoglobin}"
+                            Icon="{Static utils:IconFont.Medical_information}"
+                            Keyboard="Numeric"
+                            LabelText="Hemoglobina (g/dL)" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="20"
+                            Minimum="10"
+                            VerticalOptions="End"
+                            Value="{Binding Hemoglobin}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding Glucose}"
+                            Icon="{Static utils:IconFont.Medical_information}"
+                            Keyboard="Numeric"
+                            LabelText="Glucosa (mg/dL)" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="140"
+                            Minimum="70"
+                            VerticalOptions="End"
+                            Value="{Binding Glucose}" />
+
+                    </Grid>
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding Temperature}"
+                            Icon="{Static utils:IconFont.Medical_information}"
+                            Keyboard="Numeric"
+                            LabelText="Temperatura (C°)" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="40"
+                            Minimum="35"
+                            VerticalOptions="End"
+                            Value="{Binding Temperature}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="1.5*,*">
+                        <exe:LabeledEntry
+                            EntryText="{Binding AbdominalCircumference}"
+                            Icon="{Static utils:IconFont.Medical_information}"
+                            Keyboard="Numeric"
+                            LabelText="Circunferencia abdominal (cm)" />
+                        <Stepper
+                            Grid.Column="1"
+                            Maximum="150"
+                            Minimum="50"
+                            VerticalOptions="End"
+                            Value="{Binding AbdominalCircumference}" />
+                    </Grid>
 
                     <!--<exe:LabeledEntry
                         EntryText="{Binding LabResults}"
