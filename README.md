@@ -63,7 +63,7 @@ Asegúrate de reemplazar los valores <URL_HERE> con las URLs correctas de tu pro
 ## Instrucciones de Instalación de BellyCare (APK)
 
 1.  **Descarga del APK:**
-    *   Obtén el archivo APK de BellyCare.
+    *   Obtén el archivo APK de BellyCare [haciendo click aquí.](https://github.com/barreto-exe/bellycare/releases/download/v1.0.0/com.barretoexe.bellycare.apk)
 
 2.  **Habilitar Orígenes Desconocidos:**
     *   Ve a la sección de "Ajustes" o "Configuración" de tu dispositivo móvil.
