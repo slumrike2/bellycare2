@@ -41,6 +41,19 @@
                     Color="Gray" />
             </ShellContent.Icon>
         </ShellContent>
+
+        <ShellContent
+            Title="Noticias"
+            ContentTemplate="{DataTemplate local:PatientProgressView}"
+            Route="PatientProgressView">
+            >
+            <ShellContent.Icon>
+                <FontImageSource
+                 FontFamily="IconFont"
+                  Glyph="{x:Static icon:IconFont.Newspaper}"
+                  Color="Gray" />
+            </ShellContent.Icon>
+        </ShellContent>
     </FlyoutItem>
 
 

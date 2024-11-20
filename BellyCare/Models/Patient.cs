@@ -24,6 +24,10 @@ namespace BellyCare.Models
 
         public string ChatId { get; set; }
 
+        public string Medicamentos { get; set; }
+
+        public string Antecedentes { get; set; }
+
         public Dictionary<string, TrackEntry> TrackEntries { get; set; }
     }
 

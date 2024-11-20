@@ -113,6 +113,26 @@
                             Value="{Binding CesareanBirthsCount}" />
                     </Grid>
                     <exe:LabeledDatepicker Date="{Binding LastMenstruationDate}" LabelText="Fecha de última menstruación" />
+                    <exe:LabeledEntry
+                        EntryText="{Binding Medicamentos}"
+                        Icon="{Static utils:IconFont.Pregnant_woman}"
+                        LabelText="Medicamentos"
+                        PlaceholderText="Coloca los nombres de los medicamentos" />
+
+                    <exe:LabeledPicker
+                        Icon="{Static utils:IconFont.Arrow_drop_down}"
+                        LabelText="Antecedentes medicos"
+                        Placeholder="Selecciona Alguno"
+                        SelectedItem="{Binding Antecedentes}"
+                        >
+                    <exe:LabeledPicker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>preclamsia</x:String>
+                                <x:String>eclampsia</x:String>
+                                <x:String>Ninguno</x:String>
+                            </x:Array>
+                    </exe:LabeledPicker.ItemsSource>
+                    </exe:LabeledPicker>
 
                     <!--  Gray separator  -->
                     <BoxView

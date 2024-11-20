@@ -87,6 +87,12 @@ namespace BellyCare.ViewModels
 
         [ObservableProperty]
         string doctorCode;
+
+        [ObservableProperty]
+        string antecedentes;
+
+        [ObservableProperty]
+        string medicamentos;
         #endregion
 
         #region Events
@@ -193,6 +199,8 @@ namespace BellyCare.ViewModels
                 InsuranceName = InsuranceName?.Trim() ?? string.Empty,
                 DoctorCode = DoctorCode,
                 ChatId = chatId,
+                Antecedentes = antecedentes.Trim(),
+                Medicamentos = medicamentos.Trim(),
                 TrackEntries = this.patient.TrackEntries
             };
 
@@ -241,6 +249,7 @@ namespace BellyCare.ViewModels
                 !string.IsNullOrEmpty(MainStreet) &&
                 !string.IsNullOrEmpty(SecondaryStreet) &&
                 !string.IsNullOrEmpty(AddressReference) &&
+                !string.IsNullOrEmpty(Medicamentos) &&
                 (!HasInsurance || !string.IsNullOrEmpty(InsuranceName));
         }
 
@@ -268,6 +277,8 @@ namespace BellyCare.ViewModels
             HasInsurance = patient.HasInsurance;
             InsuranceName = patient.InsuranceName;
             DoctorCode = patient.DoctorCode;
+            Medicamentos = patient.Medicamentos;
+            Antecedentes = patient.Antecedentes;
         }
 
         public async void OnAppearing()
